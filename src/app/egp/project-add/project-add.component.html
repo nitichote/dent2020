@@ -1,0 +1,197 @@
+<nav class="navbar navbar-expand-sm bg-light">
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/egp/project"><< โครงการ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link 3</a>
+    </li>
+  </ul>
+
+</nav>
+<div class="card">
+      <div class="card-header">{{title}}</div>
+      <div class="card-body">
+      <form  f="ngForm">
+      <div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">รหัสแผนงาน:</label>
+    <input type="text" class="form-control" [(ngModel)]="p.planId" placeholder="Enter year" id="planId" name="planId">
+  </div>
+  </div>
+    <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">รหัสโครงการ:</label>
+    <input type="text" class="form-control"  [(ngModel)]="p.projectId" placeholder="Enter projectid" id="projectid" name="projectid">
+  </div>
+  </div>
+    <div class="col-lg-6">
+  <div class="form-group">
+    <label for="pwd">ชื่อโครงการ:</label>
+    <input type="text" class="form-control"  [(ngModel)]="p.projectName" placeholder="Enter projectName" id="projectname" name="projectName">
+  </div></div></div>
+<div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">ปีงบประมาณ:</label>
+    <select class="form-control"  id="budgetYear" name="budgetYear" [(ngModel)]="p.budgetYear">
+    <option  *ngFor="let y of budgetYears" value={{y}}>{{y}}</option>
+    </select>
+
+  </div>
+  </div>
+    <div class="col-lg-6">
+       <div class="form-group">
+    <label for="text"> วิธีการจัดหา:</label>
+    <select class="form-control"   id="methodId" name="methodId" (change)="doMethodChange($event)" [(ngModel)]="p.methodId">
+   <option value="999"> ..ตัวเลือกวิธีการจัดหา..</option>
+    <option  *ngFor="let y of methodIds" value={{y.methodId}}>{{y.methodName}}</option>
+    </select>
+
+  </div>
+  </div>
+    <div class="col-lg-3">
+    <div class="form-group">
+      <label for="pwd">เงื่อนไขการจัดซื้อจัดจ้าง:</label>
+      <input type="text" class="form-control" placeholder="Enter ก  ข  ค  ง  จ  ฉ ..." id="typeCase" name="typeCase">
+    </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">ประเภทการจัดหา:</label>
+    <select class="form-control"  id="typeId" name="typeId" (change)="doTypeChange($event)" [(ngModel)]= "p.typeId"  >
+    <option value="999"> ..ตัวเลือกประเภทการจัดหา..</option><option  *ngFor="let y of typeIds" value={{y.typeId}}>{{y.typeName}}</option>
+    </select>
+
+  </div>
+  </div>
+    <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text"> พัสดุที่จัดหา:</label>
+    <select class="form-control"  id="goodsId" name="goodsId" [(ngModel)]="p.goodsId">
+    <option value="999"> ..ตัวเลือกวัสดุที่จัดหา..</option><option  *ngFor="let y of goodIds"  value={{y.goodsId}}>{{y.goodsName}}</option>
+    </select>
+
+  </div>
+  </div>
+    <div class="col-lg-6">
+    <div class="form-group">
+      <label for="pwd">ประเภทโครงการ</label>
+      <select class="form-control"  id="projectGovStatus" name="projectGovStatus" [(ngModel)]="p.projectGovStatus">
+    <option  *ngFor="let y of projectGovStatuss;" value={{y}}>{{y}}</option>
+    </select>
+
+    </div>
+    </div>
+  </div>
+  <fieldset class="border p-2">
+   <legend  class="w-auto">งบประมาณโครงการ</legend>
+<div class="row">
+  <div class="col-lg-6">
+       <div class="form-group">
+    <label for="text">จำนวนงบประมาณทั้งหมด</label>
+    {{totalBudget}}
+  </div></div>
+  </div>
+<div class="row">
+  <div class="col-lg-6">
+       <div class="form-group">
+    <label for="text">จำนวนเงินงบประมาณตามพ.ร.บ.รายจ่ายประจำปี(บาท)</label>
+
+    <input type="text" class="form-control"  (blur)="doTotalBudget()"   [(ngModel)]="p.sourceBudget" id="sourceBudget" name="sourceBudget">
+  </div></div>
+    <div class="col-lg-6">
+    <div class="form-group">
+      <label for="sourceBudgetIncome">งบประมาณจาก</label>
+       <select class="form-control" id="sourceBudgetIncome" name="sourceBudgetIncome" [(ngModel)]="p.sourceBudgetIncome">
+    <option  *ngFor="let y of sourceBudgetIncomes;" value={{y}}>{{y}}</option>
+    </select>
+
+    </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="col-lg-6">
+       <div class="form-group">
+    <label for="text">จำนวนเงินนอกงบประมาณ(บาท)</label>
+    <input type="text" class="form-control" (blur)="doTotalBudget()" placeholder="Enter sourceNonbudget"  [(ngModel)]="p.sourceNonbudget" id="sourceNonbudget" name="sourceNonbudget">
+  </div></div>
+
+    <div class="col-lg-6">
+    <div class="form-group">
+      <label for="sourceNonBudgetIncome">งบนอกประมาณจาก</label>
+       <select class="form-control" id="sourceNonbudgetIncome" name="sourceNonbudgetIncome" [(ngModel)]="p.sourceNonbudgetIncome">
+    <option  *ngFor="let y of sourceNonbudgetIncomes;" value={{y}}>{{y}}</option>
+    </select>
+    </div>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+ <div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">จำนวนรายการสินค้า</label>
+    <input type="text" class="form-control"  placeholder="consider_method"  [(ngModel)]="p.consider_method" id="consider_method" name="consider_method">
+  </div></div>
+
+    <div class="col-lg-3">
+    <div class="form-group">
+      <label for="sourceNonBudgetIncome">มีเงื่อนไขพิเศษ</label>
+       <select class="form-control" id="method_paid" name="method_paid" [(ngModel)]="p.method_paid">
+    <option  *ngFor="let y of method_paids;" value={{y}}>{{y}}</option>
+    </select>
+    </div>
+    </div>
+     <div class="col-lg-6" align="center">
+
+    </div>
+  </div>
+
+</fieldset>
+
+
+    <div class="row">
+      <div class="col-lg-12" align="right">
+      <button type="submit" class="btn btn-primary"(click)="doSubmit()" >บันทึก</button>
+       <button style="margin-left:10px;" type="button" class="btn btn-info"(click)="doCancel()" >ยกเลิก</button>
+    </div></div>
+    </form>
+</div>
+</div>
+
+<p-dialog header="Preview" [(visible)]="displayBasic" [style]="{width: '700px'}" [baseZIndex]="10000">
+      ให้ท่านตรวจสอบความถูกต้องของรายการ ให้เรียบร้อย จากนั้นกดบันทึก หรือยกเลิกเพื่อปรับปรุง
+      <div class="row">
+      <div class="col">
+      <div *ngFor="let f of tblFd" >
+      {{f.Comment}}:{{p[f?.Field]}}</div>
+
+      </div>
+
+      </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false;doSavePj()" label="บันทึก กลับไปหน้าโครงการ"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false;doContinue()" label="บันทึก กรอกข้อมูลวัสดุต่อ"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Preview" [(visible)]="displayFinish" [style]="{width: '700px'}" [baseZIndex]="10000">
+     บันทึกเรียบร้อยแล้ว
+
+    <p-footer>
+
+        <button type="button" pButton icon="pi pi-times" (click)="displayFinish=false;" label="No" class="ui-button-info">ตกลง</button>
+    </p-footer>
+</p-dialog>
+

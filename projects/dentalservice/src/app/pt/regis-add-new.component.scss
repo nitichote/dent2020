@@ -1,0 +1,20 @@
+.myContainer{
+    display: flex;
+    align-items: center;
+    margin: 200px;
+}
+
+  .example-button-row button{
+   margin-left:20px;
+  }
+  .spacer {
+    flex: 1;
+  }
+  .mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    }
+    .mat-dialog-actions button {
+        margin-left:20px;
+        width:80px;
+        }

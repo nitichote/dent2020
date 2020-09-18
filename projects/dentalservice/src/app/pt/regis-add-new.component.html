@@ -1,0 +1,80 @@
+<div class=" container" style="width:1024px;margin-left:100px;">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group"> <label for="cid">เลขประจำตัวประชาชน</label> <input type="text" name="cid"
+                            id="cid" [(ngModel)]="p.cid" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group"> <label for="prename">คำนำหน้า</label> <select class="form-control"
+                            name="prename" id="prename" [(ngModel)]="p.prename">
+                            <option *ngFor="let c of prenameOptions" [value]="c.name">{{c.label}}</option>
+                        </select> </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group"> <label for="fname">ชื่อ</label> <input type="text" name="fname" id="fname"
+                            [(ngModel)]="p.fname" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group"> <label for="lname">สกุล</label> <input type="text" name="lname" id="lname"
+                            [(ngModel)]="p.lname" class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                </div>
+            </div>
+            <! –– แถวที่2 ––>
+                <div class="row">
+                    <div class="col-sm col-6">
+                        <div class="form-group"> <label for="gender">เพศ (1=ชาย, 2=หญิง)</label> <input type="text"
+                                name="gender" id="gender" [(ngModel)]="p.gender" class="form-control" placeholder=""
+                                aria-describedby="helpId"> </div>
+                    </div>
+                    <div class="col col-2 " >
+                        <div  class="form-group"> <label for="ageinput">อายุ</label> <input type="text"
+                                name="ageinput" id="ageinput" [(ngModel)]="ageinput" class="form-control" placeholder=""
+                                aria-describedby="helpId">
+                        </div>
+                    </div>
+                    <div class="col col-4 " >
+                        <div class="form-group"> <label for="yearbirth"> ปีเกิด</label> <input type="text"
+                                name="yearbirth" id="yearbirth" [(ngModel)]="p.yearbirth" class="form-control" placeholder=""
+                                aria-describedby="helpId">
+                        </div>
+                    </div>
+                </div>
+                <! –– แถวที่3 ––>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="tel">โทรศัพท์</label> <input type="text" name="tel"
+                                    id="tel" [(ngModel)]="p.tel" class="form-control" placeholder=""
+                                    aria-describedby="helpId"> </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group"> <label for="email">e-mail</label> <input type="text" name="email"
+                                    id="email" [(ngModel)]="p.email" class="form-control" placeholder=""
+                                    aria-describedby="helpId"> </div>
+                        </div>
+                    </div>
+                    <! –– แถวที่4 ––>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group"> <label for="congdisease">โรคประจำตัว</label> <input type="text"
+                                        name="congdisease" id="congdisease" [(ngModel)]="p.congdisease"
+                                        class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group"> <label for="drugallergy">แพ้ยา</label> <input type="text"
+                                        name="drugallergy" id="drugallergy" [(ngModel)]="p.drugallergy"
+                                        class="form-control" placeholder="" aria-describedby="helpId"> </div>
+                            </div>
+                        </div>
+        </div>
+    </div>
+    <div class="card-footer">
+       
+       <div class="mat-dialog-actions"> 
+           <button (click)="doSave()" mat-raised-button color="primary">Save</button>
+        <button (click)="doCancel() " mat-raised-button color="accent">Cancel</button>
+   
+    </div>
+</div>

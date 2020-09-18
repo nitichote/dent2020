@@ -1,0 +1,156 @@
+<div class="card">
+  <div class="card-header">
+สร้างModel โดยเลือก Database และ Table
+  </div>
+  <div class="card-body">
+   <form  f="ngForm">
+    <div class="row">
+     <div class="col-xs-1-6">
+        <div class="form-group">
+     <label for="dtb">ชื่อDatabase</label>
+     <input type="text"
+       class="form-control" name="dtb" id="dtb" aria-describedby="helpId" placeholder="" [(ngModel)]="dtb">
+
+   </div>
+     </div>
+       <div class="col-xs-1-6">
+        <div class="form-group">
+     <label for="tbl">ชื่อ Table</label>
+     <input type="text"
+       class="form-control" name="tbl" id="tbl" aria-describedby="helpId" placeholder="" [(ngModel)]="tbl">
+
+   </div>
+     </div>
+       <div class="col-xs-1-6">
+        <div class="form-group">
+     <label for="prefix">Prefix</label>
+     <input type="text"
+       class="form-control" name="prefix" id="prefix" aria-describedby="helpId" placeholder="" [(ngModel)]="prefixtbl">
+
+   </div>
+     </div>
+
+ <div class="col-xs-1-6">
+  <div class="form-group">
+     <label for="bt">...</label>
+        <button type="button" name="bt" id="bt" class="btn btn-primary form-control" (click)="doGenModel()" btn-lg btn-block>ตกลง</button>
+
+    </div> </div>
+      </div>
+
+   </form>
+  </div>
+
+</div>
+<div class="card text-center">
+  <div class="card-header">
+testtab
+  </div>
+  <div class="card-body">
+
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="activetabno" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Interface</a>
+    <ng-template ngbNavContent>
+      <div align="left" [innerHTML]="interface"></div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>ShowUI</a>
+    <ng-template ngbNavContent>
+     <div class="container">
+  <ul class="nav justify-content-end">
+
+  <li class="nav-item"  >
+    <a class="nav-link active" href="javascript:void(0)" (click)="doActiveTab()">ทดสอบ</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link"  href="javascript:void(0)" (click)="doGencode(0)">GenCode</a>
+  </li>
+</ul>
+
+
+<div style="margin-bottom:20px;"> จำนวนแถว=<input type="text"  [(ngModel)]="usedRow" name ="usedRow"></div>
+            <div class="row" cdkDropListGroup>
+              <div class="col-3" align="left">
+
+
+ <div class="card">
+
+   <div class="card-body" style="overflow:scroll;height:500px"  >
+     <div cdkDropList
+      #subjectList="cdkDropList"
+       [cdkDropListData]="fieldInfos"
+
+      cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropMe($event)">
+<app-dperson-widget cdkDragHandle cdkDrag *ngFor="let fieldInfo of fieldInfos" [showControl]="grid1show"  [fieldInfo]="fieldInfo" >
+</app-dperson-widget>
+</div>
+   </div>
+ </div>
+
+
+
+</div>
+
+
+
+            <div class="col-9">
+
+
+<div  *ngFor="let trow of targetRowGroups;let i=index">
+<div class="row no-gutters">
+<div class="col-1">
+ <div class="rowtag"><h3>R{{i+1}}</h3></div>
+ </div>
+ <div class="col-11">
+ <div class="container" style="display:flex;background-color:#fde8f2;padding:10px;margin-top:-10px;">
+ <div class="conta" style="display:flex" cdkDropList  cdkDropListOrientation="horizontal"
+                id="trow{{i}}"
+                [cdkDropListData]="trow"
+
+                (cdkDropListDropped)="dropMe($event)">
+<app-dperson-widget cdkDrag *ngFor="let fieldInfo of trow" (fdViewFire)="onFdView($event,i)" (gridColFire)="onGridCol($event,i)"  (checkTextFire)="onSetText($event,i)"  (checkNumberFire)="onSetNumber($event,i)"    [showControl]="grid2show" [fieldInfo]="fieldInfo" >
+</app-dperson-widget>
+           </div>
+ </div>
+ </div>
+  </div>
+
+         </div>
+
+            </div>
+          </div>
+
+
+
+          </div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Code</a>
+    <ng-template ngbNavContent>
+{{htmBegin}}
+       <div align="left" style="margin:20px" *ngFor="let c of takeCodeRows" >{{c}}</div>
+       {{htmButton}}
+       <hr>
+       {{htmCss}}
+       <hr>
+       {{construct}}
+       <hr>
+       {{footerPage}}
+       <hr>
+       
+      <!-- errorText -->
+      {{errorText}}
+      <hr>
+      {{afterErrText}}
+    </ng-template>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+</div>
+</div>

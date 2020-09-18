@@ -1,0 +1,636 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "dent2020": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dent2020",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+            
+              "src/styles.scss",
+              "src/assets/leaflet/leaflet.css",
+              "src/assets/primeng/primeicons.css",
+              "src/assets/primeng/theme.css",
+              "src/assets/primeng/primeng.min.css"
+            ],
+            "scripts": [
+              "src/assets/leaflet/leaflet.js",
+              "./node_modules/html2canvas/dist/html2canvas.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dent2020:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dent2020:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dent2020:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "src/assets/leaflet/leaflet.css"
+            ],
+            "scripts": [
+              "src/assets/leaflet/leaflet.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "dent2020:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dent2020:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "dentclinic": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dentclinic",
+      "sourceRoot": "projects/dentclinic/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dentclinic",
+            "index": "projects/dentclinic/src/index.html",
+            "main": "projects/dentclinic/src/main.ts",
+            "polyfills": "projects/dentclinic/src/polyfills.ts",
+            "tsConfig": "projects/dentclinic/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/dentclinic/src/favicon.ico",
+              "projects/dentclinic/src/assets"
+            ],
+            "styles": [
+              "projects/dentclinic/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dentclinic/src/environments/environment.ts",
+                  "with": "projects/dentclinic/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dentclinic:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dentclinic:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dentclinic:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dentclinic/src/test.ts",
+            "polyfills": "projects/dentclinic/src/polyfills.ts",
+            "tsConfig": "projects/dentclinic/tsconfig.spec.json",
+            "karmaConfig": "projects/dentclinic/karma.conf.js",
+            "assets": [
+              "projects/dentclinic/src/favicon.ico",
+              "projects/dentclinic/src/assets"
+            ],
+            "styles": [
+              "projects/dentclinic/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dentclinic/tsconfig.app.json",
+              "projects/dentclinic/tsconfig.spec.json",
+              "projects/dentclinic/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dentclinic/e2e/protractor.conf.js",
+            "devServerTarget": "dentclinic:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dentclinic:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "hoffice": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/hoffice",
+      "sourceRoot": "projects/hoffice/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/hoffice",
+            "index": "projects/hoffice/src/index.html",
+            "main": "projects/hoffice/src/main.ts",
+            "polyfills": "projects/hoffice/src/polyfills.ts",
+            "tsConfig": "projects/hoffice/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/hoffice/src/favicon.ico",
+              "projects/hoffice/src/assets"
+            ],
+            "styles": [
+              "projects/hoffice/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/hoffice/src/environments/environment.ts",
+                  "with": "projects/hoffice/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hoffice:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hoffice:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hoffice:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/hoffice/src/test.ts",
+            "polyfills": "projects/hoffice/src/polyfills.ts",
+            "tsConfig": "projects/hoffice/tsconfig.spec.json",
+            "karmaConfig": "projects/hoffice/karma.conf.js",
+            "assets": [
+              "projects/hoffice/src/favicon.ico",
+              "projects/hoffice/src/assets"
+            ],
+            "styles": [
+              "projects/hoffice/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/hoffice/tsconfig.app.json",
+              "projects/hoffice/tsconfig.spec.json",
+              "projects/hoffice/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/hoffice/e2e/protractor.conf.js",
+            "devServerTarget": "hoffice:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hoffice:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "dentssj": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dentssj",
+      "sourceRoot": "projects/dentssj/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dentssj",
+            "index": "projects/dentssj/src/index.html",
+            "main": "projects/dentssj/src/main.ts",
+            "polyfills": "projects/dentssj/src/polyfills.ts",
+            "tsConfig": "projects/dentssj/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/dentssj/src/favicon.ico",
+              "projects/dentssj/src/assets"
+            ],
+            "styles": [
+              "projects/dentssj/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dentssj/src/environments/environment.ts",
+                  "with": "projects/dentssj/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dentssj:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dentssj:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dentssj:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dentssj/src/test.ts",
+            "polyfills": "projects/dentssj/src/polyfills.ts",
+            "tsConfig": "projects/dentssj/tsconfig.spec.json",
+            "karmaConfig": "projects/dentssj/karma.conf.js",
+            "assets": [
+              "projects/dentssj/src/favicon.ico",
+              "projects/dentssj/src/assets"
+            ],
+            "styles": [
+              "projects/dentssj/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dentssj/tsconfig.app.json",
+              "projects/dentssj/tsconfig.spec.json",
+              "projects/dentssj/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dentssj/e2e/protractor.conf.js",
+            "devServerTarget": "dentssj:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dentssj:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "dentalservice": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dentalservice",
+      "sourceRoot": "projects/dentalservice/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dentalservice",
+            "index": "projects/dentalservice/src/index.html",
+            "main": "projects/dentalservice/src/main.ts",
+            "polyfills": "projects/dentalservice/src/polyfills.ts",
+            "tsConfig": "projects/dentalservice/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/dentalservice/src/favicon.ico",
+              "projects/dentalservice/src/assets"
+            ],
+            "styles": [
+              "projects/dentalservice/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/dentalservice/src/environments/environment.ts",
+                  "with": "projects/dentalservice/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dentalservice:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dentalservice:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dentalservice:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dentalservice/src/test.ts",
+            "polyfills": "projects/dentalservice/src/polyfills.ts",
+            "tsConfig": "projects/dentalservice/tsconfig.spec.json",
+            "karmaConfig": "projects/dentalservice/karma.conf.js",
+            "assets": [
+              "projects/dentalservice/src/favicon.ico",
+              "projects/dentalservice/src/assets"
+            ],
+            "styles": [
+              "projects/dentalservice/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dentalservice/tsconfig.app.json",
+              "projects/dentalservice/tsconfig.spec.json",
+              "projects/dentalservice/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/dentalservice/e2e/protractor.conf.js",
+            "devServerTarget": "dentalservice:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dentalservice:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "dent2020",
+  "cli": {
+    "analytics": false
+  }
+}

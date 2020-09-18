@@ -1,0 +1,36 @@
+.form-rounded {
+  border-radius: 1rem;
+}
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+.formcap {
+  font-size: 1.2em;
+}
+a,
+a:link {
+  color: blue;
+  cursor: pointer;
+}
+.iblue {
+  color: blue;
+  cursor: pointer;
+  background-color: palegoldenrod;
+}
+.igreen {
+  color: green;
+  cursor: pointer;
+  background-color: palegoldenrod;
+}

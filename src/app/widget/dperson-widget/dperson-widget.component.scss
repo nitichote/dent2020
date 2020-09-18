@@ -1,0 +1,30 @@
+.mybox {
+  margin: 5px;
+  padding: 5px;
+  border-style: dotted;
+  border-color: red;
+  border-width: 2px;
+}
+.wrap .form-control {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  color: #555;
+  display: block;
+  font-size: 14px;
+  height: 34px;
+  line-height: 1;
+  padding: 3px 4px;
+}
+
+.mydialog {
+  width: 50vw;
+}
+
+@media screen and (max-width: 40em) {
+  .mydialog {
+    width: 75vw;
+  }
+}

@@ -1,0 +1,209 @@
+
+<nav class="navbar navbar-expand-sm bg-light">
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+
+    <li class="nav-item" style="width:400px">
+  &nbsp;   &nbsp;  &nbsp;  <h2>โครงการ:{{pj?.projectName}}</h2>
+    </li>
+      <li class="nav-item">
+     <h2>&nbsp;&nbsp;จำนวนสินค้า :&nbsp; {{ numGoodsNow}} &nbsp;/&nbsp;{{pj?.consider_method}}  รายการ</h2>
+    </li>
+  </ul>
+
+</nav>
+<div class="row">
+  <div class="col-lg-7">
+  <div class="card">
+      <div class="card-header">รายละเอียดสินค้า</div>
+      <div class="card-body">
+      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="gpsc">รหัส GPSC:</label>
+    <input type="text"  class="form-control"  [(ngModel)]="pd.gpsc" placeholder="" id="gpsc" name="gpsc">
+  </div>
+  </div>
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="text">รหัสสินค้า(dbid):</label>
+    <input required type="text" class="form-control"  [(ngModel)]="pd.dbid"  placeholder="" id="code" name="code">
+  </div>
+  </div>
+    <div class="col-lg-6">
+       <div class="form-group">
+    <label for="price">ชื่อสินค้า</label>
+    <input  type="text" class="form-control"  [(ngModel)]="pd.productname"  placeholder="" name="productname"  #productname="ngModel" required>
+
+   <div class="error" *ngIf=" f.submitted && productname.errors?.required">ต้องป้อนชื่อสินค้าด้วย</div>
+
+  </div>
+  </div>
+   </div>
+      <div class="row">
+  <div class="col-lg-3">
+       <div class="form-group">
+        <label for="text">ราคา:</label>
+    <input required type="text" [(ngModel)]="pd.price" class="form-control" placeholder="" id="price" name="price">
+
+  </div>
+  </div>
+    <div class="col-lg-3">
+       <div class="form-group">
+    <label for="Qty">จำนวน:</label>
+  <input required type="text"[(ngModel)]="pd.Qty"  class="form-control" placeholder="" id="Qty" name="Qty">
+  </div>
+  </div>
+    <div class="col-lg-3">
+  <div class="form-group">
+    <label for="price_estimate">ราคาต่อหน่วย:</label>
+    <input type="text" class="form-control" [(ngModel)]="pd.price_estimate" placeholder="" id="price_estimate" name="price_estimate">
+  </div></div>
+  <div class="col-lg-3">
+  <div class="form-group">
+    <label for="a_Qty">จำนวนต่อปริมาตร:</label>
+    <input type="text" class="form-control" [(ngModel)]="pd.a_Qty" placeholder="" id="a_Qty" name="a_Qty">
+  </div></div>
+  </div>
+<div class="row">
+
+    <div class="col-lg-3">
+       <div class="form-group">
+    <label for="pack"> หน่วยนับ:</label>
+    <input required type="text" class="form-control" [(ngModel)]="pd.pack" placeholder="" id="pack" name="pack">
+
+  </div>
+  </div>
+  <div class="col-lg-3">
+       <div class="form-group">
+    <label for="a_pack"> หน่วยนับย่อย:</label>
+    <input type="text" class="form-control" [(ngModel)]="pd.a_pack" placeholder="" id="a_pack" name="a_pack">
+
+  </div>
+  </div>
+    <div class="col-lg-3">
+    <div class="form-group">
+      <label for="source">Source:</label>
+      <input type="text" class="form-control" [(ngModel)]="pd.source" placeholder="" id="source" name="source">
+    </div>
+    </div>
+     <div class="col-lg-3">
+    <div class="form-group">
+      <label for="addition_info">ข้อมูลเพิ่มเติม:</label>
+      <div class="form-check">
+  <input class="form-check-input" type="checkbox" [(ngModel)]="pd.addition_info" value="" id="addition_info" name="addition_info">
+  <label class="form-check-label" for="addition_info">
+   ข้อมูลเพิ่มเติม:
+  </label>
+</div>
+
+    </div>
+    </div>
+  </div>
+
+
+
+    <div class="row">
+      <div class="col-lg-12" align="right">
+      <button type="submit" class="btn btn-primary" [disabled]="! f.form.valid" >{{btText}}</button>
+        &nbsp; &nbsp; <button type="button" class="btn btn-secondary" (click)="doCancel()" *ngIf="! isAdd" >ยกเลิก</button>
+    </div></div>
+    </form>
+</div>
+</div>
+
+  </div>
+    <div class="col-lg-5">
+    <div class="card">
+ <div class="card-header">ค้นหารายการสินค้า</div>
+      <div class="card-body">
+      <p-tabView>
+    <p-tabPanel header="รายการสินค้า">
+     <div class="input-group ">
+      <input class="form-control py-2" [(ngModel)]="txtSearch"  type="search" value="" id="example-search-input">
+      <span class="input-group-append">
+        <button (click)="doSearch()" class="btn btn-outline-secondary" type="button">
+            <i class="fa fa-search"></i>
+        </button>
+      </span>
+</div>
+<p-table [value]="gpscFilter" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:50px;">เลือก</th>
+            <th style="width:100px;">รหัส</th>
+            <th >รายการ</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-p let i="rowIndex">
+        <tr>
+         <td> <button type="button" pButton icon="fa fa-plus" (click)="doGetPd(p)" ></button></td>
+    <td>{{p.dbid}}</td>
+    <td>{{p.productname}}</td>
+
+           </tr>
+    </ng-template>
+</p-table>
+    </p-tabPanel>
+    <p-tabPanel header="ประวัติการสั่ง">
+
+<p-accordion>
+    <p-accordionTab *ngFor="let p  of projectsAll" header="{{p.projectName}}">
+     <div *ngFor='let in of counter(p.goodscnt) ;let i = index'><button class="btn btn-sm btn-link" (click)="doGetGroup(p,i)"> {{(i+1) + '.' + getShowGroup(p,i)}}</button></div>
+    </p-accordionTab>
+
+</p-accordion>
+    </p-tabPanel>
+
+</p-tabView>
+
+      </div>
+      </div>
+  </div>
+  </div>
+<p-table [value]="goods">
+    <ng-template pTemplate="header">
+        <tr>
+        <th >ลำดับ</th>
+            <th style="width:150px" >รหัสGPSC</th>
+            <th >รหัสสินค้า</th>
+            <th >ชื่อสินค้า</th>
+            <th >จำนวน</th>
+            <th >หน่วยนับ</th>
+            <th >ราคา</th>
+            <th >หน่วยนับย่อย</th>
+             <th >จำนวนต่อหน่วยย่อย</th>
+            <th >ราคาต่อหน่วย</th>
+            <th >Source</th>
+             <th >ข้อมูลเพิ่มเติม</th>
+            <th>ปรับปรุง</th>
+            <th>ลบ</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-p let-i="rowIndex">
+        <tr>
+             <td>{{i+1}}</td>
+    <td>{{p.gpsc}}</td>
+    <td>{{p.dbid}}</td>
+    <td>{{p.productname}}</td>
+    <td>{{p.Qty}}</td>
+    <td>{{p.pack}}</td>
+     <td>{{p.price}}</td>
+    <td>{{p.a_pack}}</td>
+    <td>{{p.a_Qty}}</td>
+    <td>{{p.price_estimate}}</td>
+    <td>{{p.source}}</td>
+       <td>{{p.addition_info}}</td>
+
+    <td> <button type="button" pButton icon="fa fa-book" (click)="doEdit(p)" ></button></td>
+      <td> <button type="button" pButton icon="fa fa-trash" (click)="confirmDelete(p)"  ></button></td>
+   </tr>
+    </ng-template>
+</p-table>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle">
+
+</p-confirmDialog>
+<p-toast position="top-center"></p-toast>

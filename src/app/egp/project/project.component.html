@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-sm bg-light">
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" style="width:100px" routerLink="/egp/pjadd">เพิ่มโครงการ</a>
+    </li>
+
+  </ul>
+
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{office?.officename}}</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+ <div class="card">
+ <div class="card-body">
+<p-table [value]="projectsAll"  [(selection)]="selectedProjects" [rowsPerPageOptions]="[10,25,50]"  >
+    <ng-template pTemplate="header">
+        <tr>
+         <th align="center">
+             <div align="center">   <p-tableHeaderCheckbox></p-tableHeaderCheckbox></div>
+            </th>
+            <th *ngFor="let h of pjTbTh;let k=index;">{{h}}</th>
+            <th>โครงการ</th>  <th>สินค้า</th>  <th>ปรับปรุง</th><th>ลบ</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-p let-i="rowIndex">
+        <tr align="center" class="ui-selectable-row">
+            <td>
+                <p-tableCheckbox [value]="p"></p-tableCheckbox>
+            </td>
+             <td>{{i+1}}</td>
+    <td  [ngStyle]="{'width': '30%'}">{{p.projectName}}</td>
+    <td>{{+p.sourceBudget + +p.sourceNonbudget | number : '1.2-2'}}</td>
+    <td  style="width:20%;font-size:0.8em"  >{{p.datecreate}}</td>
+
+      <td><span *ngIf="p.cntgoods == p.consider_method"><i style="color:blue" class="fas fa-check"></i></span>&nbsp;{{p.cntgoods +'/'+p.consider_method}}</td>
+    <td><span *ngIf="p.issend == 1"><i style="color:blue" class="fas fa-check"></i></span></td>
+      <td> <button type="button" class="btn btn-sm btn-primary"  (click)="doShowProject(p)"><i class="fas fa-search"></i></button></td>
+       <td> <button type="button" class="btn"  style="background-color:purple;color:white;" (click)="doShowDetail(p)"><i class="fas fa-shopping-basket"></i></button></td>
+
+    <td>  <button *ngIf="p.issend !=1" type="button" class="btn btn-sm btn-success"  (click)="gotoDynamic(p)" ><i class="fas fa-edit"></i></button></td>
+      <td> <button *ngIf="p.issend !=1" type="button" class="btn btn-sm btn-danger" (click)="confirmDelete(p)" ><i class="fas fa-trash"></i></button></td>
+
+
+        </tr>
+    </ng-template>
+</p-table>
+ </div>
+    <div class="card-footer text-muted">
+     <button type="button" class="btn btn-info" (click)="doDownload()" >Download Json</button>
+    </div>
+  </div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle">
+
+</p-confirmDialog>
+<p-toast position="top-center"></p-toast>
+

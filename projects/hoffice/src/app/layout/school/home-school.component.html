@@ -1,0 +1,43 @@
+
+<div class="container">
+  <img src="assets/img/schoolbanner.png" width="1200px" style="margin-bottom:20px;" >
+  <!-- <app-school-login></app-school-login> -->
+
+  
+  <div class="row"  >
+    <div class="col-4">
+      เลือกปีการศึกษา
+      <select><option>2563</option></select>
+<br><hr>
+เลือกโรงเรียน/หน่วยบริการ
+<p-accordion (onOpen)="onTabOpen($event)">
+    <p-accordionTab  *ngFor="let a of amps;let i= index" header="  {{a.code +'-'+ a.name}}" >
+ <table class="table">
+        <thead>
+          <tr>
+            <th>ลำดับ</th>
+            <th>หน่วยงาน</th>
+            </tr>
+            </thead>
+<tbody>
+<tr *ngFor="let o of (offices | pipeAmp:a.code);let k =index">
+<td>{{k+1}}.</td>
+<td><a (click)="getFilterOffice(o.off_id)">{{ o.off_id + '-'+o.off_name+'('+o.cntSch+')' }}</a></td>
+</tr>
+</tbody>
+</table>
+
+
+    </p-accordionTab>
+
+</p-accordion>
+
+    </div>
+     <div class="col-8">
+<h3>ระบบรายงานโรงเรียนปลอดน้ำอัดลม ขนมกรุบกรอบ จังหวัดชัยภูมิ โดยใช้ข้อมูลโรงเรียนในเขตรับผิดชอบจาก HDC</h3>
+
+<app-show-school [hcode]="hcode" [ampcode]="ampcode" [rpyear]="rpyear"></app-show-school>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,56 @@
+ <nav class="navbar navbar-expand-sm bg-light">
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item" style="width:200px">
+      <a class="nav-link" routerLink="/egp/project">รายการโครงการ</a>
+    </li>
+
+  </ul>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="width:200px">
+                <a  class="nav-link" href="#">{{office?.officename}}</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="card">
+  <div class="card-header">
+    <h4>โครงการ{{p?.projectName}}</h4>
+  </div>
+  <div class="card-body">
+    <h4 class="card-title">รหัสโครงการ:{{p?.projectId}}</h4>
+
+    <div class="row">
+    <div class="col">ปีงบประมาณ:<span class="badge badge-info">{{p?.budgetYear}}</span></div>  <div class="col">วิธีจัดหา:<span class="badge badge-info">{{p?.methodName}}</span></div>  <div class="col">เงื่อนไขการจัดซื้อจัดจ้าง:<span class="badge badge-info">{{p?.typecase}}</span></div>
+     </div>
+     <div class="row">
+     <div class="col">ประเภทการจัดหา:<span class="badge badge-info">{{p?.typeName}}</span></div>  <div class="col">พัสดุที่จัดหา:<span class="badge badge-info">{{p?.goodsName}}</span></div>  <div class="col">ประเภทโครงการ:<span class="badge badge-info">{{p?.projectGovStatus}}</span></div>
+    </div>
+
+
+
+
+ <div class="row">
+    <div class="col">จำนวนงบประมาณทั้งหมด:<span class="badge badge-info">{{+p?.sourceNonbudget + +p?.sourceBudget}}</span></div>  <div class="col">จำนวนเงินงบประมาณตามพ.ร.บ.รายจ่ายประจำปี(บาท):<span class="badge badge-info">{{p?.sourceBudget}}</span></div>  <div class="col">งบประมาณจาก:<span class="badge badge-info">{{p?.sourceBudgetIncome}}</span></div>
+     </div>
+ <div class="row">
+    <div class="col">จำนวนเงินนอกงบประมาณ(บาท):<span class="badge badge-info">{{p?.sourceNonbudget}}</span></div>  <div class="col">จำนวนเงินงบนอกประมาณ(บาท):<span class="badge badge-info">{{p?.sourceNonbudgetIncome}}</span></div>  <div class="col">งบนอกประมาณจาก:<span class="badge badge-info">{{p?.sourceNonbudgetIncome}}</span></div>
+     </div>
+     <div class="row">
+    <div class="col">จำนวนรายการสินค้า:<span class="badge badge-info">{{p?.consider_method}}</span></div>  <div class="col">มีเงื่อนไขพิเศษ:<span class="badge badge-info">{{p?.method_paid}}</span></div>
+     </div>
+     </div>
+  <div class="card-footer text-muted">
+   <div class="row">
+    <div class="col">สถานะความสมบูรณ์ของโครงการ:<span class="badge badge-info"></span></div>  <div class="col">สถานะการจัดส่ง:<span class="badge badge-info">{{p?.issend}}</span></div>  <div class="col">วันที่จัดส่ง:<span class="badge badge-info">{{p?.datesend}}</span></div>
+     </div>
+       <div class="divider-text">...</div>
+       <h4>หมายเหตุ</h4>
+       <div class="row">
+    <div class="col">{{p?.takenote}}</div>
+     </div>
+  </div>
+</div>

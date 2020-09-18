@@ -1,0 +1,24 @@
+
+<div class="container">
+    <form action="" accept-charset="UTF-8" method="get">
+    <div class="row">
+        <div class="col-md-8">
+          
+        </div>
+       
+      <div class="col-md-4">
+        
+          <div *ngIf="! isLog" class="input-group">
+            <input type="text" name="search" id="search" value="" [(ngModel)]="pincode" placeholder="Pincode" class="form-control">
+            <span class="input-group-btn" style="margin-left:20px;">
+              <input type="Login" name="commit" value="Login" (click)="doLogin()" class="btn btn-primary" >
+            </span> 
+          </div>
+       <div *ngIf="isLog">
+<button class="btn btn-info" value="LogOut" (click)="doLogOut()"  ></button>
+       </div>
+      </div>
+    
+    </div> 
+</form>
+  </div>

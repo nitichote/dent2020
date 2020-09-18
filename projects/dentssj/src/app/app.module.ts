@@ -1,0 +1,27 @@
+import { SharelibModule } from './service/sharelib.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { DentssjService } from "./service/dentssj_service";
+import { DentContactShowComponent } from './dent-contact-show.component';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+@NgModule({
+  declarations: [AppComponent, DentContactShowComponent],
+  imports: [
+    BrowserAnimationsModule,
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    SharelibModule,FormsModule,FontAwesomeModule
+  ],
+  providers: [DentssjService],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+
+

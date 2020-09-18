@@ -1,0 +1,156 @@
+
+<ul class="nav" style="background-color:#00ff00" >
+  <li class="nav-item">
+    <a class="nav-link active" href="#exampleModal" data-toggle="modal" data-target="#exampleModal">เพิ่มบุคลากร</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Contact</a>
+  </li>
+</ul>
+<div align="center"><img src="./assets/img/sarchme.jpg" width="600px">
+
+ <div align="center" style="width:600px">
+ <div class="form-group has-search "  align="center" >
+ <span class="fa fa-search form-control-feedback"></span>   <input type="text" name="txtSearch" [(ngModel)]="txtSearch"  (keydown.enter)="doSelect()"  class="form-control form-rounded formcap" placeholder="Search">
+  </div>
+  </div>
+
+<div class="form-check form-check-inline formcap">
+  <input class="form-check-input" type="radio" name="con" [(ngModel)]="con"  id="inlineRadio1" value="person">
+  <label class="form-check-label" for="inlineRadio1">ชื่อบุคลากร</label>
+</div>
+<div class="form-check form-check-inline formcap">
+  <input class="form-check-input" type="radio" name="con"  [(ngModel)]="con" id="inlineRadio2" value="office">
+  <label class="form-check-label" for="inlineRadio2">หน่วยบริการ</label>
+</div>
+
+
+</div>
+<div *ngFor= "let r of res" style="width:300px;float:left;margin:10px">
+  <div class="card"  >
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <h4 class="card-title">{{r?.dname + " " + r?.surname}}</h4>
+      <p class="card-text">{{r?.off_name}}
+      <span style="margin-left:8px;"><a (click)="editPerson(r)"><i class="fas fa-circle  fa-border  fa-edit iblue"></i></a></span>
+     <span style="margin-left:8px;"><a (click)="viewPerson(r)"> <i class="fas fa-circle  fa-border fa-eye  igreen"></i></a></span>
+      <span style="margin-left:8px;"><a (click)="movePerson(r)"> <i class="fas fa-circle  fa-border fa-suitcase-rolling  igreen"></i></a></span>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
+
+        <div class="form-group"> <label for="prename">คำนำหน้า</label> <input type="text" class="form-control" name="prename" id="prename" [(ngModel)]="p.prename"> </div>
+      </div>
+       <div class="col-5">
+        <div class="form-group"> <label for="dname">ชื่อ</label> <input type="text" class="form-control" name="dname" id="dname" [(ngModel)]="p.dname"> </div>
+      </div>
+       <div class="col-5">
+        <div class="form-group"> <label for="surname">นามสกุล</label> <input type="text" class="form-control" name="surname" id="surname" [(ngModel)]="p.surname"> </div>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-3">
+
+    <div class="form-group"> <label for="sex">เพศ</label>
+     <p-dropdown [options]="sexCombo"  [(ngModel)]="p.sex"></p-dropdown>
+
+    </div>
+      </div>
+       <div class="col-3">
+      <div class="form-group"> <label for="birthyear">ปีเกิด</label> <input type="text" class="form-control" name="birthyear" id="birthyear" [(ngModel)]="p.birthyear"> </div>
+      </div>
+       <div class="col-6">
+ <div class="form-group"> <label for="dtype">ประเภทบุคลากร</label><br>
+    <p-dropdown [options]="dtypeCombo"   name="dtype" [(ngModel)]="p.dtype"></p-dropdown>
+
+    </div>
+      </div>
+
+    </div>
+
+
+<div class="row">
+      <div class="col-3">
+
+      <div class="form-group"> <label for="hcodebegin">หน่วยงานเริ่มต้น</label>
+
+<p-dropdown [options]="officesCombo" filterBy="label"  [(ngModel)]="p.hcodebegin" [filter]="true"></p-dropdown>
+ </div>
+      </div>
+       <div class="col-2">
+       	<div class="form-group"> <label for="beginwork">พศ.เริ่มทำงาน  </label> <input type="text" class="form-control" name="beginwork" id="beginwork" [(ngModel)]="p.beginwork"> </div>
+      </div>
+ <div class="col-1">
+         	<div class="form-group"> <label for="send">Send  </label>  <a (click)="sendPlace()"><i class="fas fa-angle-double-right" style="color:blue;width:50px;heighr:50px"></i></a></div>
+      </div>
+
+      <div class="col-3">
+ <div class="form-group"> <label for="hcodebegin">หน่วยงานปัจจุบัน</label>
+     <p-dropdown [options]="officesCombo" filterBy="label"  [(ngModel)]="p.officenow" [filter]="true"></p-dropdown>
+ </div>     </div>
+       <div class="col-3">
+        <div class="form-group"> <label for="dateofficenow">ปีพศ.เริ่ม</label> <input type="text" class="form-control" name="dateofficenow" id="dateofficenow" [(ngModel)]="p.dateofficenow"> </div>
+      </div>
+    </div>
+
+
+     <div class="row">
+
+       <div class="col-4">
+    <div class="form-group"> <label for="degnamecode">ศึกษาต่อสาขา</label>
+    <p-dropdown [options]="degnameCombo"  [(ngModel)]="p.degnamecode"></p-dropdown>
+
+    </div>
+      </div>
+       <div class="col-4">
+   <div class="form-group"> <label for="deglevelcode">ระดับปริญญา</label>
+    <p-dropdown [options]="deglevelCombo"  [(ngModel)]="p.deglevelcode"></p-dropdown>
+
+    </div>
+      </div>
+  <div class="col-4">
+      <div class="form-group"> <label for="lstatus">สถานะการทำงาน</label>
+       <p-dropdown [options]="lstatusCombo"  [(ngModel)]="p.lstatus"></p-dropdown>
+
+
+        </div>
+   </div>
+    </div>
+
+
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="doSavePerson(p)" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
