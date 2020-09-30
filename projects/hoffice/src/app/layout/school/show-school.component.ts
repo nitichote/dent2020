@@ -21,7 +21,8 @@ export class ShowSchoolComponent implements OnChanges {
   @Input() rpyear: any;
   @Input() hcode: any;
   @Input() ampcode: any;
-
+  formData = new FormData();
+ 
   schools: any = [];
   amps: any = [];
   schoolsAmp: any = [];
@@ -44,6 +45,16 @@ export class ShowSchoolComponent implements OnChanges {
   amp = ["3601", "3602", "3603", "3604", "3605", "3606", "3607", "3608", "3609",
     "3610", "3611", "3612", "3613", "3615", "3616", "3614"
   ];
+  onSubmit() {
+    return this._http.post('http://127.0.0.1:3000/hoffice/profile', this.formData).subscribe(
+      (response) => {
+        alert('File Uploaded Successfully')
+      },
+      (error) => {
+        alert('Something Went Wrong !!!')
+      }
+    );
+  }
   runDoLogin() {
     this.doLogin();
   }
@@ -243,28 +254,33 @@ this.doSchoolTag(this.pincode);
       this.isLog=false;
     }
     this.coke = [
-      { label: "ไม่ระบุ", value: "" },
+          { label: "โปรดเลือกรายการ", value: "0" },
       { label: "ไม่ปลอดน้ำอัดลม", value: "2" },
       { label: "ปลอดน้ำอัดลม ", value: "1" },
+      { label: "ไม่ระบุ", value: "0" }
     ];
     this.sweet = [
-      { label: "ไม่ระบุ", value: "" },
+      { label: "โปรดเลือกรายการ", value: "0" },
       { label: "ไม่ปลอดเครื่องดื่มรสหวาน", value: "2" },
       { label: "ปลอดเครื่องดื่มรสหวาน ", value: "1" },
+      { label: "ไม่ระบุ", value: "0" }
     ];
-    this.candy = [
-      { label: "ไม่ระบุ", value: "" },
+    this.candy = [ { label: "โปรดเลือกรายการ", value: "0" },
       { label: "ไม่ปลอดขนมกรุบกรอบ", value: "2" },
       { label: "ปลอดขนมกรุบกรอบ ", value: "1" },
+      { label: "ไม่ระบุ", value: "0" }
     ];
     //  this.ampcode = "";
     // this.rpyear = "2563";
     // this.hcode = "03967";
     this.ps.getAmp36().then((x) => {
       this.amps = x["message"];
+      console.log("amp ok");
+      
     });
     this.ps.getOfficesCpho().then((x) => {
       this.offices = x["message"];;
+      console.log("OfficesCpho ok");
     });
     this.ps.getSchoolsEnv().then((x) => {
       this.schools = x["message"];

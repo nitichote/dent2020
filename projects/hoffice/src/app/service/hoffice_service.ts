@@ -28,7 +28,8 @@ export class HofficeService {
   res: any;
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
 
-  api = 'http://188.166.178.13:3002/hoffice/';
+ //api = 'http://188.166.178.13:3002/hoffice/';
+api = 'http://127.0.0.1:3002/hoffice/';
   api1="";
   
   //api = `${environment.api}/hoffice/`;

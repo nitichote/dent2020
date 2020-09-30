@@ -8,9 +8,10 @@ import { ShowSchoolComponent } from "./show-school.component";
 import { FormsModule } from "@angular/forms";
 import { PipeAmpPipe } from "src/app/pipe-amp.pipe";
 import { SchoolLoginComponent } from './school-login.component';
+import { SchoolReportComponent } from './school-report.component';
 
 @NgModule({
-  declarations: [PipeAmpPipe, HomeSchoolComponent, ShowSchoolComponent, SchoolLoginComponent],
+  declarations: [PipeAmpPipe, HomeSchoolComponent, ShowSchoolComponent, SchoolLoginComponent, SchoolReportComponent],
   imports: [FormsModule, SharelibModule, CommonModule, SchoolRoutingModule],
 })
 export class SchoolModule {}

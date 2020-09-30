@@ -22,7 +22,11 @@
 <tbody>
 <tr *ngFor="let o of (offices | pipeAmp:a.code);let k =index">
 <td>{{k+1}}.</td>
-<td><a (click)="getFilterOffice(o.off_id)">{{ o.off_id + '-'+o.off_name+'('+o.cntSch+')' }}</a></td>
+<td>
+  <a *ngIf="o.cntSch >0" (click)="getFilterOffice(o.off_id)"><span  style="color:blue">{{ o.off_id + '-'+o.off_name+'('+o.cntSch+')' }}</span></a>
+  <span *ngIf="o.cntSch == 0"  style="color:grey"> {{ o.off_id + '-'+o.off_name+'('+o.cntSch+')' }}</span>
+</td>
+
 </tr>
 </tbody>
 </table>
@@ -35,9 +39,8 @@
     </div>
      <div class="col-8">
 <h3>ระบบรายงานโรงเรียนปลอดน้ำอัดลม ขนมกรุบกรอบ จังหวัดชัยภูมิ โดยใช้ข้อมูลโรงเรียนในเขตรับผิดชอบจาก HDC</h3>
-
-<app-show-school [hcode]="hcode" [ampcode]="ampcode" [rpyear]="rpyear"></app-show-school>
-    </div>
+<router-outlet></router-outlet>
+<app-show-school [hcode]="hcode" [ampcode]="ampcode" [rpyear]="rpyear"></app-show-school>    </div>
   </div>
 </div>
 

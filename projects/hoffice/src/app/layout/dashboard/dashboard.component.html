@@ -11,7 +11,7 @@
 </div>
     <div class="col">
     <div class="card" style="width: 14rem;margin-top:20px;">
-    <a [routerLink]="['/report']">    <img class="card-img-top" src="assets/img/kpiboard.png" alt="Card image cap">
+    <a href='https://datastudio.google.com/reporting/45012894-1f27-4652-8073-8e07b5103419' target="_blank">    <img class="card-img-top" src="assets/img/kpiboard.png" alt="Card image cap">
         <div class="card-body">
             <p class="card-text">กำกับ ประเมินทันตสาธารณสุข</p>
         </div>
@@ -29,4 +29,12 @@
 
 
 </div>
-<iframe width="1200" height="1800" src="https://datastudio.google.com/embed/reporting/45012894-1f27-4652-8073-8e07b5103419/page/hWneB" frameborder="0" style="border:0" allowfullscreen></iframe>
+<form enctype="multipart/form-data">
+    <div>
+        <input type="file" name="image" multiple (change)="selectImage($event)" />
+    </div>
+    <br>
+    <div>
+        <button type="submit" (click)="onSubmit()">Upload</button>
+    </div>
+</form>
