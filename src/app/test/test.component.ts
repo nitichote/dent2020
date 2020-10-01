@@ -16,6 +16,8 @@ export class TestComponent implements OnInit {
       label: "lb",
       fdview: "TextBox",
       gridcol: 3,
+      isCheckNumber:false,
+      isCheckText:false
     },
   ];
 
