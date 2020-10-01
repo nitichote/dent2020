@@ -1,4 +1,15 @@
-<p>page-school works!</p>
+<p>page-school works!   ok   </p>
 <a class="nav-link" [routerLink]="['/school/page/report']">ทันตสุขภาพในโรงเรียน</a>
 <a class="nav-link" [routerLink]="['/school/page/home']">Homeทันตสุขภาพในโรงเรียน</a>
+
+<div class="chart-wrapper">
+    <canvas baseChart 
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas> 
+</div>
 <router-outlet></router-outlet>

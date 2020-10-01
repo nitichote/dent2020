@@ -10,9 +10,9 @@ import { PipeAmpPipe } from "src/app/pipe-amp.pipe";
 import { SchoolLoginComponent } from './school-login.component';
 import { SchoolReportComponent } from './school-report.component';
 import { PageSchoolComponent } from './page-school.component';
-
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [PipeAmpPipe, HomeSchoolComponent, ShowSchoolComponent, SchoolLoginComponent, SchoolReportComponent, PageSchoolComponent],
-  imports: [FormsModule, SharelibModule, CommonModule, SchoolRoutingModule],
+  imports: [FormsModule, SharelibModule, CommonModule, SchoolRoutingModule,ChartsModule],
 })
 export class SchoolModule {}

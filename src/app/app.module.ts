@@ -19,6 +19,8 @@ import { DpersonWidgetComponent } from './widget/dperson-widget/dperson-widget.c
 import { TestComponent } from './test/test.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DentContactShowComponent } from './dent-contact-show.component';
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,7 @@ import { DentContactShowComponent } from './dent-contact-show.component';
     DentContactShowComponent,
   ],
   imports: [
+    ChartsModule,
     DragDropModule,
     FormsModule,
     SharelibModule,
