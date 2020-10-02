@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { HofficeService } from "../../service/hoffice_service";
 @Component({
   selector: 'app-page-school',
   templateUrl: './page-school.component.html',
@@ -8,7 +9,7 @@ import { Label } from 'ng2-charts';
 })
 export class PageSchoolComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ps: HofficeService) {}
   barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -20,7 +21,21 @@ export class PageSchoolComponent implements OnInit {
   barChartData: ChartDataSets[] = [
     { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
   ];
+  schools:any=[];
+
   ngOnInit(): void {
+    let sql="select * from schoolresult";
+    console.log("onot");
+    
+    let data={
+      sql:sql
+    };
+    this.ps.getSql(data).then((x) => {
+      this.schools = x["message"];
+      console.log(this.schools);
+      console.log("ffff");
+      
+    });
   }
 
 }
