@@ -45,6 +45,11 @@ api = 'http://127.0.0.1:3002/hoffice/';
     const url = this.api + `sql`;
     return await this._http2.post(url, body).toPromise();
   }
+  async getReport(rid:string) {
+    let api2020 = this.api + "reportview/"+rid;
+
+    return await this._http2.get(api2020).toPromise();
+  }
   async getOfficesCpho() {
     let api2020 = this.api + "officesCpho";
 

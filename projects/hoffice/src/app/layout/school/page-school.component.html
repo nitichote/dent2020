@@ -1,15 +1,11 @@
-<p>page-school works!   ok   </p>
-<a class="nav-link" [routerLink]="['/school/page/report']">ทันตสุขภาพในโรงเรียน</a>
-<a class="nav-link" [routerLink]="['/school/page/home']">Homeทันตสุขภาพในโรงเรียน</a>
 
-<div class="chart-wrapper">
-    <canvas baseChart 
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType">
-  </canvas> 
-</div>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+   <a class="nav-link" [routerLink]="['/school/page/report']">รายงานทันตสุขภาพ</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/school/page/home']">ข้อมูลทันตสุขภาพรายโรงเรียน</a>
+  </li>
+
+</ul>
 <router-outlet></router-outlet>

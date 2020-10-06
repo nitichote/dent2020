@@ -1,1 +1,69 @@
-<p>school-report works!</p>
+
+<div class="row">
+    <div class="col-6">
+     
+    </div>
+    <div class="col-6">
+      
+    </div>
+  </div>
+  <div class="card text-left">
+   
+    <div class="card-body">
+      <h4 class="card-title">ร้อยละโรงเรียนปลอดน้ำอัดลม แยกรายอำเภอ</h4>
+      <div class="chart-wrapper" >
+        <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas> 
+    </div>
+    <div class="card">  <div class="card-body">
+        <h4 class="card-title">ร้อยละโรงเรียนปลอดน้ำอัดลม ขนมกรุบกรอบและน้ำหวานแยกรายอำเภอ</h4>
+    <div class="chart-wrapper" >
+        <canvas baseChart 
+        [datasets]="barChartData2"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas> 
+    </div>
+</div>
+</div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+        <h4 class="card-title">ร้อยละโรงเรียนปลอดน้ำอัดลม ขนมกรุบกรอบและน้ำหวานแยกรายอำเภอ</h4>
+      <p-table [value]="reportAmp">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>รหัส</th>
+                <th>อำเภอ</th>
+                <th>จำนวนโรงเรียน</th>
+                <th>ปลอดน้ำอัดลม</th>
+                <th>ปลอดเครื่องดื่มรสหวาน</th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-r>
+            <tr>
+                <td>{{r.ampcode}}</td>
+                <td>{{r.name}}</td>
+                <td>{{r.target}}</td>
+                <td>{{r.pcisnocoke.toFixed(2)}}</td>
+                <td>{{r.pcisnocandy.toFixed(2)}}</td>
+               
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    </div>
+  </div>
