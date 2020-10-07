@@ -1,11 +1,17 @@
 
+<div class="container">
+  <img src="assets/img/schoolbanner.png" width="1200px" style="margin-bottom:20px;" >
+  <!-- <app-school-login></app-school-login> -->
+
 <ul class="nav nav-tabs">
-  <li class="nav-item">
-   <a class="nav-link" [routerLink]="['/school/page/report']">รายงานทันตสุขภาพ</a>
-  </li>
   <li class="nav-item">
     <a class="nav-link" [routerLink]="['/school/page/home']">ข้อมูลทันตสุขภาพรายโรงเรียน</a>
   </li>
+  <li class="nav-item">
+   <a class="nav-link" [routerLink]="['/school/page/report']">รายงานทันตสุขภาพ</a>
+  </li>
+ 
 
 </ul>
 <router-outlet></router-outlet>
+</div>
