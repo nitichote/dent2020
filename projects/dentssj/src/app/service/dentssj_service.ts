@@ -50,6 +50,17 @@ export class DentssjService {
 
     return await this._http2.get(api2020).toPromise();
   }
+  async getDentnum() {
+    let api2020 = this.api + "dentnum";
+
+    return await this._http2.get(api2020).toPromise();
+  }
+  async getReportDentnum() {
+    let api2020 = this.api + "reportdentnum";
+//console.log(api2020);
+
+    return await this._http2.get(api2020).toPromise();
+  }
   async getProvinces() {
     let api2020 = this.api + "province";
 

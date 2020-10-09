@@ -12,6 +12,7 @@ export class AppComponent {
   constructor(private confirmationService: ConfirmationService, private ps: DentssjService, private messageService: MessageService) { }
   title = 'dentssj';
   khets = [];
+  isHome="true";
   dobj = {};
   pvs = [];
   pvKhet = [];
@@ -35,7 +36,12 @@ export class AppComponent {
   posnameOptions = [];
   sexOptions=[];
   action = "";
+  lastupdate=new Date();
   showMessageLogin=true;
+  
+  getLastUpdate(pvcode){
+
+  }
   doLogIn() {
     
 
@@ -50,6 +56,8 @@ export class AppComponent {
        let pin={pvcode:this.pincode};
         
         this.getContactInPv(this.pvs[k]);
+        this.getPvnow(this.pvs[k]['pvcode']);
+    
         this.isShowPv=true;
       } else {
         this.showMessageLogin=false;
@@ -98,7 +106,6 @@ export class AppComponent {
       console.log(this.maxid);
       
     });
-   
   }
   getContactInPv(p) {
     this.contactInPv = this.contacts.filter(x => {
@@ -114,11 +121,13 @@ export class AppComponent {
     this.isShowPv = true;
     this.pvNow = p;
     console.log(this.pvNow);
-    
+    this.getPvnow(p['pvcode']);
+   
   }
   doSaveProvince() {
     let where = { pvcode: this.pvNow.pvcode };
-
+    let now = new Date();
+    this.myProvince.dateupdate = now.toISOString().split('T')[0]+' '+now.toTimeString().split(' ')[0];
     this.ps.updateData("province", where, this.myProvince).then((x) => {
       this.dgShow = false;
 
@@ -131,7 +140,7 @@ export class AppComponent {
   }
   viewPerson(r) { }
   movePerson(r, i) {
-    console.log("r", r, "i=", i);
+
 
     this.confirmationService.confirm({
       message: 'ท่านต้องการลบข้อมูลรายการนี้?',
@@ -175,7 +184,7 @@ export class AppComponent {
     }
     if(this.myContact.yearbrth){
      let yr=Number(this.myContact.yearbrth);
-     console.log(yr);
+
      
      if(isNaN(yr) || yr<2500 || yr >2560){
        ispass = false;
@@ -192,7 +201,8 @@ this.doSaveContact();
   doSaveContact() {
     this.dgShowContact = false;
     if (this.action == "add") {
-
+      let now = new Date();
+      this.myContact.dateupdate = now.toISOString().split('T')[0]+' '+now.toTimeString().split(' ')[0];
       this.ps.insertData("contacts", this.myContact).then(v=>{
         //this.myContact
         this.ps.getContacts().then((x) => {
@@ -207,14 +217,23 @@ this.contactInPv=this.contacts.filter(f=>{
           //console.log(this.maxid);
           
         });
-        
+        this.ps.getDentnum().then((y) => {
+          this.dentnums = y["message"]; 
+          this.getPvnow(this.pincode); 
+        });
+      
       });
 
     } else {
       let where = { id: this.myContact.id };
-
+      let now = new Date();
+      this.myContact.dateupdate = now.toISOString().split('T')[0]+' '+now.toTimeString().split(' ')[0];
       this.ps.updateData("contacts", where, this.myContact).then((x) => {
-
+        this.ps.getDentnum().then((y) => {
+          this.dentnums = y["message"]; 
+         
+          this.getPvnow(this.pincode); 
+        });
       });
     }
   }
@@ -235,7 +254,34 @@ this.contactInPv=this.contacts.filter(f=>{
     this.myProvince = this.pvNow;
     this.dgShow = true;
   }
+  getShowHome(){
+    this.isShowPv=false;
+  }
+  rpvs:any=[{x:1,y:2}];
+  dentnums:any=[];
+  dentnum:any={pvcode:"",dentist:0,tunta:0,vichakan:0,pvname:".."};
+  getDentnum(){
+    this.ps.getDentnum().then((x) => {
+      this.dentnums = x["message"];
+    });
+  }
+  getReportDentnum(){
+    console.log("ddd");
+     this.ps.getReportDentnum().then((x) => {
+      this.rpvs = x["message"];
+    });
+  
+  }
+   getPvnow(pvcode){
+     console.log("pvfilter=",pvcode);
+     
+    this.dentnum=this.dentnums.filter(f=>{
+      return f.pvcode == pvcode;
+    });
+  }
+  reportDentnums:any=[];
   ngOnInit(): void {
+    this.getDentnum();
     this.dobj = this.ps.getdobj();
     this.jobOptions = this.dobj['jobs'];
     this.denttypeOptions = this.dobj['denttypes'];
@@ -245,9 +291,12 @@ this.contactInPv=this.contacts.filter(f=>{
     this.ps.getProvinces().then((x) => {
       this.pvs = x["message"];
     });
+    
+    this.getReportDentnum();
     this.ps.getContacts().then((x) => {
       this.contacts = x["message"];
     });
   }
 }
 
+ 

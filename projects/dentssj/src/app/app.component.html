@@ -1,334 +1,4 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<style>
-  .office {
-
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-  }
-
-  .office.pad1 {
-    background-color: rgb(226, 211, 216);
-  }
-
-  .office.pad2 {
-    background-color: rgb(196, 248, 235);
-  }
-
-  .office.pad2 {
-    background-color: rgb(229, 230, 200);
-  }
-
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .cardBanner {
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    line-height: 24px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .card.cardPv {
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27, 31, 35, .2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%);
-    border-color: rgba(27, 31, 35, .35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-
-    .card-container>*:not(.circle-link),
-    .terminal {
-      width: 100%;
-    }
-
-    .cards:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
@@ -400,6 +70,10 @@
   <p>โปรดเลือกเขตสุขภาพของท่านเพื่อแสดงจังหวัดในเขต</p>
   <div>
     <ul class="nav">
+      <li class="nav-item">
+        <button (click)="getShowHome()" type="button" class="btn btn-primary" style="margin-left:3px;margin-bottom:5px;">
+          <span class="badge badge-light">HOME</span>
+        </button>
       <li class="nav-item" *ngFor="let item of khets; index as i; ">
         <button (click)="getPvinRegion(item)" type="button" class="btn btn-primary" style="margin-left:3px;margin-bottom:5px;">
           <span class="badge badge-light">{{item}}</span>
@@ -436,10 +110,11 @@
 
     <div>
       <h5> <span class="badge badge-pill badge-info">Size {{pvNow?.ssjsize}}</span>
-        <span class="badge badge-pill badge-primary">ทันตแพทย์ {{pvNow?.dentistnum}}</span>
-        <span class="badge badge-pill badge-secondary">นวก(ทันต) {{pvNow?.vichakannum}}</span>
-        <span class="badge badge-pill badge-success">ทันตาภิบาล {{pvNow?.tuntanum}}</span>
-        <span class="badge badge-pill badge-danger">ผู้ช่วย {{pvNow?.assistnum}}</span>
+        <span class="badge badge-pill badge-primary">ทันตแพทย์ {{dentnum[0]?.dentist}}</span>
+        <span class="badge badge-pill badge-secondary">นวก(ทันต) {{dentnum[0]?.vichakan}}</span>
+        <span class="badge badge-pill badge-success">ทันตาภิบาล {{dentnum[0]?.tunta}}</span>
+        <span class="badge badge-pill badge-danger">ผู้ช่วย/ลจ. {{pvNow?.assistnum}}</span>
+      
         <span *ngIf="pvNow.isclinic==0" class="badge badge-pill badge-warning">ไม่มีคลีนิก</span>
         <span *ngIf="pvNow.isclinic==1" class="badge badge-pill badge-warning">เปิดคลีนิกทันตกรรม</span>
         <span align="right" style="font-size: 0.6em;margin: 10px;font-style: italic;text-align:end;">Last Update : {{pvNow?.dateupdate  | date:'mediumDate' }}
@@ -517,7 +192,41 @@
   </svg>
 
 </div>
+<div class="content" align="left" *ngIf="isHome">
+  <p-table [value]="rpvs">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ลำดับ</th>
+            <th>เขต</th>
+            <th>จังหวัด</th>
+            <th>ขนาด</th>
+            <th>คลีนิกทันตกรรม</th>
+            <th>ทันตแพทย์</th>
+            <th>ทันตาภิบาล</th>
+            <th>นักวิชาการสาธารณสุข</th>
+            <th>ผู้ช่วยทันตแพทย์</th>
+            <th>Last Update</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rpv let-ri="rowIndex">
+        <tr>
+          <td align="center">{{ri+1}}</td>
+         
+          <td>{{rpv?.khet}}</td>
+      
+          <td>{{rpv?.pvname}}</td>
+          <td>{{rpv?.ssjsize}}</td>
+          <td  align="center">{{rpv?.isclinic}}</td>
+          <td  align="center">{{rpv?.dentist}}</td>
+          <td  align="center">{{rpv?.tunta}}</td>
+            <td  align="center">{{rpv?.vichakan}}</td>
+             <td  align="center">{{rpv?.assistnum}}</td>
+            <td  align="center">{{rpv?.dupdate|date:'short'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
 
+</div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -530,13 +239,13 @@
   <! –– แถวที่1 ––>
     <div class="row">
       <div class="col-sm">
-        <div class="form-group"> <label for="dentistnum">จำนวนทันตแพทย์</label> <input type="text" name="dentistnum"
-            id="dentistnum" [(ngModel)]="myProvince.dentistnum" class="form-control" placeholder=""
+        <div class="form-group"> <label for="dentistnum">จำนวนทันตแพทย์</label> <input type="text" disabled name="dentistnum"
+            id="dentistnum" [value]="dentnum[0]?.dentist" class="form-control" placeholder=""
             aria-describedby="helpId"> </div>
       </div>
       <div class="col-sm">
         <div class="form-group"> <label for="vichakannum">จำนวนนักวิชาการ</label> <input type="text" name="vichakannum"
-            id="vichakannum" [(ngModel)]="myProvince.vichakannum" class="form-control" placeholder=""
+          disabled  id="vichakannum" [value]="dentnum[0]?.vichakan" class="form-control" placeholder=""
             aria-describedby="helpId"> </div>
       </div>
     </div>
@@ -544,11 +253,11 @@
       <div class="row">
         <div class="col-sm">
           <div class="form-group"> <label for="tuntanum">จำนวนทันตาภิบาล</label> <input type="text" name="tuntanum"
-              id="tuntanum" [(ngModel)]="myProvince.tuntanum" class="form-control" placeholder=""
+          disabled    id="tuntanum" [value]="dentnum[0]?.tunta" class="form-control" placeholder=""
               aria-describedby="helpId"> </div>
         </div>
         <div class="col-sm">
-          <div class="form-group"> <label for="assistnum">จำนวนผู้ช่วย</label> <input type="text" name="assistnum"
+          <div class="form-group"> <label for="assistnum">Updateจำนวนผู้ช่วย</label> <input type="text" name="assistnum"
               id="assistnum" [(ngModel)]="myProvince.assistnum" class="form-control" placeholder=""
               aria-describedby="helpId"> </div>
         </div>
