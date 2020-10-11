@@ -50,6 +50,14 @@ export class DentssjService {
 
     return await this._http2.get(api2020).toPromise();
   }
+  async getPvGeo(pv: string) {
+    {
+        const url =
+            'https://opendata.service.moph.go.th/gis/v1/geojson/2/' ;
+        return await this._http2.get(url).toPromise();
+    }
+}
+
   async getDentnum() {
     let api2020 = this.api + "dentnum";
 

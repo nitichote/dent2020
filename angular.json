@@ -166,10 +166,12 @@
             "aot": true,
             "assets": [
               "projects/dentclinic/src/favicon.ico",
-              "projects/dentclinic/src/assets"
+              "projects/dentclinic/src/assets",
+
             ],
             "styles": [
-              "projects/dentclinic/src/styles.scss"
+              "projects/dentclinic/src/styles.scss",
+              "./node_modules/leaflet/dist/leaflet.scss"
             ],
             "scripts": []
           },
@@ -230,10 +232,16 @@
             "karmaConfig": "projects/dentclinic/karma.conf.js",
             "assets": [
               "projects/dentclinic/src/favicon.ico",
-              "projects/dentclinic/src/assets"
+              "projects/dentclinic/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
             ],
             "styles": [
-              "projects/dentclinic/src/styles.scss"
+              "projects/dentclinic/src/styles.scss",
+              "./node_modules/leaflet/dist/leaflet.scss"
             ],
             "scripts": []
           }
@@ -287,12 +295,20 @@
             "aot": true,
             "assets": [
               "projects/hoffice/src/favicon.ico",
-              "projects/hoffice/src/assets"
+              "projects/hoffice/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
             ],
             "styles": [
-              "projects/hoffice/src/styles.scss"
+              "projects/hoffice/src/styles.scss",
+              "projects/dentssj/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "projects/dentssj/src/assets/leaflet/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -354,9 +370,12 @@
               "projects/hoffice/src/assets"
             ],
             "styles": [
-              "projects/hoffice/src/styles.scss"
+              "projects/hoffice/src/styles.scss",
+              "projects/dentssj/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "projects/dentssj/src/assets/leaflet/leaflet.js"
+            ]
           }
         },
         "lint": {
@@ -411,9 +430,12 @@
               "projects/dentssj/src/assets"
             ],
             "styles": [
-              "projects/dentssj/src/styles.scss"
+              "projects/dentssj/src/styles.scss",
+              "projects/dentssj/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "projects/dentssj/src/assets/leaflet/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -475,9 +497,10 @@
               "projects/dentssj/src/assets"
             ],
             "styles": [
-              "projects/dentssj/src/styles.scss"
+              "projects/dentssj/src/styles.scss",
+              "projects/dentssj/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [  "projects/dentssj/src/assets/leaflet/leaflet.js"]
           }
         },
         "lint": {

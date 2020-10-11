@@ -9,6 +9,7 @@ import { DentssjService } from "./service/dentssj_service";
 import { DentContactShowComponent } from './dent-contact-show.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [AppComponent, DentContactShowComponent],
   imports: [

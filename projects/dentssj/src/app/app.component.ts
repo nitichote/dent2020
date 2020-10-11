@@ -1,15 +1,26 @@
 import { tblProvince, tblContacts } from './service/dentssjModel';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DentssjService } from './service/dentssj_service';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
+import { latLng, tileLayer } from 'leaflet';
+import * as area from './service/maparea';
+declare let L;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   constructor(private confirmationService: ConfirmationService, private ps: DentssjService, private messageService: MessageService) { }
+  pvtumbon: any;
+  tuntaArea: any;
+  mymap: any;
+  geojsonLayer1: any;
+  geojsonLayer2: any;
+  pvarea: any;
+  zonearea: any;
   title = 'dentssj';
   khets = [];
   isHome="true";
@@ -38,8 +49,16 @@ export class AppComponent {
   action = "";
   lastupdate=new Date();
   showMessageLogin=true;
-  
+  rpvFilter:any=[];
   getLastUpdate(pvcode){
+
+  }
+  getbgColor(v){
+    let bgcol ="white";
+if(v ==0){
+  bgcol = "red";
+}
+return bgcol;
 
   }
   doLogIn() {
@@ -83,6 +102,12 @@ export class AppComponent {
     this.showMessageLogin=true;
     this.isShowPv=false;
   }
+  sumDentist=0;
+sumTunta=0;
+sumVichakan=0;
+sumClinic=0;
+sumAssist=0;
+bgColor="white";
   getPvinRegion(k) {
    //console.log("xxxx=",this.pvs);
    if(this.isLogin){
@@ -90,12 +115,19 @@ export class AppComponent {
     this.pvKhet = this.pvs.filter(x => {
       return x.khet == k;
     }); 
+     
+    
     this.showMessageLogin=false;
     this.isShowPv = false;
 
   }else{
     this.showMessageLogin=true;
+
   } 
+  this.rpvFilter = this.rpvs.filter(x => {
+    return x.khet == k;
+  });
+  this.getSum();
 }
   maxContacts=[];
   maxid=0;
@@ -256,6 +288,8 @@ this.contactInPv=this.contacts.filter(f=>{
   }
   getShowHome(){
     this.isShowPv=false;
+    this.rpvFilter =[...this.rpvs];
+    this.getSum();
   }
   rpvs:any=[{x:1,y:2}];
   dentnums:any=[];
@@ -265,10 +299,21 @@ this.contactInPv=this.contacts.filter(f=>{
       this.dentnums = x["message"];
     });
   }
+  getSum(){
+    this.sumDentist=this.rpvFilter.reduce((n, {dentist}) => n + dentist, 0);
+    this.sumTunta=this.rpvFilter.reduce((n, {tunta}) => n + tunta, 0);
+    this.sumVichakan=this.rpvFilter.reduce((n, {vichakan}) => n + vichakan, 0);
+    this.sumClinic=this.rpvFilter.reduce((n, {isclinic}) => n + isclinic, 0);
+    this.sumAssist=this.rpvFilter.reduce((n, {assistnum}) => n + assistnum, 0);
+  }
   getReportDentnum(){
     console.log("ddd");
      this.ps.getReportDentnum().then((x) => {
       this.rpvs = x["message"];
+      this.rpvFilter = [...this.rpvs];
+      
+this.getSum();
+
     });
   
   }
@@ -280,7 +325,106 @@ this.contactInPv=this.contacts.filter(f=>{
     });
   }
   reportDentnums:any=[];
+  ngAfterViewInit(){
+    this.mymap = L.map('map').setView([13.850314, 100.529339], 6);
+    this.pvarea = area.pvarea;
+    this.zonearea = area.zonearea;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+            '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.mymap);
+    this.showG1(this.mymap);
+
+    const klv=['Extra','XL','L','M','S'];
+    var legend = L.control({position: 'bottomright'});
+    const vm = this;
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'info legend'),
+            ranges = [30, 60, 80,45,8],
+            labels = [];
+       for (var i = 0; i < klv.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + vm.getLgColor(klv[i]) + '"></i> ' +
+                (ranges[i + 1] ? klv[i] + '<br>' : klv[i]);
+       }
+        return div;
+      };
+      legend.addTo(this.mymap);
+      
+
+  }
+  pvborder:any;
+  getPvGeoLayer(pv: string){
+    this.ps.getPvGeo('v').then((x)=>{
+this.pvborder=x;
+    });
+  }
+  ssjsizes:any=[];
+ 
+ getLgColor=(d)=> {
+   console.log("d=",d);
+   let z = d ;
+   return z=='Extra' ? '#a39cff' :
+   z=='XL'  ? '#b4a5ff' :
+   z=='L'  ? '#b9c2ff' :
+   z=='M'  ? '#c4e7ff' :
+   z=='S'  ? '#cdfcff' :
+             '#cdfcff'; 
+    
+}
+
+
+getColor=(d)=> {
+  //console.log("d=",d);
+  if(d==10){d=12;}
+ // console.log("d2=",d);
+   let p = this.pvs.filter((x)=>{
+return x.pvcode==d;
+   }); 
+ //  console.log("p=",p); 
+let z = p[0]['ssjsize'] ;
+    return z=='Extra' ? '#a39cff' :
+    z=='XL'  ? '#b4a5ff' :
+    z=='L'  ? '#b9c2ff' :
+    z=='M'  ? '#c4e7ff' :
+    z=='S'  ? '#cdfcff' :
+              '#cdfcff';
+}
+ myStyle=(feature)=> {
+    return {
+        fillColor: this.getColor(feature.properties.id),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+  showG1(mymap) {
+    this.ps.getPvGeo('v').then((x)=>{
+      this.pvborder=x;
+        console.log(this.pvborder);
+        
+    this.geojsonLayer1 = L.geoJson(this.pvborder, {style:this.myStyle
+      //   fillColor: this.getColor(this.pvborder.feature.properties.id), // สีของพื้นที่
+        // style: this.styleLayerTambon1,
+        // fillColor:this.styleLayerTambon1,
+        // click:ck()
+       /* style: {
+           color: 'green', // สีของเส้น
+            // opacity: 0.5, // 0.0 - 1.0 ความทึบแสงของเส้น
+            // fillColor: 'green', // สีของพื้นที่
+         fillOpacity: 0.5, // 0.0 - 1.0 ความทึบแสงของพื้นที่
+       weight: 2, // 0 - 99 ความหนาหน่วยเป็น pixel
+           dashArray: 3 // เส้นปะ
+       }, */
+       // onEachFeature: this.onEachFeaturePvarea
+    }).addTo(mymap);
+  });
+}
   ngOnInit(): void {
+   
     this.getDentnum();
     this.dobj = this.ps.getdobj();
     this.jobOptions = this.dobj['jobs'];
@@ -290,6 +434,7 @@ this.contactInPv=this.contacts.filter(f=>{
     this.khets = this.dobj['khets'];
     this.ps.getProvinces().then((x) => {
       this.pvs = x["message"];
+     
     });
     
     this.getReportDentnum();
