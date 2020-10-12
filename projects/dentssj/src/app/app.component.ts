@@ -337,7 +337,13 @@ this.getSum();
   reportDentnums:any=[];
   setMarker(){
     console.log("marker");
-    
+    let p1 = area.pvlatlng.filter((v,i,a)=>{
+      let fd = String(v['zip']).slice(String(v['zip']).length-3);
+      console.log("fd="+fd);
+      
+      a.findIndex(t=>(String(t['zip']).slice(String(t['zip']).length-3) === fd))===i})
+console.log("P1="+p1);
+
   let pvlatlng00=area.pvlatlng.filter((x)=>{
     let y:string = String(x['zip']);
    let z= y.slice(y.length-3);
@@ -349,16 +355,16 @@ this.getSum();
       iconUrl: "assets/img/S.png",
       iconSize: [15, 20]
   });
-  pvlatlng00.forEach((p, index) => {
-    console.log("p=",p);
+  area.pvlatlng.forEach((p, index) => {
+   // console.log("p=",p);
    
     const imarker = L.marker([p.lat, p.lng], {
         icon: hosicon,
         title: p.province,
         splevel: p.province
     });
-    let txt = "จังหวัด" + p.province + "<br>";
-    txt += "(" + p.district + ")<br>";
+    let txt = "จังหวัด" + p.pvname + "<br>";
+    txt += "(" + p.khet + ")<br>";
 
    imarker.bindPopup(txt).openPopup();
     //    L.layer(imarker).addTo(this.mymap);
