@@ -336,28 +336,37 @@ this.getSum();
   }
   reportDentnums:any=[];
   setMarker(){
-    console.log("marker");
-    let p1 = area.pvlatlng.filter((v,i,a)=>{
-      let fd = String(v['zip']).slice(String(v['zip']).length-3);
-      console.log("fd="+fd);
+   // console.log("marker");
+   // let p1 = area.pvlatlng.filter((v,i,a)=>{
+  //    let fd = String(v['zip']).slice(String(v['zip']).length-3);
+  //    console.log("fd="+fd);
       
-      a.findIndex(t=>(String(t['zip']).slice(String(t['zip']).length-3) === fd))===i})
-console.log("P1="+p1);
+     // a.findIndex(t=>(String(t['zip']).slice(String(t['zip']).length-3) === fd))===i})
+//console.log("P1="+p1);
 
-  let pvlatlng00=area.pvlatlng.filter((x)=>{
-    let y:string = String(x['zip']);
-   let z= y.slice(y.length-3);
+ // let pvlatlng00=area.pvlatlng.filter((x)=>{
+ //   let y:string = String(x['zip']);
+ //  let z= y.slice(y.length-3);
   
-   return z=='000';
-  });
+ //  return z=='000';
+  //});
   
    const hosicon = L.icon({
       iconUrl: "assets/img/S.png",
       iconSize: [15, 20]
   });
-  area.pvlatlng.forEach((p, index) => {
+  
+  this.ps.getProvinces().then((x) => {
+    this.pvs = x["message"];
+  
+  
+  this.pvs.forEach((p, index) => {
    // console.log("p=",p);
+  // console.log("p=",p);
    
+   if(p.isclinic==1){
+    // console.log("p.isclinic",p);
+     
     const imarker = L.marker([p.lat, p.lng], {
         icon: hosicon,
         title: p.province,
@@ -370,11 +379,17 @@ console.log("P1="+p1);
     //    L.layer(imarker).addTo(this.mymap);
     this.listMarkerLayer1.push(imarker);
     //  console.log(markers);
+  }
 });
+ 
+  
 this.listMarkerLayer1.forEach(marker => {
     this.mymap.addLayer(marker);
 });
+
+});
   }
+  
   ngAfterViewInit(){
     console.log("ddddssss");
     
@@ -496,5 +511,3 @@ let z = p[0]['ssjsize'] ;
     });
   }
 }
-
- 

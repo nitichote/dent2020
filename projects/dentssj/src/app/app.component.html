@@ -194,62 +194,71 @@
 </div>
 
 
+
 <div class="content" align="left" *ngIf="isHome">
 
-  <div id="map" style="height:800px;width:800px;" class="map">ssss</div>
+  <tabset #staticTabs>
+    <tab heading="ข้อมูลรายจังหวัด">        <div style="height:600px;overflow:scroll;">
+      <p-table [value]="rpvFilter">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ลำดับ</th>
+                <th>เขต</th>
+                <th>จังหวัด</th>
+                <th>ขนาด</th>
+                <th>คลีนิกทันตกรรม</th>
+                <th>ทันตแพทย์</th>
+                <th>ทันตาภิบาล</th>
+                <th>นักวิชาการสาธารณสุข</th>
+                <th>ผู้ช่วยทันตแพทย์</th>
+                <th>Last Update</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rpv let-ri="rowIndex">
+            <tr>
+              <td align="center">{{ri+1}}</td>
+             
+              <td>{{rpv?.khet}}</td>
+          
+              <td>{{rpv?.pvname}}</td>
+              <td>{{rpv?.ssjsize}}</td>
+              <td  align="center" [style.background-color]="getbgColor(rpv.isclinic)">{{rpv?.isclinic}}</td>
+              <td  align="center" [style.background-color]="getbgColor(rpv.dentist)">{{rpv?.dentist}}</td>
+              <td  align="center" [style.background-color]="getbgColor(rpv.tunta)">{{rpv?.tunta}}</td>
+                <td  align="center" [style.background-color]="getbgColor(rpv.vichakan)">{{rpv?.vichakan}}</td>
+                 <td  align="center">{{rpv?.assistnum}}</td>
+                <td  align="center">{{rpv?.dupdate|date:'short'}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" >
+          <tr style="background-color: lightgray;">
+            <td ></td>
+           
+            <td></td>
+        
+            <td></td>
+            <td align="center">รวม</td>
+            <td style="background-color: lightgray;" align="center">{{sumClinic}}</td>
+            <td style="background-color: lightgray;" align="center">{{sumDentist}}</td>
+            <td style="background-color: lightgray;" align="center">{{sumTunta}}</td>
+              <td style="background-color: lightgray;"  align="center">{{sumVichakan}}</td>
+               <td  align="center"></td>
+              <td  align="center"></td>
+          </tr>
+      </ng-template>
+    </p-table>
+    </div></tab>
+    <tab heading="Gis">   <div style="width:100%"> <div id="map" style="height:800px;width:1000px;" class="map">ssss</div> </div>
+    </tab>
+    <tab heading="Static Title 2">Static content 2</tab>
+    <tab heading="Static Title 3">Static content 3</tab>
+  </tabset>
+ 
+
 
  
 
-  <div style="height:600px;overflow:scroll;">
-  <p-table [value]="rpvFilter">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>ลำดับ</th>
-            <th>เขต</th>
-            <th>จังหวัด</th>
-            <th>ขนาด</th>
-            <th>คลีนิกทันตกรรม</th>
-            <th>ทันตแพทย์</th>
-            <th>ทันตาภิบาล</th>
-            <th>นักวิชาการสาธารณสุข</th>
-            <th>ผู้ช่วยทันตแพทย์</th>
-            <th>Last Update</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rpv let-ri="rowIndex">
-        <tr>
-          <td align="center">{{ri+1}}</td>
-         
-          <td>{{rpv?.khet}}</td>
-      
-          <td>{{rpv?.pvname}}</td>
-          <td>{{rpv?.ssjsize}}</td>
-          <td  align="center" [style.background-color]="getbgColor(rpv.isclinic)">{{rpv?.isclinic}}</td>
-          <td  align="center" [style.background-color]="getbgColor(rpv.dentist)">{{rpv?.dentist}}</td>
-          <td  align="center" [style.background-color]="getbgColor(rpv.tunta)">{{rpv?.tunta}}</td>
-            <td  align="center" [style.background-color]="getbgColor(rpv.vichakan)">{{rpv?.vichakan}}</td>
-             <td  align="center">{{rpv?.assistnum}}</td>
-            <td  align="center">{{rpv?.dupdate|date:'short'}}</td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="footer" >
-      <tr style="background-color: lightgray;">
-        <td ></td>
-       
-        <td></td>
-    
-        <td></td>
-        <td align="center">รวม</td>
-        <td style="background-color: lightgray;" align="center">{{sumClinic}}</td>
-        <td style="background-color: lightgray;" align="center">{{sumDentist}}</td>
-        <td style="background-color: lightgray;" align="center">{{sumTunta}}</td>
-          <td style="background-color: lightgray;"  align="center">{{sumVichakan}}</td>
-           <td  align="center"></td>
-          <td  align="center"></td>
-      </tr>
-  </ng-template>
-</p-table>
-</div>
+
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

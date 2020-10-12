@@ -32,7 +32,6 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-            
               "src/styles.scss",
               "src/assets/leaflet/leaflet.css",
               "src/assets/primeng/primeicons.css",
@@ -166,8 +165,7 @@
             "aot": true,
             "assets": [
               "projects/dentclinic/src/favicon.ico",
-              "projects/dentclinic/src/assets",
-
+              "projects/dentclinic/src/assets"
             ],
             "styles": [
               "projects/dentclinic/src/styles.scss",
@@ -237,7 +235,7 @@
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
                 "output": "leaflet/"
-              },
+              }
             ],
             "styles": [
               "projects/dentclinic/src/styles.scss",
@@ -300,7 +298,7 @@
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
                 "output": "leaflet/"
-              },
+              }
             ],
             "styles": [
               "projects/hoffice/src/styles.scss",
@@ -500,7 +498,9 @@
               "projects/dentssj/src/styles.scss",
               "projects/dentssj/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": [  "projects/dentssj/src/assets/leaflet/leaflet.js"]
+            "scripts": [
+              "projects/dentssj/src/assets/leaflet/leaflet.js"
+            ]
           }
         },
         "lint": {
