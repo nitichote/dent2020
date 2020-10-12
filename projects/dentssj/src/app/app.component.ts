@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { DentssjService } from './service/dentssj_service';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
-import { latLng, tileLayer } from 'leaflet';
+//import { latLng, tileLayer } from 'leaflet';
 import * as area from './service/maparea';
 declare let L;
 @Component({
@@ -50,6 +50,16 @@ export class AppComponent {
   lastupdate=new Date();
   showMessageLogin=true;
   rpvFilter:any=[];
+  listMarkerLayer1 = new Array();
+  listMarkerLayer2 = new Array();
+  listMarkerLayer3 = new Array();
+
+  listDataLayer1; // 1.0 สำหรับเก็บข้อมูลค่าของแต่ละพื้นที่
+  listDataLayer2;
+  listDataLayer3;
+  hospins: any = [];
+  markers: any = [];
+
   getLastUpdate(pvcode){
 
   }
@@ -325,7 +335,43 @@ this.getSum();
     });
   }
   reportDentnums:any=[];
+  setMarker(){
+    console.log("marker");
+    
+  let pvlatlng00=area.pvlatlng.filter((x)=>{
+    let y:string = String(x['zip']);
+   let z= y.slice(y.length-3);
+  
+   return z=='000';
+  });
+  
+   const hosicon = L.icon({
+      iconUrl: "assets/img/S.png",
+      iconSize: [15, 20]
+  });
+  pvlatlng00.forEach((p, index) => {
+    console.log("p=",p);
+   
+    const imarker = L.marker([p.lat, p.lng], {
+        icon: hosicon,
+        title: p.province,
+        splevel: p.province
+    });
+    let txt = "จังหวัด" + p.province + "<br>";
+    txt += "(" + p.district + ")<br>";
+
+   imarker.bindPopup(txt).openPopup();
+    //    L.layer(imarker).addTo(this.mymap);
+    this.listMarkerLayer1.push(imarker);
+    //  console.log(markers);
+});
+this.listMarkerLayer1.forEach(marker => {
+    this.mymap.addLayer(marker);
+});
+  }
   ngAfterViewInit(){
+    console.log("ddddssss");
+    
     this.mymap = L.map('map').setView([13.850314, 100.529339], 6);
     this.pvarea = area.pvarea;
     this.zonearea = area.zonearea;
@@ -351,6 +397,7 @@ this.getSum();
       };
       legend.addTo(this.mymap);
       
+      this.setMarker();
 
   }
   pvborder:any;
