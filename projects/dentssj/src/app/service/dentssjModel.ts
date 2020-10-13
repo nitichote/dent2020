@@ -48,5 +48,7 @@ export interface tblContacts {
         others?:string;
         iscommitee?:string;
         email?:string;
-        
+        address?:string;
+        contactname?:string;
+        contacttel?:string;
         }

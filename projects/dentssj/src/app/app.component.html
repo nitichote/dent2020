@@ -198,6 +198,65 @@
 <div class="content" align="left" *ngIf="isHome">
 
   <tabset #staticTabs>
+     <tab heading="Gis"> 
+      <div class="row"> 
+        <div class="col-4" style="padding:10px;padding-top:20px;">
+<div class="card">
+ 
+  <div class="card" >
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <h4 class="card-title">คลีนิกทันตกรรม</h4>
+    <div>
+      <span>	
+        <p-checkbox [(ngModel)]="isClinicShow" (onChange)="toggleShowClinic();" [binary]="true"></p-checkbox> &nbsp;<a href="javascript:void(0)" (click)="getShowMarkerClinic();" >คลีนิกทันตกรรม สสจ.</a>
+     </span> </div>
+    
+    </div>
+    </div>
+
+    <div class="card" >
+      <img class="card-img-top" src="holder.js/100x180/" alt="">
+      <div class="card-body">
+        <h4 class="card-title">บุคลากร</h4>
+   
+       <div>
+        <span>	
+        <i class="fa fa-home" style="color:purple;" ></i>&nbsp;<a href="javascript:void(0)" (click)=" getShowGeoLayerDentist('dentist');" >จำนวนทันตแพทย์</a>
+       </span> </div>
+       <div class="legendMenu" align="right" style="text-align: end;margin-bottom: 20px;;">
+         <i style="background-color:red;text-align: center;color:white;margin-left: 40px;">0</i>
+         <i style="background-color:#F9C74F;text-align: center;color:black">1</i>
+         <i style="background-color:#90BE6D;text-align: center;color:black">2</i>
+         <i style="background-color:#43AA8B;text-align: center;color:white">3</i>
+         <i style="background-color:#6e44ff;text-align: center;color:white;width:25px">4+</i>
+        </div>
+<hr>
+        <div style="float:none">
+          <span>	
+          <i class="fa fa-home" style="color:purple;" ></i>&nbsp;<a href="javascript:void(0)" (click)=" getShowGeoLayerDentist('tunta');" >จำนวนทันตาภิบาล/นวก.</a>
+         </span> </div>
+         <div class="legendMenu" align="right" style="text-align: end;">
+           <i style="background-color:red;text-align: center;color:white;margin-left: 40px;">0</i>
+           <i style="background-color:#F9C74F;text-align: center;color:black">1</i>
+           <i style="background-color:#90BE6D;text-align: center;color:black">2</i>
+           <i style="background-color:#43AA8B;text-align: center;color:white">3</i>
+           <i style="background-color:#6e44ff;text-align: center;color:white;width:25px">4+</i>
+          </div> 
+
+      </div>
+      </div>
+  </div>
+  
+
+        </div>
+       <div class="col-8">
+      <div style="width:100%"> 
+        <div id="map" style="height:750px;width:600px;" class="map">ssss</div>
+       </div>
+   </div>
+  </div>
+    </tab>
     <tab heading="ข้อมูลรายจังหวัด">        <div style="height:600px;overflow:scroll;">
       <p-table [value]="rpvFilter">
         <ng-template pTemplate="header">
@@ -248,8 +307,7 @@
       </ng-template>
     </p-table>
     </div></tab>
-    <tab heading="Gis">   <div style="width:100%"> <div id="map" style="height:800px;width:1000px;" class="map">ssss</div> </div>
-    </tab>
+   
     <tab heading="Static Title 2">Static content 2</tab>
     <tab heading="Static Title 3">Static content 3</tab>
   </tabset>
@@ -308,12 +366,31 @@
                 [(ngModel)]="myProvince.tel" class="form-control" placeholder="" aria-describedby="helpId"> </div>
           </div>
         </div>
+        <! –– แถวที่3.5 ––>
+      <div class="row">
+        <div class="col-sm">
+          <div class="form-group"> <label for="tuntanum">ชื่อผู้ติดต่อ(รับไปรษณีย์,kerry)</label> <input type="text" name="contactname"
+             id="contactname"  [(ngModel)]="myProvince.contactname" class="form-control" placeholder=""
+              aria-describedby="helpId"> </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group"> <label for="assistnum">ที่อยู่สสจ.</label> <input type="text" name="assistnum"
+              id="assistnum" [(ngModel)]="myProvince.address" class="form-control" placeholder=""
+              aria-describedby="helpId"> </div>
+        </div>
+      </div>
         <! –– แถวที่4 ––>
           <div class="row">
+            <div class="col-sm">
+              <div class="form-group"> <label for="assistnum">เบอร์โทร ติดต่อ</label> <input type="text" name="contacttel"
+                  id="contacttel" [(ngModel)]="myProvince.contacttel" class="form-control" placeholder=""
+                  aria-describedby="helpId"> </div>
+            </div>
             <div class="col-sm">
               <div class="form-group"> <label for="email">email</label> <input type="text" name="email" id="email"
                   [(ngModel)]="myProvince.email" class="form-control" placeholder="" aria-describedby="helpId"> </div>
             </div>
+           
           </div>
           <div align="right"><button type="button" (click)="doSaveProvince()" pButton icon="pi pi-info-circle"
               label="Save"></button>
