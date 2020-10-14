@@ -81,7 +81,7 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="showMessageLogin" style="color:red" > กรุณา Login เพื่อแสดงรายละเอียดจังหวัด</div>
+  <div *ngIf="showMessageLogin" style="color:red" > กรุณา Login ด้วย pincode เพื่อแสดงรายละเอียดข้อมูลจังหวัด</div>
   <div *ngIf="isLogin" class="card-container">
 
 
@@ -127,7 +127,7 @@
 
 
     <div style="padding:5px;height: 40px;background-color:lightblue;text-align: end;vertical-align: middle;"> 
-      <button type="button" style="margin-right:5px;" class="btn btn-primary btn-sm" *ngIf="pvNow?.pvcode == pincode" 
+   <span style="margin-right:20px">ข้อมูลผู้ติดต่อ :{{pvNow.contactname +' ' + pvNow.contacttel}}</span> <button type="button" style="margin-right:5px;" class="btn btn-primary btn-sm" *ngIf="pvNow?.pvcode == pincode" 
         (click)="doEditOffice()">แก้ไขข้อมูลพื้นฐาน</button> <button *ngIf="pvNow?.pvcode == pincode"
        (click)="doAddNewContact()" class="btn btn-primary btn-sm">เพิ่มบุคลากร</button></div>
     <div *ngFor="let r of contactInPv;let i=index" align="center"
@@ -318,8 +318,7 @@
     </p-table>
     </div></tab>
    
-    <tab heading="Static Title 2">Static content 2</tab>
-    <tab heading="Static Title 3">Static content 3</tab>
+   
   </tabset>
  
 

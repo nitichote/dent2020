@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation } from "@angular/core";
 import { DentssjService } from "./service/dentssj_service";
 import { MessageService } from "primeng/api";
 import { ConfirmationService } from "primeng/api";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+//mport { faCoffee } from "@fortawesome/free-solid-svg-icons";
 //import { latLng, tileLayer } from 'leaflet';
 import * as area from "./service/maparea";
 declare let L;
@@ -64,7 +64,7 @@ export class AppComponent {
   listDataLayer3;
   hospins: any = [];
   markers: any = [];
-  faCoffee = faCoffee;
+  //faCoffee = faCoffee;
   getLastUpdate(pvcode) {}
   getbgColor(v) {
     let bgcol = "white";
