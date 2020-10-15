@@ -11,13 +11,14 @@ import { DentContactShowComponent } from './dent-contact-show.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import {ChartModule} from 'primeng/chart';
 @NgModule({
   declarations: [AppComponent, DentContactShowComponent],
   imports: [TabsModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule,ChartModule,
     SharelibModule,FormsModule,FontAwesomeModule
   ],
   providers: [DentssjService],

@@ -18,7 +18,38 @@ export class AppComponent {
     private confirmationService: ConfirmationService,
     private ps: DentssjService,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.getReportDentnum();
+    this.datax = {
+      labels: ['A','B','C'],
+      datasets: [
+          {
+              data: [300, 50, 100],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56"
+              ]
+          }]   ,
+
+      };
+        this.options = {
+            title: {
+                display: false,
+                text: 'My Title',
+                fontSize: 16
+            },
+            legend: { display: false,
+                position: 'bottom'
+            }
+        };
+  }
+  options :any;
   pvtumbon: any;
   tuntaArea: any;
   mymap: any;
@@ -301,7 +332,7 @@ export class AppComponent {
   }
   rpvs: any = [];
   dentnums: any = [];
-  isClinicShow=false;
+  isClinicShow = false;
   dentnum: any = {
     pvcode: "",
     dentist: 0,
@@ -309,13 +340,12 @@ export class AppComponent {
     vichakan: 0,
     pvname: "..",
   };
-  toggleShowClinic(){
+  toggleShowClinic() {
     console.log("ggg");
-    
-    if(this.isClinicShow){
-this.getShowMarkerClinic();
 
-    }else{
+    if (this.isClinicShow) {
+      this.getShowMarkerClinic();
+    } else {
       this.getRemoveMarkerClinic();
     }
   }
@@ -340,16 +370,62 @@ this.getShowMarkerClinic();
       0
     );
   }
+  dentagegroups = [];
+  dataDentistAge: any;
+  datax:any;
+  genChartData(dtype) {
+    let ageDt: any;
+    if (dtype == "ทันตแพทย์") {
+      const ageDentists = this.dentagegroups.filter(
+        (x) => x.denttype == "ทันตแพทย์"
+      );
+
+      ageDt = Array.from(ageDentists, (y) => y["age_count"]);
+      console.log("ageDentist",ageDentists);
+      
+      console.log("ageDt",ageDt);
+      
+    }
+    this.dataDentistAge = {
+      labels: ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"],
+      datasets: [
+        {
+          data: ageDt,
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+          ],
+          hoverBackgroundColor: [
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+          ],
+        },
+      ],
+    };
+  }
   getReportDentnum() {
-    console.log("ddd");
     this.ps.getReportDentnum().then((x) => {
       this.rpvs = x["message"];
-     
-      
       this.rpvFilter = [...this.rpvs];
-
-
       this.getSum();
+    });
+
+    this.ps.getAgeRroup().then((x) => {
+      this.dentagegroups = x["message"];
+      console.log("dentagegroup",this.dentagegroups);
+      
+this.genChartData("ทันตแพทย์");
+
     });
   }
   getPvnow(pvcode) {
@@ -361,7 +437,6 @@ this.getShowMarkerClinic();
   }
   reportDentnums: any = [];
 
- 
   setMarker() {
     const hosicon = L.icon({
       iconUrl: "assets/img/S.png",
@@ -401,16 +476,16 @@ this.getShowMarkerClinic();
   geojsonLayerDentist: any;
   dataLayerDentist: any;
   styleLayerDentist = (feature) => {
-    let color ="";
+    let color = "";
     this.showDentistOrTunta == "dentist"
-      ? color=this.getDentistColor(feature.properties.id)
-      :this.showDentistOrTunta == "tunta"
-      ? color=this.getTuntaColor(feature.properties.id)
-      :this.showDentistOrTunta == "c9"
-      ? color=this.getC9Color(feature.properties.id)
-    :"#FFFFFF"
+      ? (color = this.getDentistColor(feature.properties.id))
+      : this.showDentistOrTunta == "tunta"
+      ? (color = this.getTuntaColor(feature.properties.id))
+      : this.showDentistOrTunta == "c9"
+      ? (color = this.getC9Color(feature.properties.id))
+      : "#FFFFFF";
     return {
-      fillColor:color, //this.getDentistColor(feature.properties.id),
+      fillColor: color, //this.getDentistColor(feature.properties.id),
       weight: 2,
       opacity: 1,
       color: "white",
@@ -418,105 +493,113 @@ this.getShowMarkerClinic();
       fillOpacity: 0.7,
     };
   };
-  
-  showDentistOrTunta="";
+
+  showDentistOrTunta = "";
   info = L.control(); // #1
   getInfo() {
     //console.log("myRpvs=",this.rpvs);
-    
+
     this.info = L.control(); // #1
 
-    this.info.onAdd = function(map) {
-        this._div = L.DomUtil.create("div", "info");
-       this.update();
-        return this._div;
+    this.info.onAdd = function (map) {
+      this._div = L.DomUtil.create("div", "info");
+      this.update();
+      return this._div;
     };
-const vv = this;
-    this.info.update = function(properties) {
-    
+    const vv = this;
+    this.info.update = function (properties) {
       let pv;
-      let ms="x";
-        if(properties){
-pv = vv.rpvs.filter(x=>{return x.pvcode==properties.id});
+      let ms = "x";
+      if (properties) {
+        pv = vv.rpvs.filter((x) => {
+          return x.pvcode == properties.id;
+        });
 
- ms = "<h4>จังหวัด"+properties.name+"</h4><br>"+
- 'เขต:'+pv[0]['khet']+'<br>'+
- 'ขนาด:'+pv[0]['ssjsize']+'<br>'+
- 'คลีนิกทันตกรรม:'+pv[0]['isclinic']+'<br>'+
- 'จำนวนทันตแพทย์:'+pv[0]['dentist']+'<br>'+
- 'จำนวนทันตาภิบาล:'+pv[0]['tunta']+'<br>'+
- 'จำนวน นวก.:'+pv[0]['vichakan']+'<br>'
-
- ;
-        }
-        this._div.innerHTML = (properties ? ms : "เลื่อนเม้าท์ไปบนแผนที่") ;
+        ms =
+          "<h4>จังหวัด" +
+          properties.name +
+          "</h4><br>" +
+          "เขต:" +
+          pv[0]["khet"] +
+          "<br>" +
+          "ขนาด:" +
+          pv[0]["ssjsize"] +
+          "<br>" +
+          "คลีนิกทันตกรรม:" +
+          pv[0]["isclinic"] +
+          "<br>" +
+          "จำนวนทันตแพทย์:" +
+          pv[0]["dentist"] +
+          "<br>" +
+          "จำนวนทันตาภิบาล:" +
+          pv[0]["tunta"] +
+          "<br>" +
+          "จำนวน นวก.:" +
+          pv[0]["vichakan"] +
+          "<br>";
+      }
+      this._div.innerHTML = properties ? ms : "เลื่อนเม้าท์ไปบนแผนที่";
     };
-                      
-            
-            
 
- //this.info.addTo(this.mymap);
-}
+    //this.info.addTo(this.mymap);
+  }
   onEachFeatureLayerDentist = (feature, layer) => {
     // console.log(feature);
     const center = layer.getBounds().getCenter();
- layer.bindTooltip(feature.properties.name, {
-        permanent: true,
-        direction: "center",
-        className: "my-leaflet-tooltip"
+    layer.bindTooltip(feature.properties.name, {
+      permanent: true,
+      direction: "center",
+      className: "my-leaflet-tooltip",
     });
-   // this.listgeoName2.push(marker);
+    // this.listgeoName2.push(marker);
     // .addTo(this.mymap);
 
     /*  listMarkerLayer1.push(marker); */
 
     layer.on({
-        mouseover: this.highlightFeatureDentist,
-        mouseout: this.resetHighLightDentist
+      mouseover: this.highlightFeatureDentist,
+      mouseout: this.resetHighLightDentist,
     });
-};
-highlightFeatureDentist = e => {
-  const layer = e.target;
-  // console.log(layer);
-  this.info.update(layer.feature.properties); // #
-  layer.setStyle({
+  };
+  highlightFeatureDentist = (e) => {
+    const layer = e.target;
+    // console.log(layer);
+    this.info.update(layer.feature.properties); // #
+    layer.setStyle({
       color: "black",
       weight: 3,
-      fillOpacity: 0.8
-  });
-  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      fillOpacity: 0.8,
+    });
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
-  }
-};
-
-resetHighLightDentist = e => {
-  this.info.update();
- 
-      this.geojsonLayerDentist.resetStyle(e.target);
-  
-};
-  getShowGeoLayerDentist(k) {
- // console.log("rpvs=",this.rpvs);
-  
-    this.showDentistOrTunta = k;
-    if ( this.geojsonLayerDentist != undefined) {
-      this.geojsonLayerDentist.remove();
-      }
-    if ( this.legendDentist != undefined) {
-    this.legendDentist.remove();
     }
-  // this.geojsonLayerDentist.remove();
+  };
+
+  resetHighLightDentist = (e) => {
+    this.info.update();
+
+    this.geojsonLayerDentist.resetStyle(e.target);
+  };
+  getShowGeoLayerDentist(k) {
+    // console.log("rpvs=",this.rpvs);
+
+    this.showDentistOrTunta = k;
+    if (this.geojsonLayerDentist != undefined) {
+      this.geojsonLayerDentist.remove();
+    }
+    if (this.legendDentist != undefined) {
+      this.legendDentist.remove();
+    }
+    // this.geojsonLayerDentist.remove();
     this.legendSSjsize.remove();
     this.getRemoveMarkerClinic();
-    
 
     this.geojsonLayerDentist = L.geoJson(this.pvborder, {
       style: this.styleLayerDentist,
-      onEachFeature: this.onEachFeatureLayerDentist
+      onEachFeature: this.onEachFeatureLayerDentist,
     }).addTo(this.mymap);
- 
- 
-  this.getLegendDentist();
+
+    this.getLegendDentist();
   }
   getShowMarkerClinic() {
     this.getRemoveMarkerClinic();
@@ -538,7 +621,6 @@ resetHighLightDentist = e => {
   ssjsizes: any = [];
 
   getLgColor = (d) => {
-  
     let z = d;
     return z == "Extra"
       ? "#a39cff"
@@ -552,19 +634,21 @@ resetHighLightDentist = e => {
       ? "#cdfcff"
       : "#cdfcff";
   };
-   getDentistColor(d) {
-    if (d == 10) { d = 12;}
+  getDentistColor(d) {
+    if (d == 10) {
+      d = 12;
+    }
     //console.log(this.rpvs);
-    
-     let p = this.rpvs.filter((x) => {
+
+    let p = this.rpvs.filter((x) => {
       return x.pvcode == d;
     });
-   // console.log("p=",p[0]);
-    
-   let z =2;
-   if(p.length>0){
-       z = p[0]['dentist'];
-   }   
+    // console.log("p=",p[0]);
+
+    let z = 2;
+    if (p.length > 0) {
+      z = p[0]["dentist"];
+    }
     return z == 0
       ? "#FF0000"
       : z == 1
@@ -574,41 +658,41 @@ resetHighLightDentist = e => {
       : z == 3
       ? "#43AA8B"
       : z >= 4
-       ? "#6e44ff"
+      ? "#6e44ff"
       : "#77ff55";
   }
   getC9Color(d) {
-    if (d == 10) { d = 12;}
+    if (d == 10) {
+      d = 12;
+    }
     //console.log(this.rpvs);
-    
-     let p = this.c9s.filter((x) => {
+
+    let p = this.c9s.filter((x) => {
       return x.pvcode == d;
     });
-   // console.log("p=",p[0]);
-    
-   let z =-1;
-   if(p.length>0){
-       z = p[0]['cnt'];
-   }   
-    return z == 0
-      ? "#FF0000"
-      : z >= 1
-       ? "#6e44ff"
-      : "#77ff55";
+    // console.log("p=",p[0]);
+
+    let z = -1;
+    if (p.length > 0) {
+      z = p[0]["cnt"];
+    }
+    return z == 0 ? "#FF0000" : z >= 1 ? "#6e44ff" : "#77ff55";
   }
   getTuntaColor(d) {
-    if (d == 10) { d = 12;}
+    if (d == 10) {
+      d = 12;
+    }
     //console.log(this.rpvs);
-    
-     let p = this.rpvs.filter((x) => {
+
+    let p = this.rpvs.filter((x) => {
       return x.pvcode == d;
     });
-   // console.log("p=",p[0]);
-    
-   let z =2;
-   if(p.length>0){
-       z = p[0]['tunta']+p[0]['vichakan'];
-   }   
+    // console.log("p=",p[0]);
+
+    let z = 2;
+    if (p.length > 0) {
+      z = p[0]["tunta"] + p[0]["vichakan"];
+    }
     return z == 0
       ? "#FF0000"
       : z == 1
@@ -618,31 +702,31 @@ resetHighLightDentist = e => {
       : z == 3
       ? "#43AA8B"
       : z >= 4
-       ? "#6e44ff"
+      ? "#6e44ff"
       : "#77ff55";
   }
   getDentistColorLegend(z) {
     return z == 0
-    ? "#FF0000"
-    : z == 1
-    ? "#F9C74F"
-    : z == 2
-    ? "#90BE6D"
-    : z == 3
-    ? "#43AA8B"
-    : z >= 4
-     ? "#6e44ff"
-    : "#77ff55";
-
-
+      ? "#FF0000"
+      : z == 1
+      ? "#F9C74F"
+      : z == 2
+      ? "#90BE6D"
+      : z == 3
+      ? "#43AA8B"
+      : z >= 4
+      ? "#6e44ff"
+      : "#77ff55";
   }
 
   getColor = (d) => {
-    if (d == 10) { d = 12;}
-     let p = this.pvs.filter((x) => {
+    if (d == 10) {
+      d = 12;
+    }
+    let p = this.pvs.filter((x) => {
       return x.pvcode == d;
     });
-      let z = p[0]["ssjsize"];
+    let z = p[0]["ssjsize"];
     return z == "Extra"
       ? "#a39cff"
       : z == "XL"
@@ -676,14 +760,14 @@ resetHighLightDentist = e => {
       this.info.addTo(this.mymap);
     });
   }
-  legendDentist:any;
+  legendDentist: any;
   getLegendDentist() {
-    const klv = ["0", "1คน","2คน", "3คน", "4คนขึ้นไป"];
+    const klv = ["0", "1คน", "2คน", "3คน", "4คนขึ้นไป"];
     this.legendDentist = L.control({ position: "bottomright" });
     const vm = this;
     this.legendDentist.onAdd = function (map) {
       var div = L.DomUtil.create("div", "info legend"),
-        ranges = [0,1,2,3,4],
+        ranges = [0, 1, 2, 3, 4],
         labels = [];
       for (var i = 0; i < klv.length; i++) {
         div.innerHTML +=
@@ -696,7 +780,7 @@ resetHighLightDentist = e => {
     };
     this.legendDentist.addTo(this.mymap);
   }
-  legendSSjsize:any;
+  legendSSjsize: any;
   getLegendSsjSize() {
     const klv = ["Extra", "XL", "L", "M", "S"];
     this.legendSSjsize = L.control({ position: "bottomright" });
@@ -726,22 +810,20 @@ resetHighLightDentist = e => {
     }).addTo(this.mymap);
     this.showG1Ssjsize(this.mymap);
     this.getLegendSsjSize();
- 
   }
   dataDentist = [];
-  jobs=[];
-  c9s=[];
-  getC9(){
+  jobs = [];
+  c9s = [];
+  getC9() {
     this.ps.getReportView(1).then((x) => {
       this.c9s = x["message"];
     });
-
   }
   ngOnInit(): void {
- this.getC9();
- 
+    this.getC9();
+
     this.getDentnum();
-    this.getReportDentnum();
+   
     this.dobj = this.ps.getdobj();
     this.jobOptions = this.dobj["jobs"];
     this.denttypeOptions = this.dobj["denttypes"];
@@ -750,12 +832,14 @@ resetHighLightDentist = e => {
     this.khets = this.dobj["khets"];
     this.ps.getProvinces().then((x) => {
       this.pvs = x["message"];
-      this.dataDentist =  x["message"];
+      this.dataDentist = x["message"];
     });
- this.getInfo();
-   // this.getReportDentnum();
+    this.getInfo();
+    // this.getReportDentnum();
     this.ps.getContacts().then((x) => {
       this.contacts = x["message"];
     });
+
+
   }
 }

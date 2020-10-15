@@ -33,8 +33,8 @@ export class DentssjService {
   
  
  // api = `${environment.api}/dentssj/`;
-api = `http://188.166.178.13:3002/dentssj/`;
-//api="http://127.0.0.1:3002/dentssj/";
+//api = `http://188.166.178.13:3002/dentssj/`;
+api="http://127.0.0.1:3002/dentssj/";
  getdobj(){
      const dobj={
      khets:[1,2,3,4,5,6,7,8,9,10,11,12],
@@ -60,6 +60,11 @@ api = `http://188.166.178.13:3002/dentssj/`;
 }
 async getReportView(id) {
   let api2020 = this.api + "reportview/"+id;
+
+  return await this._http2.get(api2020).toPromise();
+}
+async getAgeRroup() {
+  let api2020 = this.api + "agegroup";
 
   return await this._http2.get(api2020).toPromise();
 }
