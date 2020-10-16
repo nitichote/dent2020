@@ -372,10 +372,11 @@ export class AppComponent {
   }
   dentagegroups = [];
   dataDentistAge: any;
+  dataTuntaAge: any;
   datax:any;
-  genChartData(dtype) {
+  genChartData() {
     let ageDt: any;
-    if (dtype == "ทันตแพทย์") {
+    
       const ageDentists = this.dentagegroups.filter(
         (x) => x.denttype == "ทันตแพทย์"
       );
@@ -384,30 +385,64 @@ export class AppComponent {
       console.log("ageDentist",ageDentists);
       
       console.log("ageDt",ageDt);
-      
-    }
+   
     this.dataDentistAge = {
       labels: ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"],
       datasets: [
         {
           data: ageDt,
           backgroundColor: [
-            "#FF6384",
             "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
+            "#FB5607",
+            "#FF006E",
+            "#8338EC",
+            "#F3A86FF",
+            "#55a630"
           ],
           hoverBackgroundColor: [
             "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
+            "#FB5607",
+            "#FF006E",
+            "#8338EC",
+            "#F3A86FF",
+            "#55a630"
+          ],
+        },
+      ],
+    };
+  }
+  genChartDataTunta() {
+    let ageDt: any;
+    
+      const ageDentists = this.dentagegroups.filter(
+        (x) => x.denttype == "ทันตาภิบาล"
+      );
+
+      ageDt = Array.from(ageDentists, (y) => y["age_count"]);
+      console.log("ageDentistTunta",ageDentists);
+      
+      console.log("ageDtTunta",ageDt);
+  
+    this.dataTuntaAge = {
+      labels: ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"],
+      datasets: [
+        {
+          data: ageDt,
+          backgroundColor: [
             "#36A2EB",
-            "#FFCE56",
-            "#FF6384",
+            "#FB5607",
+            "#FF006E",
+            "#8338EC",
+            "#F3A86FF",
+            "#55a630"
+          ],
+          hoverBackgroundColor: [
             "#36A2EB",
-            "#FFCE56",
+            "#FB5607",
+            "#FF006E",
+            "#8338EC",
+            "#F3A86FF",
+            "#55a630"
           ],
         },
       ],
@@ -424,8 +459,8 @@ export class AppComponent {
       this.dentagegroups = x["message"];
       console.log("dentagegroup",this.dentagegroups);
       
-this.genChartData("ทันตแพทย์");
-
+this.genChartData();
+this.genChartDataTunta();
     });
   }
   getPvnow(pvcode) {
