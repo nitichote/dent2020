@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {ChartModule} from 'primeng/chart';
+import {CarouselModule} from 'primeng/carousel';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 @NgModule({
   declarations: [AppComponent, DentContactShowComponent],
   imports: [TabsModule.forRoot(),
-    BrowserAnimationsModule,
+    BrowserAnimationsModule,CarouselModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,ChartModule,
+    AppRoutingModule,ChartModule,PdfViewerModule,
     SharelibModule,FormsModule,FontAwesomeModule
   ],
   providers: [DentssjService],

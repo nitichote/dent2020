@@ -36,7 +36,15 @@
               "src/assets/leaflet/leaflet.css",
               "src/assets/primeng/primeicons.css",
               "src/assets/primeng/theme.css",
-              "src/assets/primeng/primeng.min.css"
+              "src/assets/primeng/primeng.min.css",
+              "./node_modules/primeflex/src/_variables.scss",
+    "./node_modules/primeflex/src/_grid.scss",
+    "./node_modules/primeflex/src/_formlayout.scss",
+    "./node_modules/primeflex/src/_display.scss",
+    "./node_modules/primeflex/src/_text.scss",
+    "./node_modules/primeflex/src/flexbox/_flexbox.scss",
+    "./node_modules/primeflex/src/_spacing.scss",
+    "./node_modules/primeflex/src/_elevation.scss"
             ],
             "scripts": [
               "src/assets/leaflet/leaflet.js",
@@ -109,7 +117,15 @@
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-              "src/assets/leaflet/leaflet.css"
+              "src/assets/leaflet/leaflet.css",
+              "./node_modules/primeflex/src/_variables.scss",
+    "./node_modules/primeflex/src/_grid.scss",
+    "./node_modules/primeflex/src/_formlayout.scss",
+    "./node_modules/primeflex/src/_display.scss",
+    "./node_modules/primeflex/src/_text.scss",
+    "./node_modules/primeflex/src/flexbox/_flexbox.scss",
+    "./node_modules/primeflex/src/_spacing.scss",
+    "./node_modules/primeflex/src/_elevation.scss"
             ],
             "scripts": [
               "src/assets/leaflet/leaflet.js"

@@ -1,12 +1,15 @@
 import { tblProvince, tblContacts } from "./service/dentssjModel";
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component, ViewEncapsulation , ViewChild, ElementRef,Renderer2 } from "@angular/core";
 import { DentssjService } from "./service/dentssj_service";
 import { MessageService } from "primeng/api";
 import { ConfirmationService } from "primeng/api";
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';  
 //mport { faCoffee } from "@fortawesome/free-solid-svg-icons";
 //import { latLng, tileLayer } from 'leaflet';
 import * as area from "./service/maparea";
 declare let L;
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -21,35 +24,27 @@ export class AppComponent {
   ) {
     this.getReportDentnum();
     this.datax = {
-      labels: ['A','B','C'],
+      labels: ["A", "B", "C"],
       datasets: [
-          {
-              data: [300, 50, 100],
-              backgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56"
-              ],
-              hoverBackgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56"
-              ]
-          }]   ,
-
-      };
-        this.options = {
-            title: {
-                display: false,
-                text: 'My Title',
-                fontSize: 16
-            },
-            legend: { display: false,
-                position: 'bottom'
-            }
-        };
+        {
+          data: [300, 50, 100],
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        },
+      ],
+    };
+    this.options = {
+      title: {
+        display: false,
+        text: "My Title",
+        fontSize: 16,
+      },
+      legend: { display: true, position: "bottom" },
+    };
   }
-  options :any;
+ @ViewChild('htmlData', { static: false }) dt:ElementRef;
+  //@ViewChild('dt') em:ElementRef;
+  options: any;
   pvtumbon: any;
   tuntaArea: any;
   mymap: any;
@@ -369,43 +364,73 @@ export class AppComponent {
       (n, { assistnum }) => n + assistnum,
       0
     );
+    this.totalDentist = this.sumDentist;
+    this.totalTunta = this.sumTunta + this.sumVichakan;
+    this.totalAssist = this.sumAssist;
+    this.totalClinic = this.sumClinic;
   }
   dentagegroups = [];
   dataDentistAge: any;
   dataTuntaAge: any;
-  datax:any;
+  datax: any;
+
+  labels = ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"];
+  labelsTunta = ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"];
+  setDentnumval(age, dtype) {
+    const MyAgeDentists = this.dentagegroups.filter(
+      (x) => x.denttype == dtype && x.age_group == age
+    );
+    console.log("ckeckFunction", dtype, age);
+
+    if (MyAgeDentists.length == 0) {
+      return 0;
+    } else {
+      return MyAgeDentists[0]["age_count"];
+    }
+  }
+  setTuntanumval(age, dtype) {
+    const MyAgeDentists = this.dentagegroups.filter(
+      (x) => x.denttype == dtype && x.age_group == age
+    );
+    console.log("ckeckFunction", dtype, age);
+
+    if (MyAgeDentists.length == 0) {
+      return 0;
+    } else {
+      return MyAgeDentists[0]["age_count"];
+    }
+  }
   genChartData() {
     let ageDt: any;
-    
-      const ageDentists = this.dentagegroups.filter(
-        (x) => x.denttype == "ทันตแพทย์"
-      );
+    let lb = [...this.labels];
+    let dentistLabels = lb.reduce(
+      (o, k) => ((o[k] = this.setDentnumval(k, "ทันตแพทย์")), o),
+      {}
+    );
+    let s = dentistLabels;
+    ageDt = Object.keys(s).map((x) => s[x]);
 
-      ageDt = Array.from(ageDentists, (y) => y["age_count"]);
-      console.log("ageDentist",ageDentists);
-      
-      console.log("ageDt",ageDt);
-   
+    //  ageDt = Array.from(values, (y) => y["age_count"]);
     this.dataDentistAge = {
-      labels: ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"],
+      labels: [...this.labels].map(() => this.labels.pop()),
       datasets: [
         {
-          data: ageDt,
+          data: [...ageDt].map(() => ageDt.pop()),
           backgroundColor: [
+            "#030800",
             "#36A2EB",
             "#FB5607",
             "#FF006E",
             "#8338EC",
-            "#F3A86FF",
-            "#55a630"
+            "#55a630",
           ],
           hoverBackgroundColor: [
+            "#030800",
             "#36A2EB",
             "#FB5607",
             "#FF006E",
             "#8338EC",
-            "#F3A86FF",
-            "#55a630"
+            "#55a630",
           ],
         },
       ],
@@ -413,41 +438,43 @@ export class AppComponent {
   }
   genChartDataTunta() {
     let ageDt: any;
-    
-      const ageDentists = this.dentagegroups.filter(
-        (x) => x.denttype == "ทันตาภิบาล"
-      );
+    let lb = [...this.labelsTunta];
 
-      ageDt = Array.from(ageDentists, (y) => y["age_count"]);
-      console.log("ageDentistTunta",ageDentists);
-      
-      console.log("ageDtTunta",ageDt);
-  
+    let dentistLabels = lb.reduce(
+      (o, k) => ((o[k] = this.setTuntanumval(k, "ทันตาภิบาล")), o),
+      {}
+    );
+
+    ageDt = Object.keys(dentistLabels).map((x) => dentistLabels[x]);
     this.dataTuntaAge = {
-      labels: ["20-25", "26-35", "36-45", "46-55", "56-60", "ไม่ระบุ"],
+      labels: [...lb].map(() => lb.pop()),
       datasets: [
         {
-          data: ageDt,
+          data: [...ageDt].map(() => ageDt.pop()),
           backgroundColor: [
+            "#030800",
             "#36A2EB",
             "#FB5607",
             "#FF006E",
             "#8338EC",
-            "#F3A86FF",
-            "#55a630"
+            "#55a630",
           ],
           hoverBackgroundColor: [
+            "#030800",
             "#36A2EB",
             "#FB5607",
             "#FF006E",
             "#8338EC",
-            "#F3A86FF",
-            "#55a630"
+            "#55a630",
           ],
         },
       ],
     };
   }
+  totalDentist = 0;
+  totalTunta = 0;
+  totalClinic = 0;
+  totalAssist = 0;
   getReportDentnum() {
     this.ps.getReportDentnum().then((x) => {
       this.rpvs = x["message"];
@@ -457,10 +484,10 @@ export class AppComponent {
 
     this.ps.getAgeRroup().then((x) => {
       this.dentagegroups = x["message"];
-      console.log("dentagegroup",this.dentagegroups);
-      
-this.genChartData();
-this.genChartDataTunta();
+      console.log("dentagegroup", this.dentagegroups);
+
+      this.genChartData();
+      this.genChartDataTunta();
     });
   }
   getPvnow(pvcode) {
@@ -835,7 +862,12 @@ this.genChartDataTunta();
     };
     this.legendSSjsize.addTo(this.mymap);
   }
+  myData:any;
   ngAfterViewInit() {
+    console.log("xx",this.dt);
+    this.myData=this.dt.nativeElement;
+    console.log("myData=",this.myData);
+    
     this.mymap = L.map("map").setView([13.850314, 100.529339], 6);
     this.pvarea = area.pvarea;
     this.zonearea = area.zonearea;
@@ -849,16 +881,101 @@ this.genChartDataTunta();
   dataDentist = [];
   jobs = [];
   c9s = [];
+  kpis = [];
+  kpiObj = {};
+  kpiPv = [];
+  imgs = [
+    { pic: "./assets/img/Slide1_resize.jpg" },
+    { pic: "./assets/img/Slide2_resize.jpg" },
+    { pic: "./assets/img/Slide3_resize.jpg" },
+    { pic: "./assets/img/Slide4_resize.jpg" },
+  ];
+  pdfSrc = "./assets/img/ssjclub.pdf";
+  getKpiValue(pvcode) {
+    let p: any;
+    p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "fluoride");
+    let r = this.kpis.filter((x) => x.pvcode == pvcode && x.kpi == "fluoride");
+    //console.log("kpis=",this.kpis);
+    //console.log("p0=",p);
+    //console.log("r=",r);
+    let pvname = p["pvname"];
+    
+    let fluoride = (p["result"] * 100) / p["target"];
+    p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "sealant");
+    let sealant = (p["result"] * 100) / p["target"];
+    p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "14act");
+    let p14act = (p["result"] * 100) / p["target"];
+    p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "anc");
+    let anc = (p["result"] * 100) / p["target"];
+    p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "access");
+    let access = (p["result"] * 100) / p["target"];
+    return {
+      pvcode: pvcode,
+      pvname: pvname,
+      khet:p['khet'],
+      anc: anc,
+      fluoride: fluoride,
+      sealant: sealant,
+      access: access,
+      p14act: p14act,
+    };
+  }
+  getKpiLevel(pc) {
+    if (pc > 100) {
+      return 100;
+    }
+    for (let i = 0; i <= 100; i += 5) {
+      if (pc <= i) {
+        return i;
+      }
+    }
+  }
+  getKpilevelClass(i){
+
+
+  }
+  getKpi() {
+    this.ps.getReportView(3).then((x) => {
+      this.kpis = x["message"];
+
+      this.pvs.forEach((x) => {
+        this.kpiPv.push(this.getKpiValue(x.pvcode));
+      });
+      console.log("kpiPV", this.kpiPv);
+      let maxFluoride = Math.max(...this.kpiPv.map((o) => o.kpi), 0);
+      let minFluoride = Math.min(...this.kpiPv.map((o) => o.kpi), 0);
+      console.log("mae", maxFluoride);
+      console.log("min", minFluoride);
+    });
+  }
   getC9() {
     this.ps.getReportView(1).then((x) => {
       this.c9s = x["message"];
     });
   }
+  klevel = 0;
+
+  cols: any[];
+  exportColumns: any[];
   ngOnInit(): void {
+  
+    this.cols = [
+      { field: 'khet', header: 'KHET' },
+      { field: 'pvname', header: 'PV' },
+      { field: 'anc', header: 'ANC' },
+      { field: 'fluoride', header: 'Fluoride' },
+      { field: 'sealant', header: 'Sealant' },
+      { field: 'p14act', header: 'P14Act' },
+      { field: 'access', header: 'Access' }
+  ];
+  this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
+  this.klevel= this.getKpiLevel(84);
+    console.log("klevel", this.klevel);
+
     this.getC9();
 
     this.getDentnum();
-   
+
     this.dobj = this.ps.getdobj();
     this.jobOptions = this.dobj["jobs"];
     this.denttypeOptions = this.dobj["denttypes"];
@@ -868,13 +985,61 @@ this.genChartDataTunta();
     this.ps.getProvinces().then((x) => {
       this.pvs = x["message"];
       this.dataDentist = x["message"];
+      this.getKpi();
     });
     this.getInfo();
     // this.getReportDentnum();
     this.ps.getContacts().then((x) => {
       this.contacts = x["message"];
     });
-
-
   }
+
+  exportPdf() {
+  /*   const doc = new jsPDF()
+    autoTable(doc, { html:this.em.nativeElement });
+     doc.save('products.pdf'); */
+console.log("mydd=",this.myData);
+
+     let DATA = this.myData;//this.xx.nativeElement;
+     console.log("data",DATA);
+     
+/*     let doc = new jsPDF('p','pt', 'a4');
+    doc.fromHTML(DATA,15,15);
+    doc.output('dataurlnewwindow');
+    
+ */
+
+let handleElement = {
+  '#editor':function(element,renderer){
+    return true;
+  }
+};
+let doc = new jsPDF('p','pt', 'a4');
+doc.fromHTML(DATA.innerHTML,15,15,{
+  'width': 200,
+  'elementHandlers': handleElement
+});
+doc.output('dataurlnewwindow');
+}
+
+exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.kpiPv);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "products");
+    });
+}
+
+saveAsExcelFile(buffer: any, fileName: string): void {
+    import("file-saver").then(FileSaver => {
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    });
+}
+
 }
