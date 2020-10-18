@@ -170,7 +170,7 @@ export class AppComponent {
     this.ps.getContacts().then((x) => {
       this.maxContacts = x["message"];
       this.maxid = Math.max(...this.maxContacts.map((s) => s.amount));
-      console.log(this.maxid);
+    
     });
   }
   getContactInPv(p) {
@@ -186,7 +186,7 @@ export class AppComponent {
 
     this.isShowPv = true;
     this.pvNow = p;
-    console.log(this.pvNow);
+  
     this.getPvnow(p["pvcode"]);
   }
   doSaveProvince() {
@@ -274,7 +274,7 @@ export class AppComponent {
         this.ps.getContacts().then((x) => {
           this.contacts = x["message"];
           /* this.maxContacts = x["message"];
-          console.log(this.maxContacts);
+       
           
           this.maxid= Math.max(...this.maxContacts.map(s => s.amount)); */
           this.contactInPv = this.contacts.filter((f) => {
@@ -336,8 +336,7 @@ export class AppComponent {
     pvname: "..",
   };
   toggleShowClinic() {
-    console.log("ggg");
-
+  
     if (this.isClinicShow) {
       this.getShowMarkerClinic();
     } else {
@@ -380,7 +379,7 @@ export class AppComponent {
     const MyAgeDentists = this.dentagegroups.filter(
       (x) => x.denttype == dtype && x.age_group == age
     );
-    console.log("ckeckFunction", dtype, age);
+  
 
     if (MyAgeDentists.length == 0) {
       return 0;
@@ -392,7 +391,7 @@ export class AppComponent {
     const MyAgeDentists = this.dentagegroups.filter(
       (x) => x.denttype == dtype && x.age_group == age
     );
-    console.log("ckeckFunction", dtype, age);
+//   console.log("ckeckFunction", dtype, age);
 
     if (MyAgeDentists.length == 0) {
       return 0;
@@ -484,14 +483,14 @@ export class AppComponent {
 
     this.ps.getAgeRroup().then((x) => {
       this.dentagegroups = x["message"];
-      console.log("dentagegroup", this.dentagegroups);
+   
 
       this.genChartData();
       this.genChartDataTunta();
     });
   }
   getPvnow(pvcode) {
-    console.log("pvfilter=", pvcode);
+  
 
     this.dentnum = this.dentnums.filter((f) => {
       return f.pvcode == pvcode;
@@ -535,6 +534,52 @@ export class AppComponent {
       });
     });
   }
+  geojsonLayerKpi: any;
+  dataLayerKpi: any;
+  kpiSelect="";
+  kpirate=0.5;
+  styleLayerKpi = (feature) => {
+    let color = "";
+ color = this.getKpiColor(feature.properties.id);
+     
+    return {
+      fillColor: color, //this.getDentistColor(feature.properties.id),
+      weight: 2,
+      opacity: 1,
+      color: "white",
+      dashArray: "3",
+      fillOpacity: 0.7,
+    };
+  };
+  colors100=['#617aec','#3ea363','#73b87e','#84bb7b','#94bd77','#a4c073','#b0be6e','#c4c56d','#d4c86a','#e2c965','#f5ce62','#f3c563','#e9b861','#e6ad61','#ecac67','#e9a268','#e79a69','#e5926b','#df6b48','#eb4827',' #aa1a0d'];
+  colors=[];
+  getInfoColor(pc,rate){
+    console.log("pcRate==",pc,rate,this.colors100[(pc/rate)/5]);
+    let k = this.getKpiLevel((pc/rate)/5);
+   return this.colors100[k];
+  }
+  getKpiColor(d) {
+    if (d == 10) {
+      d = 12;
+    }
+    let p = this.kpiPv.filter((x) => {
+    //  console.log("kpiSelect",this.kpiSelect,"d=",d,"xKpi=",x.kpi);
+      
+      return x.pvcode == d ;
+    });
+   // console.log("p=",p[0]);
+
+    let z = 2;
+    let kvalue=2;
+    if (p.length > 0) {
+      z = p[0][this.kpiSelect];
+      kvalue= this.getKpiLevel(z/this.kpirate);
+    }
+  //  console.log("kvalue=",kvalue,kvalue/5,this.colors100[kvalue/5]);
+    
+    return this.colors100[kvalue/5];
+  }
+
   geojsonLayerDentist: any;
   dataLayerDentist: any;
   styleLayerDentist = (feature) => {
@@ -571,12 +616,15 @@ export class AppComponent {
     const vv = this;
     this.info.update = function (properties) {
       let pv;
+      let kpi;
       let ms = "x";
       if (properties) {
         pv = vv.rpvs.filter((x) => {
           return x.pvcode == properties.id;
         });
-
+       kpi= vv.kpiPv.filter((x) => {
+          return x.pvcode == properties.id;
+        });
         ms =
           "<h4>จังหวัด" +
           properties.name +
@@ -598,7 +646,19 @@ export class AppComponent {
           "<br>" +
           "จำนวน นวก.:" +
           pv[0]["vichakan"] +
-          "<br>";
+          "<br><hr>" +
+          "อัตราเข้าถึงบริการ:" + 
+          kpi[0]["access"].toFixed(1) +"%<br>"+
+          "รพสต.14กิจกรรม:" +
+          kpi[0]["p14act"].toFixed(1) +"%<br>"+
+          "Fs_ANC:" +
+          kpi[0]["anc"].toFixed(1) +"%<br>"+
+          "Fs_Fluoride4-12Y:" +
+          kpi[0]["fluoride"].toFixed(1) +"%<br>"+
+          "Fs_Sealant6-12Y:" +
+          kpi[0]["sealant"].toFixed(1) +"%"+
+          "<br><hr>" 
+          ;
       }
       this._div.innerHTML = properties ? ms : "เลื่อนเม้าท์ไปบนแผนที่";
     };
@@ -642,6 +702,24 @@ export class AppComponent {
 
     this.geojsonLayerDentist.resetStyle(e.target);
   };
+  kpiname={
+    access:"อัตราการเข้าถึงบริการทันตกรรม(40)",
+    fluoride:"ร้อยละการให้Fluorideเด็ก4-12ปี(50)",
+    sealant:"ร้อยละการให้บริการSealantเด็ก6-12ปี(50)",
+    anc:"ร้อยละการให้บริหารหญิงมีครรภ์(50)",
+    p14act:"ร้อยละรพสต.คุณภาพ14กิจกรรม(60)",
+
+};
+  getShowGeoLayerKpi(kpi,rate){
+this.kpiSelect=kpi;
+this.kpirate=rate;
+    this.geojsonLayerDentist = L.geoJson(this.pvborder, {
+      style: this.styleLayerKpi,
+      onEachFeature: this.onEachFeatureLayerDentist,
+    }).addTo(this.mymap);
+    this.menuTitle = this.kpiname[kpi];
+    this.getLegendMenu();
+  }
   getShowGeoLayerDentist(k) {
     // console.log("rpvs=",this.rpvs);
 
@@ -660,8 +738,8 @@ export class AppComponent {
       style: this.styleLayerDentist,
       onEachFeature: this.onEachFeatureLayerDentist,
     }).addTo(this.mymap);
-
-    this.getLegendDentist();
+this.menuTitle ="แสดง "+k; 
+    this.getLegendMenu();
   }
   getShowMarkerClinic() {
     this.getRemoveMarkerClinic();
@@ -696,6 +774,7 @@ export class AppComponent {
       ? "#cdfcff"
       : "#cdfcff";
   };
+ 
   getDentistColor(d) {
     if (d == 10) {
       d = 12;
@@ -840,7 +919,32 @@ export class AppComponent {
       }
       return div;
     };
-    this.legendDentist.addTo(this.mymap);
+ //   this.legendDentist.addTo(this.mymap);
+  }
+  menuTitle="คลิ้กเลือกเมนูแสดงGis";
+  legendMenu: any;
+  getLegendMenu() {
+    if (this.legendMenu != undefined) {
+      this.legendMenu.remove();
+    }
+    const klv = ["0", "1คน", "2คน", "3คน", "4คนขึ้นไป"];
+    this.legendMenu = L.control({ position: "bottomright" });
+    const vm = this;
+    this.legendMenu.onAdd = function (map) {
+      var div = L.DomUtil.create("div", "info legend"),
+        ranges = [0, 1, 2, 3, 4],
+        labels = [];
+     
+        div.innerHTML =
+          '<i style="background:green' +
+          '"></i> ' +
+         vm.menuTitle;
+    
+      return div;
+    };
+   
+   
+   this.legendMenu.addTo(this.mymap);
   }
   legendSSjsize: any;
   getLegendSsjSize() {
@@ -864,9 +968,9 @@ export class AppComponent {
   }
   myData:any;
   ngAfterViewInit() {
-    console.log("xx",this.dt);
+  
     this.myData=this.dt.nativeElement;
-    console.log("myData=",this.myData);
+    
     
     this.mymap = L.map("map").setView([13.850314, 100.529339], 6);
     this.pvarea = area.pvarea;
@@ -944,8 +1048,7 @@ export class AppComponent {
       console.log("kpiPV", this.kpiPv);
       let maxFluoride = Math.max(...this.kpiPv.map((o) => o.kpi), 0);
       let minFluoride = Math.min(...this.kpiPv.map((o) => o.kpi), 0);
-      console.log("mae", maxFluoride);
-      console.log("min", minFluoride);
+    
     });
   }
   getC9() {
@@ -958,7 +1061,7 @@ export class AppComponent {
   cols: any[];
   exportColumns: any[];
   ngOnInit(): void {
-  
+    const reversed = this.colors100.reverse();
     this.cols = [
       { field: 'khet', header: 'KHET' },
       { field: 'pvname', header: 'PV' },
@@ -970,7 +1073,7 @@ export class AppComponent {
   ];
   this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
   this.klevel= this.getKpiLevel(84);
-    console.log("klevel", this.klevel);
+   
 
     this.getC9();
 
@@ -1001,7 +1104,7 @@ export class AppComponent {
 console.log("mydd=",this.myData);
 
      let DATA = this.myData;//this.xx.nativeElement;
-     console.log("data",DATA);
+ 
      
 /*     let doc = new jsPDF('p','pt', 'a4');
     doc.fromHTML(DATA,15,15);
@@ -1015,10 +1118,16 @@ let handleElement = {
   }
 };
 let doc = new jsPDF('p','pt', 'a4');
-doc.fromHTML(DATA.innerHTML,15,15,{
+let dd = doc.fromHTML(DATA.innerHTML,15,15,{
   'width': 200,
   'elementHandlers': handleElement
 });
+const yanone = "AAWW...DSES"; // base64 string
+doc.addFileToVFS('./assets/fonts/Kanit-Regular.ttf', dd);
+doc.addFont('./assets/fonts/Kanit-Regular.ttf', 'PTSans', 'normal');
+doc.addFont('./assets/fonts/Kanit-Bold.ttf', 'PTSans', 'bold');
+doc.setFont('PTSans');
+doc.setFontType('normal');
 doc.output('dataurlnewwindow');
 }
 
