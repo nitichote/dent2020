@@ -30,6 +30,12 @@
     },
     {
       "path": "./projects/dentalservice/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/gisspace/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/gisspace/tsconfig.spec.json"
     }
   ]
 }

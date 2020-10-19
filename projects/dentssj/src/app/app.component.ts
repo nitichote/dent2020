@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation , ViewChild, ElementRef,Renderer2 } from "
 import { DentssjService } from "./service/dentssj_service";
 import { MessageService } from "primeng/api";
 import { ConfirmationService } from "primeng/api";
-import jsPDF from 'jspdf';
+//import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';  
 //mport { faCoffee } from "@fortawesome/free-solid-svg-icons";
 //import { latLng, tileLayer } from 'leaflet';
@@ -1097,39 +1097,6 @@ this.menuTitle ="แสดง "+k;
     });
   }
 
-  exportPdf() {
-  /*   const doc = new jsPDF()
-    autoTable(doc, { html:this.em.nativeElement });
-     doc.save('products.pdf'); */
-console.log("mydd=",this.myData);
-
-     let DATA = this.myData;//this.xx.nativeElement;
- 
-     
-/*     let doc = new jsPDF('p','pt', 'a4');
-    doc.fromHTML(DATA,15,15);
-    doc.output('dataurlnewwindow');
-    
- */
-
-let handleElement = {
-  '#editor':function(element,renderer){
-    return true;
-  }
-};
-let doc = new jsPDF('p','pt', 'a4');
-let dd = doc.fromHTML(DATA.innerHTML,15,15,{
-  'width': 200,
-  'elementHandlers': handleElement
-});
-const yanone = "AAWW...DSES"; // base64 string
-doc.addFileToVFS('./assets/fonts/Kanit-Regular.ttf', dd);
-doc.addFont('./assets/fonts/Kanit-Regular.ttf', 'PTSans', 'normal');
-doc.addFont('./assets/fonts/Kanit-Bold.ttf', 'PTSans', 'bold');
-doc.setFont('PTSans');
-doc.setFontType('normal');
-doc.output('dataurlnewwindow');
-}
 
 exportExcel() {
     import("xlsx").then(xlsx => {
