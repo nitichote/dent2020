@@ -16,10 +16,11 @@ import { PanelModule } from "primeng/panel";
 import { TabViewModule } from "primeng/tabview";
 import { AccordionModule } from "primeng/accordion";
 import { CheckboxModule } from "primeng/checkbox";
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import {ChartModule} from 'primeng/chart';
 @NgModule({
   declarations: [],
-  imports: [
+  imports: [TabsModule ,ChartModule,
     CheckboxModule,
     AccordionModule,
     TabViewModule,
@@ -35,7 +36,7 @@ import { CheckboxModule } from "primeng/checkbox";
     DropdownModule,
     ConfirmDialogModule,
   ],
-  exports: [
+  exports: [TabsModule ,ChartModule,
     CheckboxModule,
     AccordionModule,
     TabViewModule,
