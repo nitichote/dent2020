@@ -18,9 +18,11 @@ import { AccordionModule } from "primeng/accordion";
 import { CheckboxModule } from "primeng/checkbox";
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {ChartModule} from 'primeng/chart';
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [],
-  imports: [TabsModule ,ChartModule,
+  imports: [TabsModule ,ChartModule,FormsModule ,HttpClientModule ,
     CheckboxModule,
     AccordionModule,
     TabViewModule,
