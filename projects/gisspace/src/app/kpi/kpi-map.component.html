@@ -1,0 +1,19 @@
+
+<div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+        <h4 class="card-title">ตัวชี้วัด Oral Health ServicePlan และ Dental Fee Schedule</h4>
+        <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="getKpiChoice(0)" >อัตราการเข้าถึงบริการ</button>
+      
+        <button type="button" class="btn btn-success"  style="margin-right:10px" (click)="getKpiChoice(1)">รพสต.คุณภาพ</button>
+        <button type="button" class="btn btn-danger"  style="margin-right:10px" (click)="getKpiChoice(2)">ตรวจฟันANC</button>
+        <button type="button" class="btn btn-warning" style="margin-right:10px"  (click)="getKpiChoice(3)">ทาฟลูออไรด์4-12ปี</button>
+        <button type="button" class="btn btn-info"  style="margin-right:10px" (click)="getKpiChoice(4)" >เคลือบร่องฟัน6-12ปี</button>
+    </div>
+</div>
+
+<div><h2>แสดง GIS รายอำเภอ : {{kpiNow?.kpiTitle}}</h2></div>
+
+<div id="map" style="height: 900px; width: 900px" class="map">
+    ssss
+  </div>

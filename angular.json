@@ -692,9 +692,13 @@
               "projects/gisspace/src/assets"
             ],
             "styles": [
-              "projects/gisspace/src/styles.scss"
+              "projects/gisspace/src/styles.scss",
+              "projects/gisspace/src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "projects/gisspace/src/assets/leaflet/leaflet.js"
+            ]
+            
           },
           "configurations": {
             "production": {

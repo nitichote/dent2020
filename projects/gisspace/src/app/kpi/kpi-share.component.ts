@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { GisService } from '../service/gis_service';
 
 @Component({
   selector: 'app-kpi-share',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KpiShareComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public confirmationService: ConfirmationService,
+    public ps: GisService,
+    public messageService: MessageService
+  )  { }
 
   ngOnInit(): void {
   }

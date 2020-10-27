@@ -38,7 +38,7 @@ import { HttpClientModule } from "@angular/common/http";
     DropdownModule,
     ConfirmDialogModule,
   ],
-  exports: [TabsModule ,ChartModule,
+  exports: [TabsModule ,ChartModule,FormsModule ,HttpClientModule ,
     CheckboxModule,
     AccordionModule,
     TabViewModule,

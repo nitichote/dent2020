@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment';
+//import { environment } from 'src/environments/environment';
 
 import { Injectable } from "@angular/core";
 // import {Http, Response, Headers, RequestOptions} from '@angular/http';
@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { BehaviorSubject } from "rxjs";
 @Injectable()
-export class DentssjService {
+export class GisService {
   hasToken(): boolean {
     return !!localStorage.getItem("token");
     console.log("return token");
@@ -33,8 +33,8 @@ export class DentssjService {
   
  
  // api = `${environment.api}/dentssj/`;
-api = `http://digitalmolar.com:3002/dentssj/`;
-//api="http://127.0.0.1:3002/dentssj/";
+//api = `http://digitalmolar.com:3002/dentssj/`;
+api="http://127.0.0.1:3002/gisspace/";
  getdobj(){
      const dobj={
      khets:[1,2,3,4,5,6,7,8,9,10,11,12],
