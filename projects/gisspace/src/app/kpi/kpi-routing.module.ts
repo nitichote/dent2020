@@ -5,7 +5,7 @@ import { KpiMapComponent } from './kpi-map.component';
 KpiMapComponent
 const routes: Routes = [
   {path: '',
-  component: KpiHomeComponent},
+  component: KpiMapComponent},
   {path: 'map',
   component: KpiMapComponent},
 ];

@@ -9,11 +9,13 @@
         <button type="button" class="btn btn-danger"  style="margin-right:10px" (click)="getKpiChoice(2)">ตรวจฟันANC</button>
         <button type="button" class="btn btn-warning" style="margin-right:10px"  (click)="getKpiChoice(3)">ทาฟลูออไรด์4-12ปี</button>
         <button type="button" class="btn btn-info"  style="margin-right:10px" (click)="getKpiChoice(4)" >เคลือบร่องฟัน6-12ปี</button>
+        <button type="button" class="btn btn-success"  style="margin-right:10px" (click)="getTuntaShow()" >แสดงทันตา</button>
+        <button type="button" class="btn btn-warning"  style="margin-right:10px" (click)="getFilterTunta('36')" >ชัยภูมิ</button>
     </div>
 </div>
 
 <div><h2>แสดง GIS รายอำเภอ : {{kpiNow?.kpiTitle}}</h2></div>
 
-<div id="map" style="height: 900px; width: 900px" class="map">
+<div id="map" style="height: 700px; width: 100vh" class="map">
     ssss
   </div>

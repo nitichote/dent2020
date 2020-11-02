@@ -105,6 +105,18 @@ this.getShowKpis();
       fillOpacity: 0.7,
     };
   };
+  styleLayerTunta = (feature) => {
+    let color = "";
+    color = this. getTuntaColor(feature.properties.id);
+    return {
+   fillColor: color,//", //this.getDentistColor(feature.properties.id),
+    weight: 2,
+    opacity: 1,
+    color: "white",
+   // dashArray: "3",
+    fillOpacity: 0.9,
+  };
+};
   styleLayerR9 = (feature) => {
       return {
      fillColor: "green",//", //this.getDentistColor(feature.properties.id),
@@ -123,14 +135,43 @@ this.getShowKpis();
     this.geojsonLayerR9.bringToFront();
    
   }
+  getTuntaColor(d) {
+    // console.log("D=",d);
+    let tcolor="";
+     let p = this.tuntar9.filter((x) => {
+      // if(x.tamboncode == d){
+    //  console.log('tcode=',x.tamboncode,'d=',d);
+      // }
+       return x.tamboncode == d;
+     });
+  
+ if(p.length>0){ 
+  if(p[0]['tuntasum']>0 && p[0]['assistsum']>0) {
+    tcolor = '#00FF00';
+    }   
+  if(p[0]['tuntasum']>0 && p[0]['assistsum']==p[0]['tuntasum']) {
+    tcolor = '#00FFFF';
+    }
+
+if(p[0]['tuntasum']>0 && p[0]['assistsum']< p[0]['tuntasum']) {
+  tcolor = '#FFFF00';
+
+  }
+  if(p[0]['tuntasum']==0 ) {
+    tcolor = '#FF0000';
+      }
+    }else{
+      tcolor="#000000";
+    }
+      return tcolor;
+    }
   getKpiColor(d) {
    // console.log("D=",d);
     let p = this.kpis.filter((x) => {
      // console.log("x=",x);
       
       return x.ampcode == d;
-    });
-   
+    });  
     
    // console.log("p=",p[0]);
 
@@ -174,6 +215,7 @@ this.kpirate = this.kpiNow.kpirate;
   geojsonLayerBase:any;
   geojsonLayerR9:any;
   geojsonLayerKpi:any;
+  geojsonLayerTunta:any;
   showBaseMap(mymap) {
     this.geojsonLayerBase = L.geoJson(this.pvarea, {
     //  style: this.styleLayerKpi,
@@ -183,6 +225,7 @@ this.kpirate = this.kpiNow.kpirate;
     // this.getInfo();
     //  this.info.addTo(this.mymap);
   }
+
   showR9Map(mymap) {
     this.geojsonLayerR9 = L.geoJson(area.r9, {
     style: this.styleLayerR9,
@@ -191,6 +234,48 @@ this.kpirate = this.kpiNow.kpirate;
   //  mymap.fitBounds(this.geojsonLayer1.getBounds());
     // this.getInfo();
     //  this.info.addTo(this.mymap);
+  }
+  geoLayerTumbon30:any;
+  geoLayerTumbon31:any;
+  geoLayerTumbon32:any;
+  geoLayerTumbon36:any;
+  geojsonLayerTumbon:any;
+  showTumbonMap(mymap) {
+   
+    this.geojsonLayerTumbon = L.geoJson(area.tambonr9, {
+    style: this.styleLayerR9,
+  // onEachFeature: this.onEachFeatureLayerR9,
+    }).addTo(mymap);
+    this.mymap.removeLayer(this.geojsonLayerR9);
+    this.geojsonLayerBase.bringToFront();
+   // this.mymap.removeLayer(this.geojsonLayerBase);
+  }
+  
+  getFilterTunta(pvcode){
+  
+    this.geojsonLayerTunta = L.geoJson(area.tambonr9, {
+      style: this.styleLayerTunta,
+      filter:function(feature, layer) {
+     //   console.log("feature.properties.id=",feature.properties.id,"pvcode=",pvcode);
+        let id:string = feature.properties.id;
+
+       return id.substr(0,2)==pvcode;
+    }
+    // onEachFeature: this.onEachFeatureLayerR9,
+      }).addTo(this.mymap);
+   //   this.mymap.removeLayer(this.geojsonLayerR9);
+      this.geojsonLayerBase.bringToFront();
+     // this.mymap.removeLayer(this.geojsonLayerBase);
+  }
+  showTuntaMap(mymap) {
+   
+    this.geojsonLayerTunta = L.geoJson(area.tambonr9, {
+    style: this.styleLayerTunta,
+  // onEachFeature: this.onEachFeatureLayerR9,
+    }).addTo(mymap);
+    this.mymap.removeLayer(this.geojsonLayerR9);
+    this.geojsonLayerBase.bringToFront();
+   // this.mymap.removeLayer(this.geojsonLayerBase);
   }
   ngAfterViewInit() {
     //this.myData=this.dt.nativeElement;
@@ -210,8 +295,72 @@ this.kpirate = this.kpiNow.kpirate;
   this.getShowR9();
   }
   kpis: any = [];
+  tuntar9=[];
+  getTuntaShow(){
+this.showTumbonMap(this.mymap);
+this.showTuntaMap(this.mymap);
+  }
+  getTuntaR9(){
+    this.ps.getReportView(6).then((x) => {
+      this.tuntar9 = x["message"];
+    //console.log("ggg", this.tuntar9);
+    });
+
+  }
+  info:any;
+  getInfo() {
+    //console.log("myRpvs=",this.rpvs);
+
+    this.info = L.control(); // #1
+
+    this.info.onAdd = function (map) {
+      this._div = L.DomUtil.create("div", "info");
+      this.update();
+      return this._div;
+    };
+    const vv = this;
+    this.info.update = function (properties) {
+      let pv;
+      let kpi;
+      let ms = "x";
+      if (properties) {
+        pv = vv.tuntar9.filter((x) => {
+          return x.tamboncode == properties.id;
+        });
+       
+        ms =
+          "<h4>จังหวัด" +
+          pv[0]["pvname"] +
+          "</h4><br>" +
+         
+          "อำเภอ:" +
+          pv[0]["ampname"] +
+          "<br>" +
+          "ตำบล:" +
+          properties.name +
+          "<br>" +
+          "จำนวนทันตาภิบาล:" +
+          pv[0]["tuntasum"] +
+          "<br>" +
+          "จำนวนผู้ช่วย:" +
+          pv[0]["assistsum"] +
+          "<br>" +
+          "จำนวน รพสต:" +
+          pv[0]["rpstsum"] +
+          "ชื่อรพสต.:" +
+          pv[0]["rpsts"] +
+          "<br>" +
+          "<br><hr>" 
+          ;
+      }
+      this._div.innerHTML = properties ? ms : "เลื่อนเม้าท์ไปบนแผนที่";
+    };
+
+    //this.info.addTo(this.mymap);
+  }
   ngOnInit(): void {
     this.colors100.reverse();
+    this.getTuntaR9();
     this.ps.getReportView(4).then((x) => {
       this.kpis = x["message"];
     //  console.log("ggg", this.kpis);
