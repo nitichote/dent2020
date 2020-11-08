@@ -36,6 +36,12 @@
     },
     {
       "path": "./projects/gisspace/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/dentoffice/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/dentoffice/tsconfig.spec.json"
     }
   ]
 }

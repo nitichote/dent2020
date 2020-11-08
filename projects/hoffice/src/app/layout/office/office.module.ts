@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { OfficeRoutingModule } from './office-routing.module';
 import { HomeOfficeComponent } from './home-office.component';
-
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [HomeOfficeComponent],
-  imports: [
+  imports: [AccordionModule.forRoot(),
     CommonModule,
     OfficeRoutingModule
   ]
