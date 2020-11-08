@@ -1,14 +1,14 @@
-<p>home-office works!</p>
-<div class="container">
+<p>home-office works!2</p>
+
     <div class="row row-small-gutter ">
         <div class="col-2">
             <div class="card  h-100 ">
                 <img class="card-img-top" src="holder.js/100x180/" alt="">
                 <div class class="card-body">
                     <h4 class="card-title">Title</h4>
-                    <ul id='menu'>
+                    <ul id='menu' *ngFor="let a of amps;let i=index" >
                         <li>
-                            เมือง
+                           <a href="javascript:void(0)" (click)="getHosInAmps(a.ampcode)" >{{a.ampname}}</a> 
                         </li>
 
                     </ul>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-7">
             <div class="card row-small-gutte ">
               
                 <div class="card-body">
@@ -42,22 +42,51 @@
                           </nav>
                 </div>
             </div>
-            <div class="card  h-100 " >
+            <div class="card  " *ngFor="let h of hoss; let i=index" >
                 <img class="card-img-top" src="holder.js/100x180/" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Text</p>
+                 <div class="container">
+                     <div class="row">
+                         <div class="col-3">
+                            <p class="card-text">{{h.tbname}}</p><div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary">Left</button>
+                                <button type="button" class="btn btn-secondary">Middle</button>
+                                <button  (click)="getOfficeDetail(h.off_id)" type="button" class="btn btn-secondary">Right</button>
+                              </div>
+                         </div>
+                         <div class="col">
+                             <div>จำนวนประชากร:</div> 
+                             <div>ทันตแพทย์ที่ปรึกษา:</div> 
+                        </div>
+                     </div>
+                 </div>
+                    <h4 class="card-title">{{h.off_name}}</h4>
+                    
                 </div>
             </div>
         </div>
-        <div class="col-2">
-            <div class="card  h-100">
+        <div class="col-3">
+            <div class="card  h-20">
                 <img class="card-img-top" src="holder.js/100x180/" alt="">
                 <div class="card-body">
-                    <h4 class="card-title">Title</h4>
+                    <h4 class="card-title">ทันตบุคลากร</h4>
+                    <p class="card-text">Text</p>
+                </div>
+            </div>
+            <div class="card  h-20">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">ยูนิตทันตกรรม</h4>
+                    <p class="card-text">Text</p>
+                </div>
+            </div>
+            <div class="card  h-20">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">ผลงาน</h4>
                     <p class="card-text">Text</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
