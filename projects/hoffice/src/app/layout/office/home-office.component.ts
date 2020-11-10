@@ -10,14 +10,23 @@ export class HomeOfficeComponent implements OnInit {
   offices = [];
   amps = [];
   hoss = [];
+  officePersons=[];
   getHosInAmps(ampcode: string) {
     this.hoss = this.offices.filter((x) => x.ampcode === ampcode);
     console.log("hoss=", this.hoss);
   }
   getOfficeDetail(off_id) {
     console.log("off=", off_id);
+this.officePersons=this.persons.filter(x=>{
+  return x.off_id === off_id;
+});
   }
+  persons=[];
   ngOnInit(): void {
+    this.ps.getReport("3").then(x=>{
+this.persons=x["message"];
+console.log("person=",this.persons);
+    });
     this.ps.getReport("2").then((x) => {
       this.offices = x["message"];
       console.log(this.offices);

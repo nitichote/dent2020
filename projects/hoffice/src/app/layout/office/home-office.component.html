@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <h4 class="card-title">{{ h.off_name }}</h4>
+        <h4 class="card-title"><a href="javascript:void(0)" (click)="getOfficeDetail(h.off_id)" style="cursor:pointer">{{ h.off_name }}</a></h4>
       </div>
     </div>
   </div>
@@ -78,18 +78,18 @@
             ><h4 class="card-title">
               ทันตบุคลากร <span>🐯</span>
               <span class="float-right"
-                ><<input
+                ><input
                   name=""
                   id=""
                   class="btn btn-primary"
                   type="button"
                   value="+"
-                />></span
+                /></span
               >
             </h4></span
           ><span class="pull-right"> เพิ่ม</span>
         </div>
-        <div class="pull-right">ffff</div>
+        <div class="pull-right" *ngFor="let p of officePersons" >{{p.dname}}</div>
         <p class="card-text">Text</p>
       </div>
     </div>
