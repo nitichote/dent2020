@@ -8,8 +8,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { PipeHosPipe } from './pipe-hos.pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PipeHosPipe],
   imports: [  AccordionModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,

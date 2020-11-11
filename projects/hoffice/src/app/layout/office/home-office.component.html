@@ -44,8 +44,21 @@
             </div>
           </form>
         </nav>
+        <nav class="navbar navbar-light bg-light">
+        
+          <form class="mx-2 my-auto d-inline w-100">
+           
+            <h3>คัดกรองการแสดงผล</h3>
+            <p-checkbox name="groupname" value="1" label="เฉพาะ รพ." [(ngModel)]="selectedValues"></p-checkbox>
+            <p-checkbox name="groupname" value="2" label="เฉพาะ รพสต." [(ngModel)]="selectedValues"></p-checkbox>
+            <p-checkbox name="groupname" value="3" label="เฉพาะ รพสต.ที่มีทันตาภิบาล" [(ngModel)]="selectedValues"></p-checkbox>
+            <hr>
+    
+          </form>
+        </nav>
       </div>
     </div>
+    <div style="overflow:scroll;height:500px;">
     <div class="card" *ngFor="let h of hoss; let i = index">
       <img class="card-img-top" src="holder.js/100x180/" alt="" />
       <div class="card-body">
@@ -68,6 +81,7 @@
         <h4 class="card-title"><a href="javascript:void(0)" (click)="getOfficeDetail(h.off_id)" style="cursor:pointer">{{ h.off_name }}</a></h4>
       </div>
     </div>
+  </div>
   </div>
   <div class="col-3">
     <div class="card h-20">
@@ -96,8 +110,17 @@
     <div class="card h-20">
       <img class="card-img-top" src="holder.js/100x180/" alt="" />
       <div class="card-body">
-        <h4 class="card-title">ยูนิตทันตกรรม</h4>
-        <p class="card-text">Text</p>
+        <h4 class="card-title">ยูนิตทันตกรรม <span class="float-right"
+          ><input
+            name=""
+            id=""
+            class="btn btn-primary"
+            type="button"
+            value="+"
+          /></span
+        >
+      </h4>
+        <div class="pull-right" *ngFor="let p of hosunits" >{{p.uname + " " +p.ubrand}}</div>
       </div>
     </div>
     <div class="card h-20">

@@ -19,5 +19,6 @@ import { HttpClientModule } from "@angular/common/http";
     CommonModule,
     LayoutRoutingModule,
   ],
+  exports:[SharelibModule,]
 })
 export class LayoutModule {}

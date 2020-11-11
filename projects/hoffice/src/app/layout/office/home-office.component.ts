@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,ViewEncapsulation } from "@angular/core";
 import { HofficeService } from "../../service/hoffice_service";
 @Component({
   selector: "app-home-office",
   templateUrl: "./home-office.component.html",
   styleUrls: ["./home-office.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeOfficeComponent implements OnInit {
   constructor(private ps: HofficeService) {}
@@ -11,18 +12,30 @@ export class HomeOfficeComponent implements OnInit {
   amps = [];
   hoss = [];
   officePersons=[];
+  hosunits=[];
+  selectedValues=0;
   getHosInAmps(ampcode: string) {
     this.hoss = this.offices.filter((x) => x.ampcode === ampcode);
     console.log("hoss=", this.hoss);
+    this.officePersons=[];
+    this.hosunits=[];
   }
   getOfficeDetail(off_id) {
     console.log("off=", off_id);
 this.officePersons=this.persons.filter(x=>{
   return x.off_id === off_id;
 });
+this.hosunits=this.units.filter(x=>{
+  return x.off_id === off_id;
+});
   }
   persons=[];
+  units=[];
   ngOnInit(): void {
+    this.ps.getReport("4").then(x=>{
+      this.units=x["message"];
+      console.log("unit=",this.units);
+          });
     this.ps.getReport("3").then(x=>{
 this.persons=x["message"];
 console.log("person=",this.persons);

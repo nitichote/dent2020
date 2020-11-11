@@ -20,6 +20,7 @@ import { TestComponent } from './test/test.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DentContactShowComponent } from './dent-contact-show.component';
 import { ChartsModule } from 'ng2-charts';
+import { PipeHospitalsPipe } from './pipe-hospitals.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ChartsModule } from 'ng2-charts';
     DpersonWidgetComponent,
     TestComponent,
     DentContactShowComponent,
+    PipeHospitalsPipe,
   ],
   imports: [
     ChartsModule,
