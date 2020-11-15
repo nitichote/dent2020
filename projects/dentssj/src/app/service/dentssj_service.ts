@@ -33,7 +33,7 @@ export class DentssjService {
   
  
  // api = `${environment.api}/dentssj/`;
-api = `http://digitalmolar.com:3002/dentssj/`;
+api = `https://digitalmolar.com:3002/dentssj/`;
 //api="http://127.0.0.1:3002/dentssj/";
  getdobj(){
      const dobj={

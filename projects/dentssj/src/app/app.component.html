@@ -633,7 +633,7 @@
       <div style="height: 20px">.</div>
       <div class="container">
         <div class="row">
-          <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="col-3">
             <div class="info-box">
               <span class="info-box-icon bg-aqua">
                 <span class="info-box-icon bg-green"
@@ -915,6 +915,55 @@
           </div>
         </div>
       </div>
+    </tab>
+    <tab heading="Data Exchange">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4>รายงาน Data Exchange ในระบบ HDC จำนวน39 รายงาน เมื่อ Login แล้ว ท่านสามารถ คลิ้กที่ link เพื่อ Download Data Exchange ได้ที่นี่</h4>
+             (ท่านต้องเข้าไปที่ระบบ HDC จังหวัดเแล้ว login เพื่อมีสิทธิ์ในการ download data exchange จากนั้น จึงใช้ link ในหน้านี้เพอื่ทำการเลือกรายงานที่ต้องการจัดเก็บ  )
+             <h5>จังหวัด {{ userpvname }}</h5> <p-table
+                  [value]="dexchanges"
+                  [ngStyle]="{ 'font-size': '0.6em' }"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th [ngStyle]="{ width: '20px' }">ลำดับ</th>
+                      <th [ngStyle]="{ width: '100px' }">หมวดหมู่</th>
+                      <th [ngStyle]="{ width: '400px' }">รายงาน</th>
+                     
+                     
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-de let-ri="rowIndex">
+                    <tr>
+                      <td align="center">{{ ri + 1 }}</td>
+
+                      <td>{{de?.cat }}</td>
+
+                      <td [ngStyle]="{ 'font-size': '0.9em', width: '100px' }">
+                    
+                       <div *ngIf="isLogin" ><a href="{{pvLink+de?.url }}" target="_blank"> {{ de?.report_name }}</a>
+                   </div>
+                   <div *ngIf="! isLogin" >กรุณาLogin เพื่อ ดูรายงาน
+                   </div>
+                      </td>
+                    
+                      
+                    </tr>
+                  </ng-template>
+              
+                </p-table>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="คู่มือ">
+      <div style="margin:30px"><a href="https://1drv.ms/b/s!AjCV3qKMiqhsrW4Wg_BtHt8bjJMW?e=MiOKji" target="_blank">คู่มือการปรับปรุงข้อมูลบุคลากรทันตสสจ.</a></div>
+    
     </tab>
   </tabset>
 </div>
@@ -1220,6 +1269,6 @@
 
 <p-toast position="center">ddddddd</p-toast>
 <div #xx id="xx">
-  fdvdvdsvgsdsdfsfsdsd
+ ...
 </div>
 <router-outlet></router-outlet>

@@ -114,6 +114,11 @@ export class AppComponent {
         this.getPvnow(this.pvs[k]["pvcode"]);
 
         this.isShowPv = true;
+        let p =this.syspv.find(x=> x.pvcode == this.pincode);
+        
+        this.pvLink = 'https://'+p['ucode']
+        console.log('pvlink=',this.pvLink);
+        
       } else {
         this.showMessageLogin = false;
         this.doShowErrMessage();
@@ -995,6 +1000,7 @@ this.menuTitle ="แสดง "+k;
     { pic: "./assets/img/Slide4_resize.jpg" },
   ];
   pdfSrc = "./assets/img/ssjclub.pdf";
+  pdfSrc2 ='https://1drv.ms/b/s!AjCV3qKMiqhsrW4Wg_BtHt8bjJMW?e=MiOKji';
   getKpiValue(pvcode) {
     let p: any;
     p = this.kpis.find((x) => x.pvcode == pvcode && x.kpi == "fluoride");
@@ -1060,7 +1066,14 @@ this.menuTitle ="แสดง "+k;
 
   cols: any[];
   exportColumns: any[];
+  dexchanges=[];
+  syspv=[];
+  pvLink="";
   ngOnInit(): void {
+    this.ps.getReportView(7).then(x=>{this.dexchanges = x["message"];  console.log(this.dexchanges);});
+    this.ps.getReportView(8).then(x=>{this.syspv = x["message"];});
+  
+    
     const reversed = this.colors100.reverse();
     this.cols = [
       { field: 'khet', header: 'KHET' },
