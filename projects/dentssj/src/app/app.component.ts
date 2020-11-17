@@ -99,6 +99,12 @@ export class AppComponent {
     }
     return bgcol;
   }
+  goGenLink(pvcode){
+    let p =this.syspv.find(x=> x.pvcode == pvcode);
+        
+    return 'https://'+p['ucode'];
+  }
+  pvcodelink='';
   doLogIn() {
     if (this.txtPincode.trim().substr(0, 1).toLowerCase() == "p") {
       this.pincode = this.txtPincode.trim().substr(1, 2);
@@ -114,10 +120,10 @@ export class AppComponent {
         this.getPvnow(this.pvs[k]["pvcode"]);
 
         this.isShowPv = true;
-        let p =this.syspv.find(x=> x.pvcode == this.pincode);
+      /*   let p =this.syspv.find(x=> x.pvcode == this.pincode);
         
         this.pvLink = 'https://'+p['ucode']
-        console.log('pvlink=',this.pvLink);
+        console.log('pvlink=',this.pvLink); */
         
       } else {
         this.showMessageLogin = false;

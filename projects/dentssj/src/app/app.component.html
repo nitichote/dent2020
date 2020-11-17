@@ -921,9 +921,21 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4>รายงาน Data Exchange ในระบบ HDC จำนวน39 รายงาน เมื่อ Login แล้ว ท่านสามารถ คลิ้กที่ link เพื่อ Download Data Exchange ได้ที่นี่</h4>
-             (ท่านต้องเข้าไปที่ระบบ HDC จังหวัดเแล้ว login เพื่อมีสิทธิ์ในการ download data exchange จากนั้น จึงใช้ link ในหน้านี้เพอื่ทำการเลือกรายงานที่ต้องการจัดเก็บ  )
-             <h5>จังหวัด {{ userpvname }}</h5> <p-table
+              <h4>รายงาน Data Exchange ในระบบ HDC จำนวน39 รายงาน เมื่อ เลือกจังหวัด แล้ว ท่านสามารถ คลิ้กที่ link เพื่อ Download Data Exchange ได้ที่นี่</h4>
+             (ท่านต้องเข้าไปที่ระบบ HDC จังหวัดเแล้ว login เพื่อมีสิทธิ์ในการ download data exchange จากนั้น จึงใช้ link ในหน้านี้เพื่อทำการเลือกรายงานที่ต้องการจัดเก็บ  )
+            
+             <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">เลือกจังหวัด</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="pvcodelink" >
+                <option selected>Choose...</option>
+                <option *ngFor="let p of pvs" [value]="p.pvcode">{{p.pvname}}</option>
+               
+              </select>
+              
+            </div>
+             <p-table
                   [value]="dexchanges"
                   [ngStyle]="{ 'font-size': '0.6em' }"
                 >
@@ -944,9 +956,9 @@
 
                       <td [ngStyle]="{ 'font-size': '0.9em', width: '100px' }">
                     
-                       <div *ngIf="isLogin" ><a href="{{pvLink+de?.url }}" target="_blank"> {{ de?.report_name }}</a>
+                       <div *ngIf="pvcodelink !=''" ><a href="{{goGenLink(pvcodelink)+de?.url }}" target="_blank"> {{ de?.report_name }}</a>
                    </div>
-                   <div *ngIf="! isLogin" >กรุณาLogin เพื่อ ดูรายงาน
+                   <div *ngIf="pvcodelink==''" >กรุณาเลือกจังหวัด
                    </div>
                       </td>
                     
