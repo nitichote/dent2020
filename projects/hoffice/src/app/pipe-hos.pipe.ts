@@ -10,7 +10,7 @@ export class PipeHosPipe implements PipeTransform {
     let a0=args[0];
     if(a0==1){
 v.filter(x=>{
-  return x.
+  return "d"
 });
     }
     if(a0==2){

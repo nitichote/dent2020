@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./report/report.module").then((m) => m.ReportModule),
       },
+      {
+        path: "network",
+        loadChildren: () =>
+          import("./network/network.module").then((m) => m.NetworkModule),
+      },
     ],
   },
 ];
