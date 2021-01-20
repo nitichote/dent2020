@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api:'http://188.166.178.13:3002'
+  api:'https://digialmolar.com:3002'
 };
 
 /*

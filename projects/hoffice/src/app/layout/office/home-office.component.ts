@@ -1,5 +1,6 @@
 import { Component, OnInit,ViewEncapsulation } from "@angular/core";
 import { HofficeService } from "../../service/hoffice_service";
+
 @Component({
   selector: "app-home-office",
   templateUrl: "./home-office.component.html",

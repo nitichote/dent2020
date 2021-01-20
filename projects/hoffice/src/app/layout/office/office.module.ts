@@ -5,10 +5,10 @@ import { OfficeRoutingModule } from './office-routing.module';
 import { HomeOfficeComponent } from './home-office.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { SharelibModule } from 'src/app/sharelib/sharelib.module';
-
+import { FormsModule }    from '@angular/forms';
 @NgModule({
   declarations: [HomeOfficeComponent],
-  imports: [AccordionModule.forRoot(),
+  imports: [AccordionModule.forRoot(),FormsModule,
     CommonModule,SharelibModule,
     OfficeRoutingModule
   ]
