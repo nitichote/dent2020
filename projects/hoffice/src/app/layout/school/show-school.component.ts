@@ -61,7 +61,7 @@ export class ShowSchoolComponent implements OnChanges {
   doLogin() {
     this.pincode = this.txtPincode.trim().slice(1);
     
-    console.log("pincode=", this.pincode);
+    //console.log("pincode=", this.pincode);
     if (this.pincode.length == 4 && this.txtPincode.substr(0, 1) == "s") {
       let k = this.amps.findIndex(x => x.code == this.pincode);
       if (k > -1) {
@@ -121,7 +121,7 @@ export class ShowSchoolComponent implements OnChanges {
 
   cellData: any;
   myEditInit(e) {
-    console.log(e);
+    //console.log(e);
     let d = e.data;
     this.cellData = d[e.field];
   }
@@ -194,7 +194,7 @@ export class ShowSchoolComponent implements OnChanges {
 
   doSomething(currentValue: any) {
     //  throw new Error("Method not implemented.");
-    console.log(currentValue);
+    //console.log(currentValue);
   }
   offices: any = [];
   doSchoolTag(pincode) {
@@ -231,7 +231,7 @@ export class ShowSchoolComponent implements OnChanges {
   {
     this._http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
       this.ipAddress = res.ip;
-      console.log(this.ipAddress);
+     // console.log(this.ipAddress);
       
     });
   }
@@ -275,12 +275,12 @@ this.doSchoolTag(this.pincode);
     // this.hcode = "03967";
     this.ps.getAmp36().then((x) => {
       this.amps = x["message"];
-      console.log("amp ok");
+   
       
     });
     this.ps.getOfficesCpho().then((x) => {
       this.offices = x["message"];;
-      console.log("OfficesCpho ok");
+    
     });
     this.ps.getSchoolsEnv().then((x) => {
       this.schools = x["message"];

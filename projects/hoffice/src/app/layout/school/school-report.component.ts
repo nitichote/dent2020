@@ -43,7 +43,7 @@ export class SchoolReportComponent implements OnInit {
   schools:any=[];
 reportAmp:any=[];
   ngOnInit(): void {
-    let sql="select * from schoolresult";
+/*     let sql="select * from schoolresult";
  
     
     let data={
@@ -53,7 +53,9 @@ reportAmp:any=[];
       this.schools = x["message"];
      
       
-    });
+    }); */
+    this.ps.getReport('5').then((x) => {
+      this.schools = x["message"] });
     this.ps.getReport('1').then((x) => {
       this.reportAmp = x["message"] 
       let xx=Array.from(this.reportAmp,y=>y['name']);
