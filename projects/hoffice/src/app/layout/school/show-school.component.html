@@ -28,8 +28,8 @@
          <th>ลำดับ</th>
             <th>ชื่อโรงเรียน</th>
            
-            <th>หน่วยบริการ</th>
-
+            <th style="width:150px">หน่วยบริการ</th>
+            <th>แปรงฟันหลังอาหารกลางวัน</th>
             <th>ปลอดน้ำอัดลม</th>
             <th>ปลอดเครื่องดื่มรสหวาน</th>
             <th>ปลอดขนมกรุบกรอบ</th>
@@ -52,7 +52,26 @@
                   {{rowData.off_name}}
 
             </td>
-           
+            <td  style="text-align: center;" *ngIf="rowData.tag === 1" pEditableColumn [pEditableColumn]="rowData" [pEditableColumnRowIndex]="i"  [pEditableColumnField]="'toothbrush'">
+                <p-cellEditor>
+                     <ng-template pTemplate="input">
+                        <p-dropdown [options]="brush" [(ngModel)]="rowData.toothbrush" [style]="{'width':'100%'}"></p-dropdown>
+ 
+                                           </ng-template>
+                     <ng-template pTemplate="output">
+ 
+                         <div *ngIf="rowData.toothbrush==3" style="background-color: #31a56b;color:#fff;" >ทุกชั้นเรียน</div>
+                         <div *ngIf="rowData.toothbrush==2"   style="background-color: #b68c19;color:#fff;" >บางชั้นเรียน</div>
+                         <div *ngIf="rowData.toothbrush==1"   style="background-color: #b61919;color:#fff;" >ไม่มีกิจกรรม</div>
+                     </ng-template>
+                 </p-cellEditor>
+             </td>
+             <td *ngIf="rowData.tag != 1" style="background-color: #e6e5e3;text-align: center;">
+                <div *ngIf="rowData.toothbrush==3" style="background-color: #31a56b;color:#fff;" >ทุกชั้นเรียน</div>
+                <div *ngIf="rowData.toothbrush==2"   style="background-color: #b68c19;color:#fff;" >บางชั้นเรียน</div>
+                <div *ngIf="rowData.toothbrush==1"   style="background-color: #b61919;color:#fff;" >ไม่มีกิจกรรม</div>       
+            </td>
+
             <td  style="text-align: center;" *ngIf="rowData.tag === 1" pEditableColumn [pEditableColumn]="rowData" [pEditableColumnRowIndex]="i"  [pEditableColumnField]="'isnocoke'">
                <p-cellEditor>
                     <ng-template pTemplate="input">

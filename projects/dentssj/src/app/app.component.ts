@@ -157,6 +157,7 @@ export class AppComponent {
   sumVichakan = 0;
   sumClinic = 0;
   sumAssist = 0;
+  sumOthers=0;
   bgColor = "white";
   getPvinRegion(k) {
     //console.log("xxxx=",this.pvs);
@@ -371,13 +372,18 @@ export class AppComponent {
       0
     );
     this.sumAssist = this.rpvFilter.reduce(
-      (n, { assistnum }) => n + assistnum,
+      (n, { assist }) => n + assist,
+      0
+    );
+    this.sumOthers = this.rpvFilter.reduce(
+      (n, { others }) => n + others,
       0
     );
     this.totalDentist = this.sumDentist;
     this.totalTunta = this.sumTunta + this.sumVichakan;
-    this.totalAssist = this.sumAssist;
+    this.totalAssist = this.sumAssist+this.sumOthers;
     this.totalClinic = this.sumClinic;
+    this.totalOthers = this.sumOthers;
   }
   dentagegroups = [];
   dataDentistAge: any;
@@ -485,6 +491,7 @@ export class AppComponent {
   totalTunta = 0;
   totalClinic = 0;
   totalAssist = 0;
+  totalOthers=0;
   getReportDentnum() {
     this.ps.getReportDentnum().then((x) => {
       this.rpvs = x["message"];

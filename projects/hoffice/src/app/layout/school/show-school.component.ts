@@ -29,6 +29,7 @@ export class ShowSchoolComponent implements OnChanges {
   coke: any;
   sweet:any;
   candy:any;
+  brush:any;
   today = moment().format("YYYY-MM-DD hh:mm:ss");
   showAmp(ampcode) {
     this.schoolsAmp = this.schools.filter((x) => {
@@ -132,6 +133,8 @@ export class ShowSchoolComponent implements OnChanges {
       let isnocoke: any;
       let isnocandy:any;
       let isnosweet:any;
+      let isbrush:any;
+      isbrush=d["toothbrush"]
       isnocoke = d["isnocoke"];
       isnocandy = d["isnocandy"];
       isnosweet = d["isnosweet"];
@@ -141,6 +144,7 @@ export class ShowSchoolComponent implements OnChanges {
       let formData = {
         schoolid: schoolid,
         lastupdate: this.today,
+        toothbrush:isbrush,
         isnocoke: isnocoke,
         isnocandy:isnocandy,
         isnosweet:isnosweet,
@@ -156,6 +160,8 @@ export class ShowSchoolComponent implements OnChanges {
   }
   getSchoolAmp() {
     this.schoolsAmp = this.schools.filter((x) =>x.code == this.ampcode);
+    console.log(this.schoolsAmp);
+    
     if(this.pincode.length==4){
     this.doSchoolTag(this.pincode);
   }
@@ -253,6 +259,13 @@ this.doSchoolTag(this.pincode);
     } else{
       this.isLog=false;
     }
+    this.brush = [
+      { label: "โปรดเลือกรายการ", value: "0" },
+  { label: "แปรงฟันทุกชั้นเรียน", value: "3" },
+  { label: "แปรงฟันบางชั้นเรียน ", value: "2" },
+  { label: "ไม่มีกิจกรรมแปรงฟัน", value: "1" },
+  { label: "ไม่ระบุ", value: "0" }
+];
     this.coke = [
           { label: "โปรดเลือกรายการ", value: "0" },
       { label: "ไม่ปลอดน้ำอัดลม", value: "2" },
@@ -279,7 +292,7 @@ this.doSchoolTag(this.pincode);
       
     });
     this.ps.getOfficesCpho().then((x) => {
-      this.offices = x["message"];;
+      this.offices = x["message"];
     
     });
     this.ps.getSchoolsEnv().then((x) => {
