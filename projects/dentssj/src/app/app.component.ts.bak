@@ -1,4 +1,4 @@
-//import {ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy } from '@angular/core';
 import { tblProvince, tblContacts } from "./service/dentssjModel";
 import { Component, ViewEncapsulation , ViewChild, ElementRef,Renderer2 } from "@angular/core";
 import { DentssjService } from "./service/dentssj_service";
@@ -1135,14 +1135,6 @@ if(y.denttype==null){
 if(y.posname==""){
   mes+=y.dentname +" ไม่ระบุบทบาทในกลุ่มงาน,";
 }
-if(y.sex==null){
-  mes+=y.dentname +" ไม่ระบุเพศ,";
-}
-let jb:string=y.job;
-if(y.job==null || jb.length<3){
-  mes+=y.dentname +" ไม่ระบุตำแหน่ง";
-}
-
 var d1 = new Date( y.dateupdate);
 let d2 = new Date();
 let mon = this.monthDiff(d1,d2);
@@ -1151,18 +1143,16 @@ if(mon < maxmon){maxmon=mon;}
   });
   let dmes ="";
   if(maxmon>=6){
-    dmes="นานกว่า 6เดือน";
-  }else{
-    dmes="...ตรวจสอบ";
+    dmes="มากกว่า 6เดือน";
   }
-
-  let contact="";
-  if(x.contacttel==null){
-//console.log(x.pvname,x.contacttel);
-contact = " ...กลุ่มงานทันตะยังไม่ระบุผู้ติดต่อ";
-mes += contact;
+  if(maxmon=0){
+    dmes="ไปรดตรวจสอบ";
   }
- let ss:pitem = {lastupdate:`${dmes}` ,khet:x.khet,pvcode:x.pvcode,pvname:x.pvname,errTxt:mes,complete:0,contact:contact }
+ if(isNull(x.contacttel)){
+   console.log("contacttel",x.pvname);
+   
+ }
+ let ss:pitem = {lastupdate:`${dmes}` ,khet:x.khet,pvcode:x.pvcode,pvname:x.pvname,errTxt:mes,complete:0 }
 this.pvdetail.push(ss);
 
 });
@@ -1261,8 +1251,8 @@ export interface pitem {
     pvname:string,
     errTxt:string,
     complete:number,
-    lastupdate:string,
-    contact:string
+    lastupdate:string;
+   
      }
 export interface rpDentExcel {
   region?:string,

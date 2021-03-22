@@ -230,7 +230,7 @@
           >ผู้ช่วย {{ dentnum[0]?.assist }}</span
         >
         <span class="badge badge-pill badge-danger"
-        >อื่นๆ {{ dentnum[0]?.others }}</span
+        >ตำแหน่งอื่น {{ dentnum[0]?.others }}</span
       >
         <span *ngIf="pvNow.isclinic == 0" class="badge badge-pill badge-warning"
           >ไม่มีคลีนิก</span
@@ -284,7 +284,7 @@
       *ngFor="let r of contactInPv; let i = index"
       align="center"
       style="
-        height: 130px;
+        height: 150px;
         width: 270px;
         float: left;
         margin-left: 5px;
@@ -293,7 +293,7 @@
       "
     >
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" style="padding:20px">
           <span *ngIf="r?.sex == '1'"
             ><img src="./assets/images/male.png" width="24px" height="24px"
           /></span>
@@ -713,13 +713,23 @@
             <img class="card-img-top" src="holder.js/100x180/" alt="" />
             <div class="card-body">
               <h4 class="card-title">
-                ตารางแสดงข้อมูล<small> (เลือก เขตด้านบน)</small>
+                ตารางแสดงข้อมูล<small> (เลือก เขตที่ตัวเลือกด้านบน)</small>
               </h4>
-              <div style="height: 800px; overflow: scroll">
+              <div style="color:grey">
+             <div>ทันตาภิบาล หมายถึง จพ.ทันตสาธารณสุข </div>
+              <div>ผู้ช่วย หมายถึง ผู้ช่วยหรือลูกจ้างที่ทำหน้าที่ในคลีนิกทันตกรรม</div><div>ตำแหน่งอื่น หมายถึง บุคคลากรหรือลูกจ้างที่ทำหน้าที่อื่น เช่น BackOffice</div>
+           
+            </div>
+               <div style="height: 800px; overflow: scroll">
                 <p-table
                   [value]="rpvFilter"
                   [ngStyle]="{ 'font-size': '0.6em' }"
                 >
+                <ng-template pTemplate="caption">
+                  <div class="p-d-flex" align="right">
+                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExceldent()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                       </div>
+              </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
                       <th>ลำดับ</th>
@@ -730,7 +740,8 @@
                       <th>ทันตแพทย์</th>
                       <th>ทันตาภิบาล</th>
                       <th>นักวิชาการสาธารณสุข</th>
-                      <th>ผู้ช่วยทันตแพทย์</th>
+                      <th>ผู้ช่วย</th>
+                       <th>ตำแหน่งอื่น</th>
                       <th>Last Update</th>
                     </tr>
                   </ng-template>
@@ -768,7 +779,8 @@
                       >
                         {{ rpv?.vichakan }}
                       </td>
-                      <td align="center">{{ rpv?.assistnum }}</td>
+                      <td align="center">{{ rpv?.assist }}</td>
+                      <td align="center">{{ rpv?.others }}</td>
                       <td
                         [ngStyle]="{ 'font-size': '0.8em', width: '100px' }"
                         align="center"
@@ -979,6 +991,40 @@
       <div style="margin:30px"><a href="https://1drv.ms/b/s!AjCV3qKMiqhsrW4Wg_BtHt8bjJMW?e=MiOKji" target="_blank">คู่มือการปรับปรุงข้อมูลบุคลากรทันตสสจ.</a></div>
     
     </tab>
+    <tab heading="ตรวจสอบข้อมูล">
+      <p-table
+      [value]="pvdetail"
+      [ngStyle]="{ 'font-size': '0.6em' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th [ngStyle]="{ width: '60px' }">ลำดับ</th>
+          <th [ngStyle]="{ width: '100px' }">เขตสุขภาพ</th>
+          <th [ngStyle]="{ width: '120px' }">จังหวัด</th>
+          <th [ngStyle]="{ width: '120px' }">Updateล่าสุด</th>
+          <th [ngStyle]="{ width: '700px' }">ตรวจสอบคุณภาพข้อมูล</th>
+         
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-de let-ri="rowIndex">
+        <tr>
+          <td align="center">{{ ri + 1 }}</td>
+
+          <td>{{de?.khet }}</td>
+          <td>{{de?.pvname }}</td>
+          <td>{{de?.lastupdate }}</td>
+          <td>{{de?.errTxt }}</td>
+         
+
+          
+        
+          
+        </tr>
+      </ng-template>
+  
+    </p-table>
+    
+    </tab>
   </tabset>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
@@ -1062,7 +1108,7 @@
     </div>
     <div class="col-sm">
       <div class="form-group">
-        <label for="others">บุคลากรอื่นๆ</label>
+        <label for="others">บุคลากรตำแหน่งอื่น</label>
         <input
           type="text"
           name="others"
