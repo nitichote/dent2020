@@ -224,14 +224,14 @@
           >นวก. {{ dentnum[0]?.vichakan }}</span
         >
         <span class="badge badge-pill badge-success"
-          >ทันตาภิบาล {{ dentnum[0]?.tunta }}</span
+          >จพง.ทันตสาธารณสุข(ทันตาภิบาล) {{ dentnum[0]?.tunta }}</span
         >
         <span class="badge badge-pill badge-danger"
-          >ผู้ช่วย {{ dentnum[0]?.assist }}</span
+          >ผู้ช่วยทันตกรรม {{ dentnum[0]?.assist }}</span
         >
         <span class="badge badge-pill badge-danger"
-        >ตำแหน่งอื่น {{ dentnum[0]?.others }}</span
-      >
+          >ตำแหน่งอื่น {{ dentnum[0]?.others }}</span
+        >
         <span *ngIf="pvNow.isclinic == 0" class="badge badge-pill badge-warning"
           >ไม่มีคลีนิก</span
         >
@@ -277,15 +277,15 @@
         (click)="doAddNewContact()"
         class="btn btn-primary btn-sm"
       >
-        เพิ่มบุคลากร
+        เพิ่มบุคลากร(เฉพาะผู้ที่อยู่เป็นการประจำในสสจ.)
       </button>
     </div>
     <div
       *ngFor="let r of contactInPv; let i = index"
       align="center"
       style="
-        height: 150px;
-        width: 270px;
+        height: 170px;
+        width: 290px;
         float: left;
         margin-left: 5px;
         margin-bottom: 30px;
@@ -293,7 +293,7 @@
       "
     >
       <div class="card">
-        <div class="card-body" style="padding:20px">
+        <div class="card-body" style="padding: 20px">
           <span *ngIf="r?.sex == '1'"
             ><img src="./assets/images/male.png" width="24px" height="24px"
           /></span>
@@ -391,10 +391,12 @@
       <div class="row">
         <div class="col-4" style="padding: 10px; padding-top: 20px">
           <div class="card">
-            <div class="card" class="anti-gradient_{{klevel}}">
+            <div class="card" class="anti-gradient_{{ klevel }}">
               <img class="card-img-top" src="holder.js/100x180/" alt="" />
               <div class="card-body">
-                <h4 class="card-title" style="color:white;">Gis คลีนิกทันตกรรม</h4>
+                <h4 class="card-title" style="color: white">
+                  Gis คลีนิกทันตกรรม
+                </h4>
                 <div>
                   <span>
                     <p-checkbox
@@ -429,7 +431,7 @@
                 <div
                   class="legendMenu"
                   align="right"
-                  style="text-align: end; margin-bottom: 20px ;"
+                  style="text-align: end; margin-bottom: 20px"
                 >
                   <i
                     style="
@@ -566,61 +568,57 @@
               </div>
             </div>
           </div>
-<div class="card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">ผลงานตามKPI 2563</h4>
 
-  <div class="card-body">
-    <h4 class="card-title">ผลงานตามKPI 2563</h4>
-   
-    <div>
-      <span>
-        <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
-          href="javascript:void(0)"
-          (click)="getShowGeoLayerKpi('access',0.4)"
-          >อัตราการเข้าถึงบริการทันตกรรม</a
-        >
-      </span>
-    </div>
-    <div>
-      <span>
-        <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
-          href="javascript:void(0)"
-          (click)="getShowGeoLayerKpi('p14act',0.6)"
-          >รพสต.คุณภาพ14กิจกรรม</a
-        >
-      </span>
-    </div>
-    <div>
-      <span>
-        <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
-          href="javascript:void(0)"
-          (click)="getShowGeoLayerKpi('anc',0.5)"
-          >บริการตรวจและขูดหินปูนANC</a
-        >
-      </span>
-    </div>
-    <div>
-      <span>
-        <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
-          href="javascript:void(0)"
-          (click)="getShowGeoLayerKpi('fluoride',0.5)"
-          >บริการให้ฟลูออไรด์ใรเด็ก4-12ปี</a
-        >
-      </span>
-    </div>
-    <div>
-      <span>
-        <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
-          href="javascript:void(0)"
-          (click)="getShowGeoLayerKpi('sealant',0.5)"
-          >บริการเคลือบหลุมร่องฟันเด็ก6-12ปี</a
-        >
-      </span>
-    </div>
-    
-    
-  </div>
-</div>
-
+              <div>
+                <span>
+                  <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
+                    href="javascript:void(0)"
+                    (click)="getShowGeoLayerKpi('access', 0.4)"
+                    >อัตราการเข้าถึงบริการทันตกรรม</a
+                  >
+                </span>
+              </div>
+              <div>
+                <span>
+                  <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
+                    href="javascript:void(0)"
+                    (click)="getShowGeoLayerKpi('p14act', 0.6)"
+                    >รพสต.คุณภาพ14กิจกรรม</a
+                  >
+                </span>
+              </div>
+              <div>
+                <span>
+                  <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
+                    href="javascript:void(0)"
+                    (click)="getShowGeoLayerKpi('anc', 0.5)"
+                    >บริการตรวจและขูดหินปูนANC</a
+                  >
+                </span>
+              </div>
+              <div>
+                <span>
+                  <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
+                    href="javascript:void(0)"
+                    (click)="getShowGeoLayerKpi('fluoride', 0.5)"
+                    >บริการให้ฟลูออไรด์ใรเด็ก4-12ปี</a
+                  >
+                </span>
+              </div>
+              <div>
+                <span>
+                  <i class="fa fa-home" style="color: purple"></i>&nbsp;<a
+                    href="javascript:void(0)"
+                    (click)="getShowGeoLayerKpi('sealant', 0.5)"
+                    >บริการเคลือบหลุมร่องฟันเด็ก6-12ปี</a
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col-8">
           <div style="width: 100%">
@@ -715,21 +713,35 @@
               <h4 class="card-title">
                 ตารางแสดงข้อมูล<small> (เลือก เขตที่ตัวเลือกด้านบน)</small>
               </h4>
-              <div style="color:grey">
-             <div>ทันตาภิบาล หมายถึง จพ.ทันตสาธารณสุข </div>
-              <div>ผู้ช่วย หมายถึง ผู้ช่วยหรือลูกจ้างที่ทำหน้าที่ในคลีนิกทันตกรรม</div><div>ตำแหน่งอื่น หมายถึง บุคคลากรหรือลูกจ้างที่ทำหน้าที่อื่น เช่น BackOffice</div>
-           
-            </div>
-               <div style="height: 800px; overflow: scroll">
+              <div style="color: grey">
+                <div>
+                  ผู้ช่วยทันตกรรม หมายถึง
+                  ผู้ช่วยหรือลูกจ้างที่ทำหน้าที่ในคลีนิกทันตกรรม
+                </div>
+                <div>
+                  ตำแหน่งอื่น หมายถึง บุคคลากรหรือลูกจ้างที่ทำหน้าที่อื่น เช่น
+                  BackOffice
+                </div>
+              </div>
+              <div style="height: 800px; overflow: scroll">
                 <p-table
                   [value]="rpvFilter"
                   [ngStyle]="{ 'font-size': '0.6em' }"
                 >
-                <ng-template pTemplate="caption">
-                  <div class="p-d-flex" align="right">
-                          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExceldent()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
-                       </div>
-              </ng-template>
+                  <ng-template pTemplate="caption">
+                    <div class="p-d-flex" align="right">
+                      <button
+                        type="button"
+                        pButton
+                        pRipple
+                        icon="pi pi-file-excel"
+                        (click)="exportExceldent()"
+                        class="p-button-success p-mr-2"
+                        pTooltip="XLS"
+                        tooltipPosition="bottom"
+                      ></button>
+                    </div>
+                  </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
                       <th>ลำดับ</th>
@@ -738,10 +750,10 @@
                       <th>ขนาด</th>
                       <th>คลีนิกทันตกรรม</th>
                       <th>ทันตแพทย์</th>
-                      <th>ทันตาภิบาล</th>
+                      <th>จพง.ทันตสาธารณสุข(ทันตาภิบาล)</th>
                       <th>นักวิชาการสาธารณสุข</th>
-                      <th>ผู้ช่วย</th>
-                       <th>ตำแหน่งอื่น</th>
+                      <th>ผู้ช่วยทันตกรรม</th>
+                      <th>ตำแหน่งอื่น</th>
                       <th>Last Update</th>
                     </tr>
                   </ng-template>
@@ -869,62 +881,104 @@
     </tab>
     <tab heading="ผลงานตามKPI">
       <div class="card">
-        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <img class="card-img-top" src="holder.js/100x180/" alt="" />
         <div class="card-body">
-   <div><h4>ผลงานตามตัวชี้วัดปี 2563 </h4> <span style="text-align: end"><small>..ข้อมูลจากHDC ณ วันที่ 30 กย 2563</small></span>
- </div>     
- <div id="htmlData" #htmlData>
- <p-table id="dt" #dt [value]="kpiPv" class="table" sortMode="multiple" >
-  <ng-template pTemplate="caption">
-    <div class="p-d-flex" align="right">
-            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
-         </div>
-</ng-template>
-        <ng-template pTemplate="header">
-          
-          <tr>
-            <th scope="col" pSortableColumn="khet">เขต <p-sortIcon field="khet"></p-sortIcon></th>
-            <th scope="col">จังหวัด</th>
-            <th scope="col" pSortableColumn="anc">ANC<br />ตรวจฟัน <p-sortIcon field="anc"></p-sortIcon></th>
-            <th scope="col" pSortableColumn="fluoride">Fluoride<br />4-12Y<p-sortIcon field="fluoride"></p-sortIcon></th>
-            <th scope="col" pSortableColumn="sealant">Sealant<br />6-12Y<p-sortIcon field="sealant"></p-sortIcon></th>
-            <th scope="col" pSortableColumn="14act">14กิจกรรม<br />รพสต.<p-sortIcon field="14act"></p-sortIcon></th>
-            <th scope="col" pSortableColumn="access">อัตราเข้าถึง<br />ทันตกรรม<p-sortIcon field="access"></p-sortIcon></th>
-          </tr>
-        
-      </ng-template>
-      <ng-template pTemplate="body" let-v>
-     
-          <tr>
-            <th>{{ v.khet }}</th>
-            <td class="celltext"><span style="text-align: left;">{{v.pvname }}</span> </td>
-            <td class="anti-gradient_{{ getKpiLevel(v.anc/0.6)}}">{{ v.anc.toFixed(1) }}</td>
-            <td class="anti-gradient_{{ getKpiLevel(v.fluoride/0.5)}}">{{ v.fluoride.toFixed(1) }}</td>
-            <td class="anti-gradient_{{ getKpiLevel(v.sealant/0.5)}}">{{ v.sealant.toFixed(1) }}</td>
-            <td class="anti-gradient_{{ getKpiLevel(v.p14act/0.6)}}">{{ v.p14act.toFixed(1) }}</td>
-            <td class="anti-gradient_{{ getKpiLevel(v.access/0.4)}}">{{ v.access.toFixed(1) }}</td>
-          </tr>
-       
-      </ng-template>
-    </p-table>
-  </div>
+          <div>
+            <h4>ผลงานตามตัวชี้วัดปี 2563</h4>
+            <span style="text-align: end"
+              ><small>..ข้อมูลจากHDC ณ วันที่ 30 กย 2563</small></span
+            >
+          </div>
+          <div id="htmlData" #htmlData>
+            <p-table
+              id="dt"
+              #dt
+              [value]="kpiPv"
+              class="table"
+              sortMode="multiple"
+            >
+              <ng-template pTemplate="caption">
+                <div class="p-d-flex" align="right">
+                  <button
+                    type="button"
+                    pButton
+                    pRipple
+                    icon="pi pi-file-excel"
+                    (click)="exportExcel()"
+                    class="p-button-success p-mr-2"
+                    pTooltip="XLS"
+                    tooltipPosition="bottom"
+                  ></button>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th scope="col" pSortableColumn="khet">
+                    เขต <p-sortIcon field="khet"></p-sortIcon>
+                  </th>
+                  <th scope="col">จังหวัด</th>
+                  <th scope="col" pSortableColumn="anc">
+                    ANC<br />ตรวจฟัน <p-sortIcon field="anc"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="fluoride">
+                    Fluoride<br />4-12Y<p-sortIcon
+                      field="fluoride"
+                    ></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="sealant">
+                    Sealant<br />6-12Y<p-sortIcon field="sealant"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="14act">
+                    14กิจกรรม<br />รพสต.<p-sortIcon field="14act"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="access">
+                    อัตราเข้าถึง<br />ทันตกรรม<p-sortIcon
+                      field="access"
+                    ></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-v>
+                <tr>
+                  <th>{{ v.khet }}</th>
+                  <td class="celltext">
+                    <span style="text-align: left">{{ v.pvname }}</span>
+                  </td>
+                  <td class="anti-gradient_{{ getKpiLevel(v.anc / 0.6) }}">
+                    {{ v.anc.toFixed(1) }}
+                  </td>
+                  <td class="anti-gradient_{{ getKpiLevel(v.fluoride / 0.5) }}">
+                    {{ v.fluoride.toFixed(1) }}
+                  </td>
+                  <td class="anti-gradient_{{ getKpiLevel(v.sealant / 0.5) }}">
+                    {{ v.sealant.toFixed(1) }}
+                  </td>
+                  <td class="anti-gradient_{{ getKpiLevel(v.p14act / 0.6) }}">
+                    {{ v.p14act.toFixed(1) }}
+                  </td>
+                  <td class="anti-gradient_{{ getKpiLevel(v.access / 0.4) }}">
+                    {{ v.access.toFixed(1) }}
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
         </div>
       </div>
-
     </tab>
     <tab heading="กรรมการชมรม">
       <div class="row">
         <div class="col-xs-1-12">
           <div class="card">
             <div class="card-body">
-             
-            <div style="width:800px;height:500px;overflow:scroll">
-            <pdf-viewer [src]="pdfSrc" 
-              [render-text]="true"
-              style="display: block;"
-              [fit-to-page]="true"
-  ></pdf-viewer>
-            </div>  
+              <div style="width: 800px; height: 500px; overflow: scroll">
+                <pdf-viewer
+                  [src]="pdfSrc"
+                  [render-text]="true"
+                  style="display: block"
+                  [fit-to-page]="true"
+                ></pdf-viewer>
+              </div>
             </div>
           </div>
         </div>
@@ -935,95 +989,99 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h4>รายงาน Data Exchange ในระบบ HDC จำนวน39 รายงาน เมื่อ เลือกจังหวัด แล้ว ท่านสามารถ คลิ้กที่ link เพื่อ Download Data Exchange ได้ที่นี่</h4>
-             (ท่านต้องเข้าไปที่ระบบ HDC จังหวัดเแล้ว login เพื่อมีสิทธิ์ในการ download data exchange จากนั้น จึงใช้ link ในหน้านี้เพื่อทำการเลือกรายงานที่ต้องการจัดเก็บ  )
-            
-             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">เลือกจังหวัด</label>
-              </div>
-              <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="pvcodelink" >
-                <option selected>Choose...</option>
-                <option *ngFor="let p of pvs" [value]="p.pvcode">{{p.pvname}}</option>
-               
-              </select>
-              
-            </div>
-             <p-table
-                  [value]="dexchanges"
-                  [ngStyle]="{ 'font-size': '0.6em' }"
+              <h4>
+                รายงาน Data Exchange ในระบบ HDC จำนวน39 รายงาน เมื่อ
+                เลือกจังหวัด แล้ว ท่านสามารถ คลิ้กที่ link เพื่อ Download Data
+                Exchange ได้ที่นี่
+              </h4>
+              (ท่านต้องเข้าไปที่ระบบ HDC จังหวัดเแล้ว login เพื่อมีสิทธิ์ในการ
+              download data exchange จากนั้น จึงใช้ link
+              ในหน้านี้เพื่อทำการเลือกรายงานที่ต้องการจัดเก็บ )
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >เลือกจังหวัด</label
+                  >
+                </div>
+                <select
+                  class="custom-select"
+                  id="inputGroupSelect01"
+                  [(ngModel)]="pvcodelink"
                 >
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th [ngStyle]="{ width: '20px' }">ลำดับ</th>
-                      <th [ngStyle]="{ width: '100px' }">หมวดหมู่</th>
-                      <th [ngStyle]="{ width: '400px' }">รายงาน</th>
-                     
-                     
-                    </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-de let-ri="rowIndex">
-                    <tr>
-                      <td align="center">{{ ri + 1 }}</td>
+                  <option selected>Choose...</option>
+                  <option *ngFor="let p of pvs" [value]="p.pvcode">
+                    {{ p.pvname }}
+                  </option>
+                </select>
+              </div>
+              <p-table
+                [value]="dexchanges"
+                [ngStyle]="{ 'font-size': '0.6em' }"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th [ngStyle]="{ width: '20px' }">ลำดับ</th>
+                    <th [ngStyle]="{ width: '100px' }">หมวดหมู่</th>
+                    <th [ngStyle]="{ width: '400px' }">รายงาน</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-de let-ri="rowIndex">
+                  <tr>
+                    <td align="center">{{ ri + 1 }}</td>
 
-                      <td>{{de?.cat }}</td>
+                    <td>{{ de?.cat }}</td>
 
-                      <td [ngStyle]="{ 'font-size': '0.9em', width: '100px' }">
-                    
-                       <div *ngIf="pvcodelink !=''" ><a href="{{goGenLink(pvcodelink)+de?.url }}" target="_blank"> {{ de?.report_name }}</a>
-                   </div>
-                   <div *ngIf="pvcodelink==''" >กรุณาเลือกจังหวัด
-                   </div>
-                      </td>
-                    
-                      
-                    </tr>
-                  </ng-template>
-              
-                </p-table>
-            
+                    <td [ngStyle]="{ 'font-size': '0.9em', width: '100px' }">
+                      <div *ngIf="pvcodelink != ''">
+                        <a
+                          href="{{ goGenLink(pvcodelink) + de?.url }}"
+                          target="_blank"
+                        >
+                          {{ de?.report_name }}</a
+                        >
+                      </div>
+                      <div *ngIf="pvcodelink == ''">กรุณาเลือกจังหวัด</div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
             </div>
           </div>
         </div>
       </div>
     </tab>
     <tab heading="คู่มือ">
-      <div style="margin:30px"><a href="https://1drv.ms/b/s!AjCV3qKMiqhsrW4Wg_BtHt8bjJMW?e=MiOKji" target="_blank">คู่มือการปรับปรุงข้อมูลบุคลากรทันตสสจ.</a></div>
-    
+      <div style="margin: 30px">
+        <a
+          href="https://1drv.ms/b/s!AjCV3qKMiqhsrW4Wg_BtHt8bjJMW?e=MiOKji"
+          target="_blank"
+          >คู่มือการปรับปรุงข้อมูลบุคลากรทันตสสจ.</a
+        >
+      </div>
     </tab>
     <tab heading="ตรวจสอบข้อมูล">
-      <p-table
-      [value]="pvdetail"
-      [ngStyle]="{ 'font-size': '0.6em' }"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th [ngStyle]="{ width: '60px' }">ลำดับ</th>
-          <th [ngStyle]="{ width: '100px' }">เขตสุขภาพ</th>
-          <th [ngStyle]="{ width: '120px' }">จังหวัด</th>
-          <th [ngStyle]="{ width: '120px' }">Updateล่าสุด</th>
-          <th [ngStyle]="{ width: '700px' }">ตรวจสอบคุณภาพข้อมูล</th>
-         
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-de let-ri="rowIndex">
-        <tr>
-          <td align="center">{{ ri + 1 }}</td>
+      <p-table [value]="pvdetail" [ngStyle]="{ 'font-size': '0.6em' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th [ngStyle]="{ width: '60px' }">ลำดับ</th>
+            <th [ngStyle]="{ width: '100px' }">เขตสุขภาพ</th>
+            <th [ngStyle]="{ width: '120px' }">จังหวัด</th>
+            <th [ngStyle]="{ width: '120px' }">Updateล่าสุด</th>
+            <th [ngStyle]="{ width: '700px' }">ตรวจสอบคุณภาพข้อมูล</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-de let-ri="rowIndex">
+          <tr>
+            <td align="center">{{ ri + 1 }}</td>
 
-          <td>{{de?.khet }}</td>
-          <td>{{de?.pvname }}</td>
-          <td>{{de?.lastupdate }}</td>
-          <td>{{de?.errTxt }}</td>
-         
-
-          
-        
-          
-        </tr>
-      </ng-template>
-  
-    </p-table>
-    
+            <td>{{ de?.khet }}</td>
+            <td>{{ de?.pvname }}</td>
+            <td>{{ de?.lastupdate }}</td>
+            <td>{{ de?.errTxt }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </tab>
   </tabset>
 </div>
@@ -1073,7 +1131,7 @@
   <div class="row">
     <div class="col-sm">
       <div class="form-group">
-        <label for="tuntanum">จำนวน จพ.ทันตาภิบาล</label>
+        <label for="tuntanum">จำนวน จพง.ทันตสาธารณสุข(ทันตาภิบาล)</label>
         <input
           type="text"
           name="tuntanum"
@@ -1088,7 +1146,7 @@
     </div>
     <div class="col-sm">
       <div class="form-group">
-        <label for="assistnum">จำนวนผู้ช่วย/ลจ</label>
+        <label for="assistnum">จำนวนผู้ช่วยทันตกรรม/ลจ</label>
         <input
           type="text"
           name="assistnum"
@@ -1103,9 +1161,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm">
-
-    </div>
+    <div class="col-sm"></div>
     <div class="col-sm">
       <div class="form-group">
         <label for="others">บุคลากรตำแหน่งอื่น</label>
@@ -1228,7 +1284,9 @@
 </p-dialog>
 
 <p-dialog
-  header="ข้อมูลบุคลากรจังหวัด{{ pvNow?.pvname }}"
+  header="ข้อมูลบุคลากรใน สสจ.จังหวัด{{
+    pvNow?.pvname
+  }}(เฉพาะบุคลากรที่อยู่ประจำ)"
   [(visible)]="dgShowContact"
 >
   <! –– แถวที่1 ––>
@@ -1349,7 +1407,5 @@
 ></p-confirmDialog>
 
 <p-toast position="center">ddddddd</p-toast>
-<div #xx id="xx">
- ...
-</div>
+<div #xx id="xx">...</div>
 <router-outlet></router-outlet>

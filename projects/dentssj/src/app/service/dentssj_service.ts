@@ -1,11 +1,9 @@
-import { environment } from 'src/environments/environment';
+import { environment } from "src/environments/environment";
 
 import { Injectable } from "@angular/core";
 // import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
-
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { analyzeAndValidateNgModules } from "@angular/compiler";
@@ -29,23 +27,39 @@ export class DentssjService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
 
   // api = "https://dmfzero.com/api_egp/apis.php";
-  api1="";
-  
- 
- // api = `${environment.api}/dentssj/`;
-api = `https://digitalmolar.com:3002/dentssj/`;
-//api="http://127.0.0.1:3002/dentssj/";
- getdobj(){
-     const dobj={
-     khets:[1,2,3,4,5,6,7,8,9,10,11,12],
-     jobs:['ปฏิบัติงาน','อาวุโส','ชำนาญงาน','ชำนาญการ','ชำนาญการพิเศษ','เชี่ยวชาญ','ตำแหน่งอื่น'],
-     denttypes:['ทันตแพทย์','นวก','ทันตาภิบาล','ผู้ช่วย','ตำแหน่งอื่น'],
-     posnames:['หัวหน้ากลุ่มงาน','รักษาการ','บุคลากรในกลุ่มงาน'],
-    sexs:[{label:'ชาย',value:'1'},{label:'หญิง',value:'2'}]
-    };
-     return dobj;
+  api1 = "";
 
- }
+  // api = `${environment.api}/dentssj/`;
+  api = `https://digitalmolar.com:3002/dentssj/`;
+  //api="http://127.0.0.1:3002/dentssj/";
+  getdobj() {
+    const dobj = {
+      khets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      jobs: [
+        "ปฏิบัติงาน",
+        "อาวุโส",
+        "ชำนาญงาน",
+        "ปฏิบัติการ",
+        "ชำนาญการ",
+        "ชำนาญการพิเศษ",
+        "เชี่ยวชาญ",
+        "ตำแหน่งอื่น",
+      ],
+      denttypes: [
+        "ทันตแพทย์",
+        "นวก",
+        "จพง.ทันตสาธารณสุข(ทันตาภิบาล)",
+        "ผู้ช่วยทันตกรรม",
+        "ตำแหน่งอื่น",
+      ],
+      posnames: ["หัวหน้ากลุ่มงาน", "รักษาการ", "บุคลากรในกลุ่มงาน"],
+      sexs: [
+        { label: "ชาย", value: "1" },
+        { label: "หญิง", value: "2" },
+      ],
+    };
+    return dobj;
+  }
   async getgSearch(con, dname) {
     let api2020 = this.api + "gsearch/" + con + "/" + dname;
 
@@ -53,21 +67,20 @@ api = `https://digitalmolar.com:3002/dentssj/`;
   }
   async getPvGeo(pv: string) {
     {
-        const url =
-            'https://opendata.service.moph.go.th/gis/v1/geojson/2/' ;
-        return await this._http2.get(url).toPromise();
+      const url = "https://opendata.service.moph.go.th/gis/v1/geojson/2/";
+      return await this._http2.get(url).toPromise();
     }
-}
-async getReportView(id) {
-  let api2020 = this.api + "reportview/"+id;
+  }
+  async getReportView(id) {
+    let api2020 = this.api + "reportview/" + id;
 
-  return await this._http2.get(api2020).toPromise();
-}
-async getAgeRroup() {
-  let api2020 = this.api + "agegroup";
+    return await this._http2.get(api2020).toPromise();
+  }
+  async getAgeRroup() {
+    let api2020 = this.api + "agegroup";
 
-  return await this._http2.get(api2020).toPromise();
-}
+    return await this._http2.get(api2020).toPromise();
+  }
   async getDentnum() {
     let api2020 = this.api + "dentnum";
 
@@ -75,7 +88,7 @@ async getAgeRroup() {
   }
   async getReportDentnum() {
     let api2020 = this.api + "reportdentnum";
-//console.log(api2020);
+    //console.log(api2020);
 
     return await this._http2.get(api2020).toPromise();
   }
@@ -87,15 +100,14 @@ async getAgeRroup() {
   async getContacts() {
     let api2020 = this.api + "contacts";
 
-
     return await this._http2.get(api2020).toPromise();
   }
   async getOfficeCpho1(pincode) {
-    let api2020 = this.api + "officeCpho1/"+pincode;
+    let api2020 = this.api + "officeCpho1/" + pincode;
 
     return await this._http2.get(api2020).toPromise();
   }
-  
+
   async getOffices() {
     let api2020 = this.api + "offices";
 
@@ -295,10 +307,8 @@ async getAgeRroup() {
     const body = {
       data,
     };
-    
 
     const rs: any = await this._http2.post(url, body).toPromise();
-   
 
     return rs;
   }
